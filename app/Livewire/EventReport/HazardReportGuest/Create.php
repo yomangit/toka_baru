@@ -23,7 +23,7 @@ class Create extends Component
 {
     use WithFileUploads;
     use WithPagination;
-    public $location_name, $search, $location_id, $divider = 'Input Hazard Report', $TableRisk = [], $RiskAssessment = [], $EventSubType = [], $ResponsibleRole, $division_id, $parent_Company, $business_unit, $dept, $workflow_template_id;
+    public $location_name, $search, $location_id, $divider = 'Input Hazard Report', $TableRisk = [], $Event_type = [], $RiskAssessment = [], $EventSubType = [], $ResponsibleRole, $division_id, $parent_Company, $business_unit, $dept, $workflow_template_id;
     public $searchLikelihood = '', $searchConsequence = '', $tablerisk_id, $risk_assessment_id, $workflow_detail_id, $reference, $select_divisi;
     public $risk_likelihood_id, $risk_likelihood_notes;
     public $risk_consequence_id, $risk_consequence_doc, $risk_probability_doc, $show = false;
@@ -132,7 +132,7 @@ class Create extends Component
 
         if (choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->exists()) {
             $eventType = choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->pluck('event_type_id');
-            $Event_type = TypeEventReport::whereIn('id', $eventType)->get();
+            $this->Event_type = TypeEventReport::whereIn('id', $eventType)->get();
         }
 
         $this->EventSubType = (isset($this->event_type_id)) ?  $this->EventSubType = Eventsubtype::where('event_type_id', $this->event_type_id)->get() : [];
