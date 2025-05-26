@@ -171,7 +171,7 @@ class Create extends Component
         return view('livewire.event-report.hazard-report-guest.create', [
             'Report_By' => User::searchNama(trim($this->report_byName))->paginate(100, ['*'], 'Report_By'),
             'Division' => $divisi_search,
-            'EventType' => $Event_type,
+            'EventType' =>  $this->Event_type,
         ])->extends('base.index', ['header' => 'Hazard Report', 'title' => 'Hazard Report'])->section('content');
     }
     public function store()
