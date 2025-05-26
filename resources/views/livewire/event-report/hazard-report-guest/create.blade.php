@@ -120,8 +120,8 @@
                 class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
             <div wire:ignore class="hidden w-full peer-checked/draft:block form-control">
                 <x-text-area id="immediate_corrective_action" :error="$errors->get('immediate_corrective_action')" />
+                <x-label-error :messages="$errors->get('immediate_corrective_action')" />
             </div>
-            <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
 
         <div class="w-full max-w-md xl:max-w-xl form-control">
