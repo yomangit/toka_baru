@@ -16,15 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-<<<<<<< HEAD
-        if(config('app.env') === 'production') {
-            $this->app['request']->server->set('HTTPS', true); 
-    }
-=======
         if (config('app.env') === 'production') {
             $this->app['request']->server->set('HTTPS', true);
         }
->>>>>>> f043413e96dff10a484af5c1bd04799264b4260b
         $this->app->bind('path.public', function () {
             return realpath(base_path() . '/../public_html');
         });
