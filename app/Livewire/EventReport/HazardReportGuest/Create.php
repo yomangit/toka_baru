@@ -28,7 +28,7 @@ class Create extends Component
     public $risk_likelihood_id, $risk_likelihood_notes;
     public $risk_consequence_id, $risk_consequence_doc, $risk_probability_doc, $show = false;
     public $workgroup_id, $workgroup_name, $show_immidiate = 'yes';
-    public $search_workgroup = '', $search_report_by = '', $search_report_to = '', $fileUpload, $location_search = '';
+    public $search_workgroup = '', $divisi_search = '', $search_report_by = '', $search_report_to = '', $fileUpload, $location_search = '';
     public $event_type_id,  $sub_event_type_id,  $report_by, $report_byName, $report_by_nolist, $report_to, $report_toName, $report_to_nolist, $date, $event_location_id, $site_id, $company_involved, $task_being_done, $documentation, $description, $immediate_corrective_action, $suggested_corrective_action, $preliminary_cause, $corrective_action_suggested;
     public $dropdownLocation = 'dropdown', $hidden = 'block';
     public $dropdownWorkgroup = 'dropdown', $hiddenWorkgroup = 'block';
@@ -127,9 +127,8 @@ class Create extends Component
         $this->select_divisi = null;
         $this->division_id = null;
     }
-    public function render()
+    public function realTimeFunc()
     {
-
         if (choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->exists()) {
             $eventType = choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->pluck('event_type_id');
             $this->Event_type = TypeEventReport::whereIn('id', $eventType)->get();
@@ -146,7 +145,6 @@ class Create extends Component
             }
         }
         if ($this->division_id) {
-
             $divisi = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->first();
             if (!empty($divisi->company_id) && !empty($divisi->section_id)) {
                 $this->workgroup_name =   $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company . '-' . $divisi->Section->name;
@@ -157,20 +155,23 @@ class Create extends Component
             } else {
                 $this->workgroup_name =  $divisi->DeptByBU->Department->department_name;
             }
-            $divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
+            $this->divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
         } else {
-            $divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->searchDeptCom(trim($this->workgroup_name))->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
+            $this->divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->searchDeptCom(trim($this->workgroup_name))->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
         }
-        $this->ReportByAndReportTo();
         if (WorkflowDetail::where('workflow_administration_id', "LIKE", $this->workflow_template_id)->exists()) {
             $WorkflowDetail = WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)->first();
             $this->workflow_detail_id = $WorkflowDetail->id;
             $this->ResponsibleRole = $WorkflowDetail->responsible_role_id;
         }
-
+    }
+    public function render()
+    {
+        $this->realTimeFunc();
+        $this->ReportByAndReportTo();
         return view('livewire.event-report.hazard-report-guest.create', [
             'Report_By' => User::searchNama(trim($this->report_byName))->paginate(100, ['*'], 'Report_By'),
-            'Division' => $divisi_search,
+            'Division' => $this->divisi_search,
             'EventType' =>  $this->Event_type,
         ])->extends('base.index', ['header' => 'Hazard Report', 'title' => 'Hazard Report'])->section('content');
     }
@@ -226,7 +227,6 @@ class Create extends Component
 
         ];
         $HazardReport = HazardReport::create($filds);
-
         $this->dispatch(
             'alert',
             [
