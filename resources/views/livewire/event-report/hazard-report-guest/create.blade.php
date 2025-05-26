@@ -1,8 +1,7 @@
 <div>
     <x-notification />
     @if (session()->has('message'))
-   
-@endif
+    @endif
     @section('bradcrumbs')
         {{ Breadcrumbs::render('hazardReportform') }}
     @endsection
@@ -72,7 +71,7 @@
                             @forelse ($Division as $item)
                                 <li wire:click="select_division({{ $item->id }})"
                                     class = "text-[9px] text-wrap hover:bg-primary subpixel-antialiased text-left cursor-pointer">
-                                {{ $item->DeptByBU->Department->department_name }}
+                                    {{ $item->DeptByBU->Department->department_name }}
                                     @if (!empty($item->company_id))
                                         -{{ $item->Company->name_company }}
                                     @endif
@@ -105,20 +104,22 @@
             <div wire:ignore class="w-full form-control">
                 <x-label-req :value="__('Hazard Details')" />
                 <!--<x-text-area id="description" :error="$errors->get('description')" />-->
-                 <textarea id="description">{{ $description }}</textarea>
+                <textarea id="description">{{ $description }}</textarea>
             </div>
             <x-label-error :messages="$errors->get('description')" />
         </div>
         <fieldset>
-            <x-label-no-req :value="__('immediate corrective action')" />
-            <input wire:model.live="show_immidiate" value='yes' name="status" id="draft"
-                class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
-            <label for="draft"
-                class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
-            <input wire:model.live="show_immidiate" value="no" id="published" class="peer/published radio-xs radio"
-                type="radio" name="status" />
-            <label for="published"
-                class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
+            <div class="flex">
+                <x-label-no-req :value="__('immediate corrective action')" />
+                <input wire:model.live="show_immidiate" value='yes' name="status" id="draft"
+                    class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
+                <label for="draft"
+                    class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
+                <input wire:model.live="show_immidiate" value="no" id="published"
+                    class="peer/published radio-xs radio" type="radio" name="status" />
+                <label for="published"
+                    class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
+            </div>
             <div wire:ignore class="hidden w-full peer-checked/draft:block form-control">
                 <x-text-area id="immediate_corrective_action" :error="$errors->get('immediate_corrective_action')" />
             </div>
@@ -145,26 +146,24 @@
             </x-btn-save-active>
         </div>
     </form>
-     <!--<button wire:click="setData">Set Data</button>-->
- <script nonce="{{ csp_nonce() }}">
- var count = 10;
-var redirect = "https://tokasafe.archimining.com/eventReport/hazardReportGuest/3";
-    document.addEventListener('livewire:init', () => {
-       Livewire.on('buttonClicked', (event) => {   
-            const data = event
-               var ss= data[0]['duration'];
-                (function(){
-                  setTimeout(
-                    function(){
-                    window.location.href = redirect;
-                    }
-                    ,ss);
-                })();
-       });
-    });
-</script>
+    <!--<button wire:click="setData">Set Data</button>-->
     <script nonce="{{ csp_nonce() }}">
-   
+        var count = 10;
+        var redirect = "https://tokasafe.archimining.com/eventReport/hazardReportGuest/3";
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('buttonClicked', (event) => {
+                const data = event
+                var ss = data[0]['duration'];
+                (function() {
+                    setTimeout(
+                        function() {
+                            window.location.href = redirect;
+                        }, ss);
+                })();
+            });
+        });
+    </script>
+    <script nonce="{{ csp_nonce() }}">
         ClassicEditor
             .create(document.querySelector('#immediate_corrective_action'), {
                 toolbar: ['undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList', 'link']

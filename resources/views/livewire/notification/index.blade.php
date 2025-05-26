@@ -25,7 +25,7 @@
                         class="lg:h-[28rem] xl:h-[42rem] max-h-full h-96 overflow-y-auto md:max-h-screen tab-content">
                         <table class="table table-zebra table-xs">
                             <tbody>
-                                @forelse  ($AllNotification as $notification)
+                                @forelse ($AllNotification as $notification)
                                     <tr>
                                         <td><x-input-checkbox value="{{ $notification->id }}"
                                                 wire:model.live="seleted_notif" />
