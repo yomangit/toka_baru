@@ -27,9 +27,9 @@
             <div class="w-full max-w-md xl:max-w-xl form-control">
                 <x-label-req :value="__('event_type')" />
                 <x-select wire:model.live='event_type_id' :error="$errors->get('event_type_id')">
-                    <option value=" " selected>Select an option</option>
+                    <option value="">Select an option</option>
                     @foreach ($EventType as $event_type)
-                        <option value="{{ $event_type->id }}" selected>
+                        <option value="{{ $event_type->id }}">
                             {{ $event_type->EventCategory->event_category_name }} -
                             {{ $event_type->type_eventreport_name }}</option>
                     @endforeach
