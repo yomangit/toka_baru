@@ -129,12 +129,12 @@ class Create extends Component
     }
     public function render()
     {
+        $Event_type = [];
         if (choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->exists()) {
             $eventType = choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->pluck('event_type_id');
             $Event_type = TypeEventReport::whereIn('id', $eventType)->get();
-        } else {
-            $Event_type = [];
         }
+
         $this->EventSubType = (isset($this->event_type_id)) ?  $this->EventSubType = Eventsubtype::where('event_type_id', $this->event_type_id)->get() : [];
         if ($this->documentation) {
             $file_name = $this->documentation->getClientOriginalName();
