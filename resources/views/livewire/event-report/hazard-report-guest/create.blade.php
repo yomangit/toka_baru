@@ -125,7 +125,7 @@
         </fieldset>
 
         <div class="w-full max-w-md xl:max-w-xl form-control">
-            <x-label-no-req :value="__('documentation')" />
+            <x-label-req :value="__('documentation')" />
             <div class="relative">
                 <x-input-file wire:model.live='documentation' :error="$errors->get('documentation')" />
                 <div class="absolute inset-y-0 right-0 avatar" wire:target="documentation" wire:loading.class="hidden">

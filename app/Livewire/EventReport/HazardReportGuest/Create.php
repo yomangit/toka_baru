@@ -23,7 +23,7 @@ class Create extends Component
     public $searchLikelihood = '', $searchConsequence = '', $tablerisk_id, $risk_assessment_id, $workflow_detail_id, $reference, $select_divisi;
     public $risk_likelihood_id, $risk_likelihood_notes;
     public $risk_consequence_id, $risk_consequence_doc, $risk_probability_doc, $show = false;
-    public $workgroup_id, $workgroup_name, $show_immidiate='no';
+    public $workgroup_id, $workgroup_name, $show_immidiate = 'no';
     public $search_workgroup = '', $search_report_by = '', $search_report_to = '', $fileUpload, $location_search = '';
     public $event_type_id,  $sub_event_type_id,  $report_by, $report_byName, $report_by_nolist, $report_to, $report_toName, $report_to_nolist, $date, $event_location_id, $site_id, $company_involved, $task_being_done, $documentation, $description, $immediate_corrective_action, $suggested_corrective_action, $preliminary_cause, $corrective_action_suggested;
     public $dropdownLocation = 'dropdown', $hidden = 'block';
@@ -47,7 +47,7 @@ class Create extends Component
                 'workgroup_name' => ['required'],
                 'report_byName' => ['required'],
                 'date' => ['required'],
-                'documentation' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
+                'documentation' => 'required|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
                 'description' => ['required'],
                 'immediate_corrective_action' => ['required'],
                 'location_name' => ['required'],
@@ -57,7 +57,7 @@ class Create extends Component
                 'workgroup_name' => ['required'],
                 'report_byName' => ['required'],
                 'date' => ['required'],
-                'documentation' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
+                'documentation' => 'required|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
                 'description' => ['required'],
                 'location_name' => ['required'],
             ];
@@ -77,7 +77,7 @@ class Create extends Component
             'workgroup_name.required' => 'kolom wajib di isi',
         ];
     }
-    
+
     public function reportedBy($id)
     {
         $this->report_by = $id;
@@ -122,7 +122,7 @@ class Create extends Component
             $file_name = $this->documentation->getClientOriginalName();
             $this->fileUpload = pathinfo($file_name, PATHINFO_EXTENSION);
         }
-         if (Auth::check()) {
+        if (Auth::check()) {
             if (Auth::user()->role_user_permit_id == 1) {
                 $this->show = true;
             }
@@ -144,12 +144,12 @@ class Create extends Component
             $divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->searchDeptCom(trim($this->workgroup_name))->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
         }
         $this->ReportByAndReportTo();
-      if (WorkflowDetail::where('workflow_administration_id',"LIKE", $this->workflow_template_id)->exists()) {
+        if (WorkflowDetail::where('workflow_administration_id', "LIKE", $this->workflow_template_id)->exists()) {
             $WorkflowDetail = WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)->first();
             $this->workflow_detail_id = $WorkflowDetail->id;
             $this->ResponsibleRole = $WorkflowDetail->responsible_role_id;
         }
-       
+
         return view('livewire.event-report.hazard-report-guest.create', [
             'Report_By' => User::searchNama(trim($this->report_byName))->paginate(100, ['*'], 'Report_By'),
             'Division' => $divisi_search,
@@ -205,7 +205,7 @@ class Create extends Component
 
         ];
         $HazardReport = HazardReport::create($filds);
-        
+
         $this->dispatch(
             'alert',
             [
@@ -217,9 +217,9 @@ class Create extends Component
                 'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
             ]
         );
-         $this->dispatch('buttonClicked',[
-             'duration' => 4000,
-             ]);
+        $this->dispatch('buttonClicked', [
+            'duration' => 4000,
+        ]);
         // Notification
         $getModerator = (Auth::check() ? EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)->where('user_id', 'NOT LIKE', Auth::user()->id)->pluck('user_id')->toArray() : EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)->pluck('user_id')->toArray());
         $User = User::whereIn('id', $getModerator)->get();
@@ -251,19 +251,20 @@ class Create extends Component
         }
         $this->clearFields();
         // $this->redirectRoute('hazardReportCreate', ['workflow_template_id' => $this->workflow_template_id]);
-         
-          
+
+
     }
-  
-    public function clearFields(){
-        $this->report_byName ="";
-        $this->workgroup_name="";
-        $this->division_id="";
-        $this->date="";
-        $this->documentation="";
-        $this->description="";
-        $this->immediate_corrective_action="";
-        $this->location_name="";
-        $this->workgroup_name="";
+
+    public function clearFields()
+    {
+        $this->report_byName = "";
+        $this->workgroup_name = "";
+        $this->division_id = "";
+        $this->date = "";
+        $this->documentation = "";
+        $this->description = "";
+        $this->immediate_corrective_action = "";
+        $this->location_name = "";
+        $this->workgroup_name = "";
     }
 }
