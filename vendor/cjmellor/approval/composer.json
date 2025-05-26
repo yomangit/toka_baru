@@ -1,0 +1,65 @@
+{
+    "name": "cjmellor/approval",
+    "description": "Approve or Deny new Model data before it is persisted",
+    "keywords": [
+        "cjmellor",
+        "laravel",
+        "approval"
+    ],
+    "homepage": "https://github.com/cjmellor/approval",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Mellor",
+            "email": "cmellor@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/contracts": "^10.0|^11.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.0",
+        "nunomaduro/collision": "^7.0|^8.0",
+        "orchestra/testbench": "^7.0|^8.0|^9.0",
+        "pestphp/pest": "^2.0",
+        "pestphp/pest-plugin-arch": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0",
+        "pestphp/pest-plugin-type-coverage": "^2.0",
+        "spatie/laravel-package-tools": "^1.14.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cjmellor\\Approval\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cjmellor\\Approval\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Cjmellor\\Approval\\ApprovalServiceProvider"
+            ],
+            "aliases": {
+                "Approval": "Cjmellor\\Approval\\Facades\\Approval"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

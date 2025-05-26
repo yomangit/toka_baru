@@ -1,0 +1,43 @@
+{
+  "hash": "294cb7aa",
+  "configHash": "c2afcf14",
+  "lockfileHash": "3675fe66",
+  "browserHash": "1aebbb52",
+  "optimized": {
+    "toastify-js": {
+      "src": "../../node_modules/toastify-js/src/toastify.js",
+      "file": "toastify-js.js",
+      "fileHash": "2eddb2e0",
+      "needsInterop": true
+    },
+    "flatpickr": {
+      "src": "../../node_modules/flatpickr/dist/esm/index.js",
+      "file": "flatpickr.js",
+      "fileHash": "15f36bfb",
+      "needsInterop": false
+    },
+    "flatpickr/dist/plugins/monthSelect": {
+      "src": "../../node_modules/flatpickr/dist/plugins/monthSelect/index.js",
+      "file": "flatpickr_dist_plugins_monthSelect.js",
+      "fileHash": "a1f29f80",
+      "needsInterop": true
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "4e5ce5d7",
+      "needsInterop": false
+    },
+    "apexcharts": {
+      "src": "../../node_modules/apexcharts/dist/apexcharts.common.js",
+      "file": "apexcharts.js",
+      "fileHash": "f3eb6d53",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-HKJ2B2AA": {
+      "file": "chunk-HKJ2B2AA.js"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "__commonjsHelpers-Cpj98o6Y.js": {
+    "file": "assets/_commonjsHelpers-Cpj98o6Y.js",
+    "name": "_commonjsHelpers"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-D-_jklZS.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/apexchart.js": {
+    "file": "assets/apexchart-DN2d99HU.js",
+    "name": "apexchart",
+    "src": "resources/js/apexchart.js",
+    "isEntry": true,
+    "imports": [
+      "__commonjsHelpers-Cpj98o6Y.js"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CXJE84eI.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "__commonjsHelpers-Cpj98o6Y.js"
+    ],
+    "css": [
+      "assets/app-puXvd4I0.css"
+    ]
+  }
+}
