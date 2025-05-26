@@ -94,7 +94,7 @@
                 <x-input-date id="tanggal" wire:model.live='date' readonly :error="$errors->get('date')" />
                 <x-label-error :messages="$errors->get('date')" />
             </div>
-            <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+            <div class="w-full max-w-md xl:max-w-xl form-control">
                 <x-label-req :value="__('Lokasi')" />
                 <x-input wire:model.blur='location_name' :error="$errors->get('location_name')" />
                 <x-label-error :messages="$errors->get('location_name')" />
@@ -109,17 +109,15 @@
             <x-label-error :messages="$errors->get('description')" />
         </div>
         <fieldset>
-            <div class="flex">
-                <x-label-no-req :value="__('immediate corrective action')" />
-                <input wire:model.live="show_immidiate" value='yes' name="status" id="draft"
-                    class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
-                <label for="draft"
-                    class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
-                <input wire:model.live="show_immidiate" value="no" id="published"
-                    class="peer/published radio-xs radio" type="radio" name="status" />
-                <label for="published"
-                    class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
-            </div>
+            <x-label-no-req :value="__('immediate corrective action')" />
+            <input wire:model.live="show_immidiate" value='yes' name="status" id="draft"
+                class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
+            <label for="draft"
+                class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
+            <input wire:model.live="show_immidiate" value="no" id="published" class="peer/published radio-xs radio"
+                type="radio" name="status" />
+            <label for="published"
+                class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
             <div wire:ignore class="hidden w-full peer-checked/draft:block form-control">
                 <x-text-area id="immediate_corrective_action" :error="$errors->get('immediate_corrective_action')" />
             </div>
