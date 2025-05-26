@@ -6,13 +6,17 @@ use DateTime;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Division;
+use App\Models\Eventsubtype;
 use App\Models\HazardReport;
 use Livewire\WithPagination;
-use App\Models\WorkflowDetail;
 use Livewire\WithFileUploads;
+use App\Models\choseEventType;
+use App\Models\WorkflowDetail;
+use App\Models\TypeEventReport;
 use App\Models\EventUserSecurity;
 use App\Notifications\toModerator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Notification;
 
 class Create extends Component
@@ -45,6 +49,8 @@ class Create extends Component
         if ($this->show_immidiate === 'yes') {
             return [
                 'workgroup_name' => ['required'],
+                'event_type_id' => ['required'],
+                'sub_event_type_id' => ['required'],
                 'report_byName' => ['required'],
                 'date' => ['required'],
                 'documentation' => 'required|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
@@ -55,6 +61,8 @@ class Create extends Component
         } else {
             return [
                 'workgroup_name' => ['required'],
+                'event_type_id' => ['required'],
+                'sub_event_type_id' => ['required'],
                 'report_byName' => ['required'],
                 'date' => ['required'],
                 'documentation' => 'required|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
@@ -66,6 +74,8 @@ class Create extends Component
     public function messages()
     {
         return [
+            'event_type_id.required' => 'kolom wajib di isi',
+            'sub_event_type_id.required' => 'kolom wajib di isi',
             'report_byName.required' => 'kolom wajib di isi',
             'workgroup_name.required' => 'kolom wajib di isi',
             'date.required' => 'kolom wajib di isi',
@@ -119,6 +129,13 @@ class Create extends Component
     }
     public function render()
     {
+        if (choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->exists()) {
+            $eventType = choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->pluck('event_type_id');
+            $Event_type = TypeEventReport::whereIn('id', $eventType)->get();
+        } else {
+            $Event_type = [];
+        }
+        $this->EventSubType = (isset($this->event_type_id)) ?  $this->EventSubType = Eventsubtype::where('event_type_id', $this->event_type_id)->get() : [];
         if ($this->documentation) {
             $file_name = $this->documentation->getClientOriginalName();
             $this->fileUpload = pathinfo($file_name, PATHINFO_EXTENSION);
@@ -154,6 +171,7 @@ class Create extends Component
         return view('livewire.event-report.hazard-report-guest.create', [
             'Report_By' => User::searchNama(trim($this->report_byName))->paginate(100, ['*'], 'Report_By'),
             'Division' => $divisi_search,
+            'EventType' => $Event_type,
         ])->extends('base.index', ['header' => 'Hazard Report', 'title' => 'Hazard Report'])->section('content');
     }
     public function store()
@@ -184,6 +202,8 @@ class Create extends Component
             $this->immediate_corrective_action = null;
         }
         $filds = [
+            'event_type_id' => $this->event_type_id,
+            'sub_event_type_id' => $this->sub_event_type_id,
             'reference' => $this->reference,
             'report_by' => $this->report_by,
             'division_id' => $this->division_id,
