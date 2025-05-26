@@ -71,6 +71,7 @@ class Create extends Component
             'date.required' => 'kolom wajib di isi',
             'site_id.required' => 'kolom wajib di isi',
             'documentation.mimes' => 'hanya format jpg,jpeg,png,svg,gif,xlsx,pdf,docx file types are allowed',
+            'documentation.required' => 'kolom wajib di isi',
             'description.required' => 'kolom wajib di isi',
             'immediate_corrective_action.required' => 'kolom wajib di isi',
             'location_name.required' => 'kolom wajib di isi',
