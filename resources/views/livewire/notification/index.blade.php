@@ -44,7 +44,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td>all notifications are read</td>
+                                        <td>tidak ada notifikasi</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -75,7 +75,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td>all notifications are read</td>
+                                        <td>tidak ada notifikasi</td>
                                     </tr>
                                 @endforelse
                             </tbody>
