@@ -5,7 +5,7 @@
         class="fixed top-0 z-50 flex items-center w-64 p-1 border-b shadow-md shadow-indigo-500/50 bg-base-400 border-b-gray-800">
         <div class="avatar ">
             <div class="w-8 rounded">
-                <img src="{{ asset('tokasasafe_logo.png') }}" alt="Tailwind-CSS-Avatar-component" />
+                <img src="{{ asset('logo.png') }}" alt="Tailwind-CSS-Avatar-component" />
             </div>
         </div>
         <span
