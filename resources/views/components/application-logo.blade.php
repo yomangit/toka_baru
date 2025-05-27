@@ -866,8 +866,8 @@
     <path transform="translate(761,818)" d="m0 0 2 1-2 2-10 2 3-4z" fill="#EDEDEE" />
     <path transform="translate(754,435)" d="m0 0h11l3 2-4 1-10-1z" fill="#221F1F" />
 </svg> --}}
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="500"
-    height="500">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="body_1" width="100"
+    height="100">
 
     <g transform="matrix(1.3333334 0 0 1.3333334 0 0)">
         <image x="0" y="0"
