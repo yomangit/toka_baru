@@ -54,52 +54,31 @@ class CreateAndUpdate extends Component
     }
     public function rules()
     {
-        if (Auth::check()) {
-            if (Auth::user()->role_user_permit_id == 1) {
-                return [
-                    'event_type_id' => ['required'],
-                    'sub_event_type_id' => ['required'],
-                    'workgroup_name' => ['required'],
-                    'report_byName' => ['required'],
-                    'report_toName' => ['required'],
-                    'date' => ['required'],
-                    'site_id' => ['required'],
-                    'company_involved' => ['required'],
-                    'task_being_done' => ['required'],
-                    'documentation' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
-                    'description' => ['required'],
-                    'immediate_corrective_action' => ['required'],
-                    'suggested_corrective_action' => ['required'],
-                    'corrective_action_suggested' => ['required'],
-                    'location_name' => ['required'],
-                    'risk_consequence_id' => ['required'],
-                    'risk_likelihood_id' => ['required'],
-                    'report_by_nolist' => ['nullable'],
-                    'report_to_nolist' => ['nullable'],
-                ];
-            }
+        if ($this->show_immidiate === 'yes') {
+            return [
+                'workgroup_name' => ['required'],
+                'event_type_id' => ['required'],
+                'sub_event_type_id' => ['required'],
+                'report_toName' => ['required'],
+                'report_byName' => ['required'],
+                'date' => ['required'],
+                'documentation' => 'required|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
+                'description' => ['required'],
+                'immediate_corrective_action' => ['required'],
+                'location_name' => ['required'],
+            ];
         } else {
-            if ($this->show_immidiate === 'yes') {
-                return [
-                    'workgroup_name' => ['required'],
-                    'report_byName' => ['required'],
-                    'date' => ['required'],
-                    'documentation' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
-                    'description' => ['required'],
-                    'immediate_corrective_action' => ['required'],
-                    'location_name' => ['required'],
-                ];
-            } else {
-                return [
-                    'workgroup_name' => ['required'],
-                    'report_byName' => ['required'],
-                    'date' => ['required'],
-                    'documentation' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
-                    'description' => ['required'],
-                    'event_location_id' => ['required'],
-
-                ];
-            }
+            return [
+                'workgroup_name' => ['required'],
+                'event_type_id' => ['required'],
+                'sub_event_type_id' => ['required'],
+                'report_toName' => ['required'],
+                'report_byName' => ['required'],
+                'date' => ['required'],
+                'documentation' => 'required|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
+                'description' => ['required'],
+                'location_name' => ['required'],
+            ];
         }
     }
     public function messages()
@@ -115,6 +94,7 @@ class CreateAndUpdate extends Component
             'company_involved.required' => 'kolom wajib di isi',
             'task_being_done.required' => 'kolom wajib di isi',
             'documentation.mimes' => 'hanya format jpg,jpeg,png,svg,gif,xlsx,pdf,docx file types are allowed',
+            'documentation.required' => 'kolom wajib di isi',
             'description.required' => 'kolom wajib di isi',
             'immediate_corrective_action.required' => 'kolom wajib di isi',
             'suggested_corrective_action.required' => 'kolom wajib di isi',
