@@ -61,7 +61,7 @@
     </div>
     <div>{{ $Division->links() }}</div>
     @if ($divisi_id)
-        <div class="h-40 shadow-md bg-base-100 ">
+        <div class="shadow-md bg-base-100 ">
             <form wire:submit.prevent='store'>
                 @csrf
                 @method('PATCH')
