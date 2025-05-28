@@ -81,7 +81,7 @@
                         <tr>
                             <th>Company</th>
                             <th>
-                                <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+                                <div class="w-full max-w-md xl:max-w-xl form-control">
                                     <x-select wire:model='company_category_id' :error="$errors->get('company_category_id')">
                                         <option value="" selected>Select an option</option>
                                         @foreach ($Company as $company_category)
@@ -96,7 +96,7 @@
                         <tr>
                             <th>Business Unit</th>
                             <th>
-                                <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+                                <div class="w-full max-w-md xl:max-w-xl form-control">
                                     <x-select wire:model='busines_unit_id' :error="$errors->get('busines_unit_id')">
                                         <option value="" selected>Select an option</option>
                                         @foreach ($BusinesUnit as $bc)
@@ -111,7 +111,7 @@
                         <tr>
                             <th>Department</th>
                             <th>
-                                <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+                                <div class="w-full max-w-md xl:max-w-xl form-control">
                                     <x-select wire:model='dept_by_business_unit_id' :error="$errors->get('dept_by_business_unit_id')">
                                         <option value="" selected>Select an option</option>
                                         @foreach ($Department as $bu)
