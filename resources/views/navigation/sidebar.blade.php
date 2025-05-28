@@ -9,7 +9,7 @@
             </div>
         </div>
         <span
-            class="ml-3 text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-500">Tokasafe</span>
+            class="ml-3 text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-500">TOSAR</span>
     </a>
 
     <ul class="mt-12 menu menu-xs">
