@@ -6,17 +6,14 @@
         <div>
             <div class="flex flex-col sm:flex-row">
                 <x-inputsearch name='search' wire:model.live='search' />
-
             </div>
         </div>
     </div>
-
     <div class="mx-4 overflow-x-auto shadow-md sm:h-72 2xl:h-96">
         <table class="table table-xs table-pin-rows">
             <!-- head -->
             <thead>
                 <tr class="text-center">
-
                     <th>#</th>
                     <th>Name</th>
                     <th>Action</th>
@@ -45,17 +42,12 @@
                                 wire:confirm.prompt="Are you sure delete data ?\n\nType DELETE to confirm|DELETE"
                                 data-tip="Delete" />
                         </td>
-
                     </tr>
-
-
                 @empty
                     <tr class="text-center">
                         <th colspan="3" class="text-error">data not found!!! </th>
                     </tr>
                 @endforelse
-
-
             </tbody>
         </table>
     </div>
