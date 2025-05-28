@@ -5,14 +5,14 @@
         class="fixed top-0 z-50 flex items-center w-64 p-1 border-b shadow-md shadow-indigo-500/50 bg-base-400 border-b-gray-800">
         <div class="avatar ">
             <div class="w-8 rounded">
-                <img src="{{ asset('logo.png') }}" alt="Tailwind-CSS-Avatar-component" />
+                <img src="{{ asset('icons.png') }}" alt="Tailwind-CSS-Avatar-component" />
             </div>
         </div>
         <span
             class="ml-3 text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-emerald-500">Tokasafe</span>
     </a>
 
-    <ul class="mt-12  menu menu-xs">
+    <ul class="mt-12 menu menu-xs">
         <li>
 
 
