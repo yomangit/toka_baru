@@ -33,12 +33,12 @@ class CreateAndUpdate extends Component
 {
     use WithFileUploads;
     use WithPagination;
-    public $location_name, $search, $location_id, $divider = 'Input Hazard Report', $TableRisk = [], $RiskAssessment = [], $EventSubType = [], $ResponsibleRole, $division_id, $parent_Company, $business_unit, $dept, $workflow_template_id;
+    public $location_name, $search,$location_id, $location_id, $divider = 'Input Hazard Report', $TableRisk = [], $Event_type = [], $RiskAssessment = [], $EventSubType = [], $ResponsibleRole, $division_id, $parent_Company, $business_unit, $dept, $workflow_template_id;
     public $searchLikelihood = '', $searchConsequence = '', $tablerisk_id, $risk_assessment_id, $workflow_detail_id, $reference, $select_divisi;
     public $risk_likelihood_id, $risk_likelihood_notes;
     public $risk_consequence_id, $risk_consequence_doc, $risk_probability_doc, $show = false;
     public $workgroup_id, $workgroup_name, $show_immidiate = 'yes';
-    public $search_workgroup = '', $search_report_by = '', $search_report_to = '', $fileUpload, $location_search = '';
+    public $search_workgroup = '', $divisi_search = '', $search_report_by = '', $search_report_to = '', $fileUpload, $location_search = '';
     public $event_type_id,  $sub_event_type_id,  $report_by, $report_byName, $report_by_nolist, $report_to, $report_toName, $report_to_nolist, $date, $event_location_id, $site_id, $company_involved, $task_being_done, $documentation, $description, $immediate_corrective_action, $suggested_corrective_action, $preliminary_cause, $corrective_action_suggested;
     public $dropdownLocation = 'dropdown', $hidden = 'block';
     public $dropdownWorkgroup = 'dropdown', $hiddenWorkgroup = 'block';
@@ -138,15 +138,13 @@ class CreateAndUpdate extends Component
             $this->report_toName = $this->report_to_nolist;
         }
     }
-
-    public function render()
+    public function realTimeFunc()
     {
         if (choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->exists()) {
             $eventType = choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->pluck('event_type_id');
-            $Event_type = TypeEventReport::whereIn('id', $eventType)->get();
-        } else {
-            $Event_type = [];
+            $this->Event_type = TypeEventReport::whereIn('id', $eventType)->get();
         }
+        $this->EventSubType = (isset($this->event_type_id)) ?  $this->EventSubType = Eventsubtype::where('event_type_id', $this->event_type_id)->get() : [];
         if (Auth::check()) {
             if (Auth::user()->role_user_permit_id == 1) {
                 $this->show = true;
@@ -165,40 +163,43 @@ class CreateAndUpdate extends Component
             } else {
                 $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name;
             }
-            $divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
+            $this->divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
         } else {
-            $divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->searchDeptCom(trim($this->workgroup_name))->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
+            $this->            $this->divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
+ = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->searchDeptCom(trim($this->workgroup_name))->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
         }
-
-        $this->ReportByAndReportTo();
         if ($this->documentation) {
             $file_name = $this->documentation->getClientOriginalName();
             $this->fileUpload = pathinfo($file_name, PATHINFO_EXTENSION);
         }
-        $this->TableRiskFunction();
-        $this->EventSubType = (isset($this->event_type_id)) ?  $this->EventSubType = Eventsubtype::where('event_type_id', $this->event_type_id)->get() : [];
         if ($this->event_location_id) {
             $this->location_search = LocationEvent::whereId($this->event_location_id)->searchFor(trim($this->location_search))->first()->location_name;
-            $location_id = LocationEvent::whereId($this->event_location_id)->searchFor(trim($this->location_search))->get();
+            $this->location_id = LocationEvent::whereId($this->event_location_id)->searchFor(trim($this->location_search))->get();
         } else {
-            $location_id = LocationEvent::searchFor(trim($this->location_search))->get();
+             $this->location_id = LocationEvent::searchFor(trim($this->location_search))->get();
         }
+    }
+    public function render()
+    {
+        $this->ReportByAndReportTo();
+        $this->TableRiskFunction();
+
 
         return view('livewire.event-report.hazard-report.create-and-update', [
             'RiskAssessments' => RiskAssessment::get(),
             'RiskConsequence' => RiskConsequence::get(),
             'RiskLikelihood' => RiskLikelihood::get(),
-            'EventType' => $Event_type,
+            'EventType' => $this->Event_type,
             'Site' => Site::get(),
             'Company' => Company::get(),
             'ParentCompany' => CompanyCategory::whereId(1)->get(),
             'BusinessUnit' => BusinesUnit::with(['Department', 'Company'])->get(),
             'Department' => DeptByBU::with(['Department', 'BusinesUnit'])->orderBy('busines_unit_id', 'asc')->get(),
             'Divisi' => Division::whereNotNull('company_id')->with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company'])->groupBy('company_id')->get(),
-            'Division' => $divisi_search,
+            'Division' => $this->divisi_search,
             'Report_By' => User::searchNama(trim($this->report_byName))->paginate(100, ['*'], 'Report_By'),
             'Report_To' => User::searchNama(trim($this->report_toName))->paginate(100, ['*'], 'Report_To'),
-            'Location' => $location_id
+            'Location' =>  $this->location_id
         ])->extends('base.index', ['header' => 'Hazard Report', 'title' => 'Hazard Report'])->section('content');
     }
     public function clickLocation()
