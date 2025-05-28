@@ -62,7 +62,7 @@
     <div>{{ $Division->links() }}</div>
     @if ($divisi_id)
         <div class="shadow-md card w-96 bg-base-100 card-xs">
-            <form wire:submit.prevent='store'>
+            <form class="overflow-x-auto" wire:submit.prevent='store'>
                 @csrf
                 @method('PATCH')
                 <x-input-error :messages="$errors->get('divisi_id')" class="mt-2" />
