@@ -151,17 +151,15 @@ class CreateAndUpdate extends Component
             }
         }
         if ($this->division_id) {
-
             $divisi = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->first();
             if (!empty($divisi->company_id) && !empty($divisi->section_id)) {
-
-                $this->workgroup_name =  $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company . '-' . $divisi->Section->name;
+                $this->workgroup_name =   $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company . '-' . $divisi->Section->name;
             } elseif ($divisi->company_id) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company;
+                $this->workgroup_name =  $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company;
             } elseif ($divisi->section_id) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Section->name;
+                $this->workgroup_name =  $divisi->DeptByBU->Department->department_name . '-' . $divisi->Section->name;
             } else {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name;
+                $this->workgroup_name =  $divisi->DeptByBU->Department->department_name;
             }
             $this->divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
         } else {
