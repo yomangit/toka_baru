@@ -156,35 +156,11 @@
                 <x-input-date id="tanggal" wire:model.live='date' readonly :error="$errors->get('date')" />
                 <x-label-error :messages="$errors->get('date')" />
             </div>
-<<<<<<< HEAD
-            <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+            <div class="w-full max-w-md xl:max-w-xl form-control">
                 <x-label-req :value="__('Lokasi')" />
                 <x-input wire:model.blur='location_name' :error="$errors->get('location_name')" />
                 <x-label-error :messages="$errors->get('location_name')" />
-=======
-            <div class="w-full max-w-md xl:max-w-xl form-control">
-                <x-label-req :value="__('eventLocation')" />
 
-                <div class="dropdown dropdown-end">
-                    <x-input wire:click='clickLocation' wire:model.live='location_search'
-                        wire:keydown.self='changeConditionLocation' :error="$errors->get('event_location_id')" class="cursor-pointer"
-                        tabindex="0" role="button" />
-                    <div tabindex="0"
-                        class="z-10 w-full   overflow-y-auto shadow dropdown-content card card-compact bg-base-200 text-primary-content {{ $hidden }}">
-                        <ul class="h-full px-4 py-4 list-disc list-inside max-h-40 bg-base-200 rounded-box">
-                            @forelse ($Location as $item)
-                                <li wire:click="select_location({{ $item->id }})"
-                                    class = "text-[9px] text-wrap hover:bg-primary subpixel-antialiased text-left cursor-pointer">
-                                    {{ $item->location_name }}
-                                </li>
-                            @empty
-                                <li class='font-semibold text-center text-rose-500'>Location not found!! </li>
-                            @endforelse
-                        </ul>
-                    </div>
-                </div>
-                <x-label-error :messages="$errors->get('event_location_id')" />
->>>>>>> f043413e96dff10a484af5c1bd04799264b4260b
             </div>
             @auth
                 @if (auth()->user()->role_user_permit_id == 1)
@@ -461,89 +437,5 @@
                     newEditor.setData('');
                 })
             });
-        // involved Equipment
-        // ClassicEditor
-        //     .create(document.querySelector('#suggested_corrective_action'), {
-        //         toolbar: ['undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList', 'link']
-
-<<<<<<< HEAD
-            })
-            .then(newEditor => {
-                newEditor.editing.view.change((writer) => {
-                    writer.setStyle(
-                        "height",
-                        "155px",
-                        newEditor.editing.view.document.getRoot()
-                    );
-                });
-                newEditor.model.document.on('change:data', () => {
-                    @this.set('suggested_corrective_action', newEditor.getData())
-                });
-                window.addEventListener('articleStore', event => {
-                    newEditor.setData('');
-                })
-            });
-        // preliminary cause
-=======
-        //     })
-        //     .then(newEditor => {
-        //         newEditor.editing.view.change((writer) => {
-        //             writer.setStyle(
-        //                 "height",
-        //                 "155px",
-        //                 newEditor.editing.view.document.getRoot()
-        //             );
-        //         });
-        //         newEditor.model.document.on('change:data', () => {
-        //             @this.set('suggested_corrective_action', newEditor.getData())
-        //         });
-        //         window.addEventListener('articleStore', event => {
-        //             newEditor.setData('');
-        //         })
-        //     });
-        // // preliminary cause
->>>>>>> f043413e96dff10a484af5c1bd04799264b4260b
-
-        // // key learning
-        // ClassicEditor
-        //     .create(document.querySelector('#key_learning'), {
-        //         toolbar: ['undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList', 'link']
-
-<<<<<<< HEAD
-            })
-            .then(newEditor => {
-                newEditor.editing.view.change((writer) => {
-                    writer.setStyle(
-                        "height",
-                        "155px",
-                        newEditor.editing.view.document.getRoot()
-                    );
-                });
-                newEditor.model.document.on('change:data', () => {
-                    @this.set('corrective_action_suggested', newEditor.getData())
-                });
-                window.addEventListener('articleStore', event => {
-                    newEditor.setData('');
-                })
-            });
-=======
-        //     })
-        //     .then(newEditor => {
-        //         newEditor.editing.view.change((writer) => {
-        //             writer.setStyle(
-        //                 "height",
-        //                 "155px",
-        //                 newEditor.editing.view.document.getRoot()
-        //             );
-        //         });
-        //         newEditor.model.document.on('change:data', () => {
-        //             @this.set('corrective_action_suggested', newEditor.getData())
-        //         });
-        //         window.addEventListener('articleStore', event => {
-        //             newEditor.setData('');
-        //         })
-        //     });
->>>>>>> f043413e96dff10a484af5c1bd04799264b4260b
     </script>
-
 </div>
