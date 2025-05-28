@@ -79,7 +79,7 @@ class CreateAndUpdate extends Component
                 ];
             }
         } else {
-            if ($this->show_immidiate === 'ya') {
+            if ($this->show_immidiate === 'yes') {
                 return [
                     'workgroup_name' => ['required'],
                     'report_byName' => ['required'],
