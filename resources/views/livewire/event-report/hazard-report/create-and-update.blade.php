@@ -202,10 +202,9 @@
         </div>
 
         <fieldset>
-            <x-label-req :value="__('immediate corrective action')" />
-            <input wire:model.live="show_immidiate" value='ya' name="status" id="draft"
-                class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13"
-                value="Other activities" />
+            <x-label-no-req :value="__('immediate corrective action')" />
+            <input wire:model.live="show_immidiate" value='yes' name="status" id="draft"
+                class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
             <label for="draft"
                 class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
             <input wire:model.live="show_immidiate" value="no" id="published"
@@ -214,8 +213,8 @@
                 class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
             <div wire:ignore class="hidden w-full peer-checked/draft:block form-control">
                 <x-text-area id="immediate_corrective_action" :error="$errors->get('immediate_corrective_action')" />
+                <x-label-error :messages="$errors->get('immediate_corrective_action')" />
             </div>
-            <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
         <div class="w-full max-w-md xl:max-w-xl form-control">
             <x-label-no-req :value="__('documentation')" />

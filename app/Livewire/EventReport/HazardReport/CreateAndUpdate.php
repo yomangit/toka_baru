@@ -37,7 +37,7 @@ class CreateAndUpdate extends Component
     public $searchLikelihood = '', $searchConsequence = '', $tablerisk_id, $risk_assessment_id, $workflow_detail_id, $reference, $select_divisi;
     public $risk_likelihood_id, $risk_likelihood_notes;
     public $risk_consequence_id, $risk_consequence_doc, $risk_probability_doc, $show = false;
-    public $workgroup_id, $workgroup_name, $show_immidiate;
+    public $workgroup_id, $workgroup_name, $show_immidiate = 'ya';
     public $search_workgroup = '', $search_report_by = '', $search_report_to = '', $fileUpload, $location_search = '';
     public $event_type_id,  $sub_event_type_id,  $report_by, $report_byName, $report_by_nolist, $report_to, $report_toName, $report_to_nolist, $date, $event_location_id, $site_id, $company_involved, $task_being_done, $documentation, $description, $immediate_corrective_action, $suggested_corrective_action, $preliminary_cause, $corrective_action_suggested;
     public $dropdownLocation = 'dropdown', $hidden = 'block';
@@ -45,7 +45,7 @@ class CreateAndUpdate extends Component
     public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block';
     public function mount()
     {
-        $this->show_immidiate = 'ya';
+
         if (Auth::check()) {
             $reportBy = (Auth::user()->lookup_name) ? Auth::user()->lookup_name : Auth::user()->name;
             $this->report_byName = $reportBy;
@@ -169,7 +169,7 @@ class CreateAndUpdate extends Component
         } else {
             $divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->searchDeptCom(trim($this->workgroup_name))->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
         }
-        
+
         $this->ReportByAndReportTo();
         if ($this->documentation) {
             $file_name = $this->documentation->getClientOriginalName();
@@ -378,6 +378,7 @@ class CreateAndUpdate extends Component
                 'date' => DateTime::createFromFormat('d-m-Y : H:i', $this->date)->format('Y-m-d : H:i'),
                 'location_name' => $this->location_name,
                 'site_id' => $this->site_id,
+                'show_immidiate' => $this->show_immidiate,
                 'company_involved' => $this->company_involved,
                 'risk_consequence_id' => $this->risk_consequence_id,
                 'risk_likelihood_id' => $this->risk_likelihood_id,

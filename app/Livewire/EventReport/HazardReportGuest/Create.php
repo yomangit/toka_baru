@@ -211,6 +211,7 @@ class Create extends Component
             'date' => DateTime::createFromFormat('d-m-Y : H:i', $this->date)->format('Y-m-d : H:i'),
             'location_name' => $this->location_name,
             'site_id' => $this->site_id,
+            'show_immidiate' => $this->show_immidiate,
             'company_involved' => $this->company_involved,
             'risk_consequence_id' => $this->risk_consequence_id,
             'risk_likelihood_id' => $this->risk_likelihood_id,
