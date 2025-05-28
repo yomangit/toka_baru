@@ -13,7 +13,7 @@ use Livewire\WithPagination;
 class Inde extends Component
 {
     protected $listeners = ['division_create' => 'render'];
-    public $show = false,$search;
+    public $show = false, $search;
     public $divisi_id,  $company_category_id, $busines_unit_id, $dept_by_business_unit_id, $heararcy_id;
     use WithPagination;
 
@@ -31,14 +31,11 @@ class Inde extends Component
                 $this->reset(['company_category_id', 'busines_unit_id', 'dept_by_business_unit_id']);
             }
         }
-            if(Division::whereNotNull('company_id')->exists())
-            {
-              $division = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->orderBy('dept_by_business_unit_id', 'asc')->searchDeptCom(trim($this->search))->orderBy('company_id', 'asc')->paginate(20);
-            }
-            else
-            {
-                $division = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->searchDeptCom(trim($this->search))->orderBy('dept_by_business_unit_id', 'asc')->paginate(20);
-            }
+        if (Division::whereNotNull('company_id')->exists()) {
+            $division = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->orderBy('dept_by_business_unit_id', 'asc')->searchDeptCom(trim($this->search))->orderBy('company_id', 'asc')->paginate(20);
+        } else {
+            $division = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->searchDeptCom(trim($this->search))->orderBy('dept_by_business_unit_id', 'asc')->paginate(20);
+        }
 
         return view('livewire.admin.division.inde', [
             'Division' => $division,
@@ -47,8 +44,9 @@ class Inde extends Component
             'Department' => DeptByBU::with(['BusinesUnit.Company', 'Department'])->get()
         ])->extends('base.index', ['header' => 'Division', 'title' => 'Division'])->section('content');
     }
-    public function selectHierarcy($id){
-    $this->divisi_id = $id;
+    public function selectHierarcy($id)
+    {
+        $this->divisi_id = $id;
     }
     public function change($id)
     {
@@ -144,5 +142,9 @@ class Inde extends Component
             ]
         );
         $deleteFile->delete();
+    }
+    public function paginationView()
+    {
+        return 'pagination.masterpaginate';
     }
 }
