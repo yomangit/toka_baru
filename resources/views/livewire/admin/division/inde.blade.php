@@ -62,85 +62,87 @@
     <div>{{ $Division->links() }}</div>
     @if ($divisi_id)
         <div class="shadow-md card w-96 bg-base-100 card-xs">
-            <form class="overflow-x-auto" wire:submit.prevent='store'>
+            <form wire:submit.prevent='store'>
                 @csrf
                 @method('PATCH')
                 <x-input-error :messages="$errors->get('divisi_id')" class="mt-2" />
-                <table class="table table-xs">
-                    <caption
-                        class="font-bold text-transparent caption-top bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">
-                        Class Hierarchy
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th>Class </th>
-                            <th>Class Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>Company</th>
-                            <th>
-                                <div class="w-full max-w-md xl:max-w-xl form-control">
-                                    <x-select wire:model='company_category_id' :error="$errors->get('company_category_id')">
-                                        <option value="" selected>Select an option</option>
-                                        @foreach ($Company as $company_category)
-                                            <option value="{{ $company_category->id }}">
-                                                {{ $company_category->name_category_company }}</option>
-                                        @endforeach
-                                    </x-select>
-                                    <x-label-error :messages="$errors->get('company_category_id')" class="mt-0" />
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>Business Unit</th>
-                            <th>
-                                <div class="w-full max-w-md xl:max-w-xl form-control">
-                                    <x-select wire:model='busines_unit_id' :error="$errors->get('busines_unit_id')">
-                                        <option value="" selected>Select an option</option>
-                                        @foreach ($BusinesUnit as $bc)
-                                            <option value="{{ $bc->id }}">
-                                                {{ $bc->Company->name_company }}</option>
-                                        @endforeach
-                                    </x-select>
-                                    <x-label-error :messages="$errors->get('busines_unit_id')" class="mt-0" />
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>Department</th>
-                            <th>
-                                <div class="w-full max-w-md xl:max-w-xl form-control">
-                                    <x-select wire:model='dept_by_business_unit_id' :error="$errors->get('dept_by_business_unit_id')">
-                                        <option value="" selected>Select an option</option>
-                                        @foreach ($Department as $bu)
-                                            <option value="{{ $bu->id }}">
-                                                {{ $bu->BusinesUnit->Company->name_company }}-{{ $bu->Department->department_name }}
-                                            </option>
-                                        @endforeach
-                                    </x-select>
-                                    <x-label-error :messages="$errors->get('dept_by_business_unit_id')" class="mt-0" />
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th colspan="2" class="relative pb-2">
-                                <div class="absolute inset-y-0 right-0 pr-2">
-                                    @if ($heararcy_id)
-                                        <button class="btn btn-link btn-xs" type="submit">Change</button>
-                                        <label
-                                            wire:confirm.prompt="Are you sure delete this?\n\nType DELETE to confirm|DELETE"
-                                            class="btn btn-link btn-xs text-rose-500"wire:click="clear({{ $heararcy_id }})">Clear</label>
-                                    @else
-                                        <x-btn-save wire:target="store"
-                                            wire:loading.class="btn-disabled">{{ __('Add') }}</x-btn-save>
-                                    @endif
-                                </div>
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="overflow-x-auto ">
+                    <table class="table table-xs">
+                        <caption
+                            class="font-bold text-transparent caption-top bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">
+                            Class Hierarchy
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>Class </th>
+                                <th>Class Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Company</th>
+                                <th>
+                                    <div class="w-full max-w-md xl:max-w-xl form-control">
+                                        <x-select wire:model='company_category_id' :error="$errors->get('company_category_id')">
+                                            <option value="" selected>Select an option</option>
+                                            @foreach ($Company as $company_category)
+                                                <option value="{{ $company_category->id }}">
+                                                    {{ $company_category->name_category_company }}</option>
+                                            @endforeach
+                                        </x-select>
+                                        <x-label-error :messages="$errors->get('company_category_id')" class="mt-0" />
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Business Unit</th>
+                                <th>
+                                    <div class="w-full max-w-md xl:max-w-xl form-control">
+                                        <x-select wire:model='busines_unit_id' :error="$errors->get('busines_unit_id')">
+                                            <option value="" selected>Select an option</option>
+                                            @foreach ($BusinesUnit as $bc)
+                                                <option value="{{ $bc->id }}">
+                                                    {{ $bc->Company->name_company }}</option>
+                                            @endforeach
+                                        </x-select>
+                                        <x-label-error :messages="$errors->get('busines_unit_id')" class="mt-0" />
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Department</th>
+                                <th>
+                                    <div class="w-full max-w-md xl:max-w-xl form-control">
+                                        <x-select wire:model='dept_by_business_unit_id' :error="$errors->get('dept_by_business_unit_id')">
+                                            <option value="" selected>Select an option</option>
+                                            @foreach ($Department as $bu)
+                                                <option value="{{ $bu->id }}">
+                                                    {{ $bu->BusinesUnit->Company->name_company }}-{{ $bu->Department->department_name }}
+                                                </option>
+                                            @endforeach
+                                        </x-select>
+                                        <x-label-error :messages="$errors->get('dept_by_business_unit_id')" class="mt-0" />
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="relative pb-2">
+                                    <div class="absolute inset-y-0 right-0 pr-2">
+                                        @if ($heararcy_id)
+                                            <button class="btn btn-link btn-xs" type="submit">Change</button>
+                                            <label
+                                                wire:confirm.prompt="Are you sure delete this?\n\nType DELETE to confirm|DELETE"
+                                                class="btn btn-link btn-xs text-rose-500"wire:click="clear({{ $heararcy_id }})">Clear</label>
+                                        @else
+                                            <x-btn-save wire:target="store"
+                                                wire:loading.class="btn-disabled">{{ __('Add') }}</x-btn-save>
+                                        @endif
+                                    </div>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </form>
         </div>
     @endif
