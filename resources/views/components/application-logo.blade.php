@@ -878,8 +878,8 @@
 
 
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" zoomAndPan="magnify"
-    viewBox="0 0 375 374.999991" height="100" preserveAspectRatio="xMidYMid meet" version="1.2">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" zoomAndPan="magnify"
+    viewBox="0 0 375 374.999991" height="120" preserveAspectRatio="xMidYMid meet" version="1.2">
     <defs>
         <clipPath id="eed550f9f9">
             <path
