@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="mx-8 overflow-x-auto shadow-md sm:h-72 2xl:h-96">
+    <div class="mx-4 overflow-x-auto shadow-md sm:h-72 2xl:h-96">
         <table class="table table-xs table-pin-rows">
             <!-- head -->
             <thead>
