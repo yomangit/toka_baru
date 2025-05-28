@@ -61,7 +61,7 @@
     </div>
     <div>{{ $Division->links() }}</div>
     @if ($divisi_id)
-        <div class="shadow-md card bg-base-100 card-sm">
+        <div class="h-40 shadow-md card bg-base-100 card-sm">
             <form wire:submit.prevent='store'>
                 @csrf
                 @method('PATCH')
