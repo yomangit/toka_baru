@@ -61,12 +61,12 @@
     </div>
     <div>{{ $Division->links() }}</div>
     @if ($divisi_id)
-        <div class="shadow-md card w-80 bg-base-100 card-sm">
+        <div class="shadow-md card bg-base-100 card-sm">
             <form wire:submit.prevent='store'>
                 @csrf
                 @method('PATCH')
                 <x-input-error :messages="$errors->get('divisi_id')" class="mt-2" />
-                <div class="overflow-x-auto card-body">
+                <div class="overflow-x-auto ">
                     <table class="table table-xs">
                         <caption
                             class="font-bold text-transparent caption-top bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">
