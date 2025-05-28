@@ -68,7 +68,7 @@
                 <x-input-error :messages="$errors->get('divisi_id')" class="mt-2" />
                 <table class="table table-xs">
                     <caption
-                        class="text-transparent caption-top bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">
+                        class="font-bold text-transparent caption-top bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">
                         Class Hierarchy
                     </caption>
                     <thead>
