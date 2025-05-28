@@ -180,7 +180,7 @@ class CreateAndUpdate extends Component
     {
         $this->ReportByAndReportTo();
         $this->TableRiskFunction();
-
+        $this->realTimeFunc();
 
         return view('livewire.event-report.hazard-report.create-and-update', [
             'RiskAssessments' => RiskAssessment::get(),
