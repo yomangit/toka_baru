@@ -37,7 +37,7 @@ class CreateAndUpdate extends Component
     public $searchLikelihood = '', $searchConsequence = '', $tablerisk_id, $risk_assessment_id, $workflow_detail_id, $reference, $select_divisi;
     public $risk_likelihood_id, $risk_likelihood_notes;
     public $risk_consequence_id, $risk_consequence_doc, $risk_probability_doc, $show = false;
-    public $workgroup_id, $workgroup_name, $show_immidiate = 'ya';
+    public $workgroup_id, $workgroup_name, $show_immidiate = 'yes';
     public $search_workgroup = '', $search_report_by = '', $search_report_to = '', $fileUpload, $location_search = '';
     public $event_type_id,  $sub_event_type_id,  $report_by, $report_byName, $report_by_nolist, $report_to, $report_toName, $report_to_nolist, $date, $event_location_id, $site_id, $company_involved, $task_being_done, $documentation, $description, $immediate_corrective_action, $suggested_corrective_action, $preliminary_cause, $corrective_action_suggested;
     public $dropdownLocation = 'dropdown', $hidden = 'block';
