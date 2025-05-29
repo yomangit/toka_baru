@@ -93,8 +93,6 @@
                             Administrator
                         </summary>
                         <ul class="p-1 w-52 bg-base-400 menu menu-xs">
-
-
                             <li>
                                 <details {{ Request::is('admin/parent*') ? ' open' : '' }}>
                                     <summary
