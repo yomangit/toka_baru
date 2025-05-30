@@ -9,11 +9,11 @@ use LivewireUI\Modal\ModalComponent;
 
 class Create extends ModalComponent
 {
-    public $route_name,$event_type_id;
-    public $divider,$routeRequets_id;
-    public function mount( choseEventType $eventType)
+    public $route_name, $event_type_id;
+    public $divider, $routeRequets_id;
+    public function mount(choseEventType $eventType)
     {
-       $this->routeRequets_id = $eventType->id;
+        $this->routeRequets_id = $eventType->id;
         $this->route_name =  $eventType->route_name;
         $this->event_type_id =  $eventType->event_type_id;
     }
@@ -31,8 +31,8 @@ class Create extends ModalComponent
         } else {
             $this->divider = "Create Chose Event Type";
         }
-        return view('livewire.admin.chose-event-type.create',[
-            'Event_Type'=> TypeEventReport::get()
+        return view('livewire.admin.chose-event-type.create', [
+            'Event_Type' => TypeEventReport::get()
         ]);
     }
     public function store()
@@ -59,7 +59,7 @@ class Create extends ModalComponent
             );
             $this->forceClose()->closeModal();
         } else {
-            $this->reset(['route_name','event_type_id']);
+            $this->reset(['route_name', 'event_type_id']);
             $this->dispatch(
                 'alert',
                 [

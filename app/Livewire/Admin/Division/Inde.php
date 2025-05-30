@@ -111,7 +111,6 @@ class Inde extends Component
                 ]
             );
         } else {
-
             $this->dispatch(
                 'alert',
                 [
