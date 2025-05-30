@@ -49,8 +49,9 @@
             <div class="w-full max-w-md xl:max-w-xl form-control">
                 <x-label-req :value="__('report_by')" />
                 <div class="dropdown dropdown-end">
-                    <x-input wire:click='clickReportBy' wire:model.live='report_byName' placeholder='cari nama pelapor'
-                        :error="$errors->get('report_byName')" class="cursor-pointer" tabindex="0" role="button" />
+                    <x-input wire:click='clickReportBy' wire:model.live='report_byName'
+                        placeholder='cari nama pelapor...' :error="$errors->get('report_byName')" class="cursor-pointer" tabindex="0"
+                        role="button" />
                     <div tabindex="0"
                         class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow {{ $hiddenReportBy }}">
                         <div class="relative">
@@ -84,8 +85,8 @@
                 <x-label-req :value="__('Perusahaan terkait')" />
                 <div class="dropdown dropdown-end">
                     <x-input wire:click='clickWorkgroup' wire:model.live='workgroup_name'
-                        wire:keydown.self="changeConditionDivision" :error="$errors->get('workgroup_name')" class="cursor-pointer"
-                        tabindex="0" role="button" />
+                        wire:keydown.self="changeConditionDivision" placeholder='cari divisi...' :error="$errors->get('workgroup_name')"
+                        class="cursor-pointer" tabindex="0" role="button" />
                     <div tabindex="0"
                         class="z-10 w-full   overflow-y-auto shadow dropdown-content card card-compact bg-base-200 text-primary-content {{ $hiddenWorkgroup }}">
                         <ul class="h-full px-4 py-4 list-disc list-inside max-h-40 bg-base-200 rounded-box">
