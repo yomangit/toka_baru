@@ -4,7 +4,7 @@
     "name": "_commonjsHelpers"
   },
   "resources/css/app.css": {
-    "file": "assets/app-DIBN1zAu.css",
+    "file": "assets/app-DkzH89De.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -18,7 +18,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-CXJE84eI.js",
+    "file": "assets/app-BPlWbin_.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -26,7 +26,7 @@
       "__commonjsHelpers-Cpj98o6Y.js"
     ],
     "css": [
-      "assets/app-puXvd4I0.css"
+      "assets/app-DXjQCjFm.css"
     ]
   }
 }
