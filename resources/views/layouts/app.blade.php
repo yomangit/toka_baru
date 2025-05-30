@@ -1,4 +1,3 @@
-
 <html data-theme="nord" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -7,8 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Log In') }}</title>
+    <link rel="apple-touch-icon" href="{{ asset('icons.png') }}">
     <link rel="manifest" href="/manifest.json">
-    <meta name="apple-mobile-web-app-status-bar" content="#01d679">
+    <meta name="apple-mobile-web-app-status-bar" content="#d42c39">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" sizes="16x16" href="/pwa/icons/ios/16.png">
@@ -36,6 +36,8 @@
     <!--<link rel="apple-touch-icon" sizes="192x192" href="/pwa/icons/ios/192.png">-->
     <link rel="apple-touch-icon" sizes="256x256" href="/pwa/icons/ios/256.png">
     <link rel="apple-touch-icon" sizes="512x512" href="/pwa/icons/ios/512.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/pwa/img/icon512_maskable.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/pwa/img/icon512_rounded.png">
     <link rel="apple-touch-icon" sizes="1024x1024" href="/pwa/icons/ios/1024.png">
 
     <link href="/pwa/icons/ios/1024.png" sizes="1024x1024" rel="apple-touch-startup-image">
