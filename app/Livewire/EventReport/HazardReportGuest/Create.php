@@ -33,7 +33,7 @@ class Create extends Component
     public $dropdownLocation = 'dropdown', $hidden = 'block';
     public $dropdownWorkgroup = 'dropdown', $hiddenWorkgroup = 'block';
     public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block';
-    public $alamat;
+    public $alamat, $kondisi_tidak_aman;
     public $data = [];
     public function mount()
     {
@@ -88,7 +88,6 @@ class Create extends Component
             'workgroup_name.required' => 'kolom wajib di isi',
         ];
     }
-
     public function reportedBy($id)
     {
         $this->report_by = $id;
