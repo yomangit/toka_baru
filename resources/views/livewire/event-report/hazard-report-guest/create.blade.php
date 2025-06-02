@@ -124,13 +124,13 @@
         <fieldset>
             <x-label-no-req :value="__('kondisi tidak aman')" />
             <input wire:model.live="kondisi_tidak_aman" value='aman' name="kondisi" id="aman"
-                class="radio-xs peer/aman checked:bg-rose-500 radio" type="radio" name="13" />
+                class="radio-xs peer/aman checked:bg-emerald-500 radio" type="radio" name="13" />
             <label for="aman"
-                class="text-xs font-semibold peer-checked/aman:text-rose-500">{{ __('Aman') }}</label>
+                class="text-xs font-semibold peer-checked/aman:text-emerald-500">{{ __('Aman') }}</label>
             <input wire:model.live="kondisi_tidak_aman" value="no" id="tidak_aman"
-                class="peer/tidak_aman checked:bg-sky-500 radio-xs radio" type="radio" name="kondisi" />
+                class="peer/tidak_aman checked:bg-rose-500 radio-xs radio" type="radio" name="kondisi" />
             <label for="tidak_aman"
-                class="text-xs font-semibold peer-checked/tidak_aman:text-sky-500">{{ __('No') }}</label>
+                class="text-xs font-semibold peer-checked/tidak_aman:text-rose-500">{{ __('No') }}</label>
         </fieldset>
         <div>
             <div wire:ignore class="w-full form-control">
