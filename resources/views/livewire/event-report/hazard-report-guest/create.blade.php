@@ -121,6 +121,17 @@
                 <x-label-error :messages="$errors->get('location_name')" />
             </div>
         </div>
+        <fieldset>
+            <x-label-no-req :value="__('kondisi tidak aman')" />
+            <input wire:model.live="kondisi_tidak_aman" value='yes' name="kondisi" id="aman"
+                class="radio-xs peer/aman checked:bg-emerald-500 radio" type="radio" name="13" />
+            <label for="aman"
+                class="text-xs font-semibold peer-checked/aman:text-emerald-500">{{ __('Yes') }}</label>
+            <input wire:model.live="kondisi_tidak_aman" value="no" id="tidak_aman"
+                class="peer/tidak_aman radio-xs radio" type="radio" name="kondisi" />
+            <label for="tidak_aman"
+                class="text-xs font-semibold peer-checked/tidak_aman:text-sky-500">{{ __('No') }}</label>
+        </fieldset>
         <div>
             <div wire:ignore class="w-full form-control">
                 <x-label-req :value="__('Hazard Details')" />
@@ -149,17 +160,7 @@
             </div>
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
-        <fieldset>
-            <x-label-no-req :value="__('kondisi tidak aman')" />
-            <input wire:model.live="kondisi_tidak_aman" value='yes' name="kondisi" id="aman"
-                class="radio-xs peer/aman checked:bg-indigo-500 radio" type="radio" name="13" />
-            <label for="aman"
-                class="text-xs font-semibold peer-checked/aman:text-indigo-500">{{ __('Yes') }}</label>
-            <input wire:model.live="kondisi_tidak_aman" value="no" id="tidak_aman"
-                class="peer/tidak_aman radio-xs radio" type="radio" name="kondisi" />
-            <label for="tidak_aman"
-                class="text-xs font-semibold peer-checked/tidak_aman:text-sky-500">{{ __('No') }}</label>
-        </fieldset>
+
         <div class="w-full max-w-md xl:max-w-xl form-control">
             <x-label-req :value="__('documentation')" />
             <div class="relative">
