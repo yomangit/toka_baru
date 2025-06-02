@@ -130,7 +130,7 @@
             <input wire:model.live="kondisi_tidak_aman" value="no" id="tidak_aman"
                 class="peer/tidak_aman checked:bg-sky-500 radio-xs radio" type="radio" name="kondisi" />
             <label for="tidak_aman"
-                class="text-xs font-semibold peer-checked/tidak_aman:sky-emerald-500">{{ __('No') }}</label>
+                class="text-xs font-semibold peer-checked/tidak_aman:text-sky-500">{{ __('No') }}</label>
         </fieldset>
         <div>
             <div wire:ignore class="w-full form-control">
