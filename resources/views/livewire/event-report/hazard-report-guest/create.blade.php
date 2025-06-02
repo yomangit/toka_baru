@@ -181,7 +181,7 @@
         <x-btn-add data-tip="tambah Action" wire:click="modalActionHazard" />
         <div>
             <div class="modal {{ $modal }} " role="dialog">
-                <div wire:target="store" wire:loading.class="skeleton" class="modal-box">
+                <div wire:target="storeAction" wire:loading.class="skeleton" class="modal-box">
                     <div
                         class="py-2 font-extrabold text-transparent divider divider-info bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">
                         {{ $dividerAction }}</div>
@@ -218,7 +218,7 @@
                                         <ul class="pt-2 mb-2 overflow-auto scroll-smooth focus:scroll-auto h-28"
                                             wire:target='responsibility_name' wire:loading.class='hidden'>
                                             @forelse ($Report_ByAction as $spv_area)
-                                                <div wire:click="reportedBy({{ $spv_area->id }})"
+                                                <div wire:click="reportedByAction({{ $spv_area->id }})"
                                                     class="flex flex-col border-b cursor-pointer border-base-200 active:bg-gray-400">
                                                     <strong
                                                         class="text-[10px] text-slate-800">{{ $spv_area->lookup_name }}</strong>

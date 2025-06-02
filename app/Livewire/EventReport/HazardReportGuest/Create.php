@@ -244,17 +244,8 @@ class Create extends Component
 
         ];
 
-        $HazardReport = HazardReport::create($filds);
-        $fildsAction = [
-            'hazard_id'  => $HazardReport->id,
-            'followup_action'  => $this->followup_action,
-            'actionee_comment'  => $this->actionee_comment,
-            'action_condition'  => $this->action_condition,
-            'responsibility'  => $this->responsibility,
-            'due_date'  => $this->due_date,
-            'completion_date'  => $this->completion_date,
-        ];
-        ActionHazard::create($fildsAction);
+        $this->hazard_id = HazardReport::create($filds);
+
         $this->dispatch(
             'alert',
             [
@@ -272,7 +263,7 @@ class Create extends Component
         // Notification
         $getModerator = (Auth::check() ? EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)->where('user_id', 'NOT LIKE', Auth::user()->id)->pluck('user_id')->toArray() : EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)->pluck('user_id')->toArray());
         $User = User::whereIn('id', $getModerator)->get();
-        $url = $HazardReport->id;
+        $url = $this->hazard_id->id;
         foreach ($User as $key => $value) {
             $users = User::whereId($value->id)->get();
             $offerData = [
@@ -302,6 +293,33 @@ class Create extends Component
         // $this->redirectRoute('hazardReportCreate', ['workflow_template_id' => $this->workflow_template_id]);
 
 
+    }
+    public function reportedByAction($id)
+    {
+        $this->responsibility = $id;
+        $ReportBy = User::whereId($id)->first();
+        $this->responsibility_name = $ReportBy->lookup_name;
+    }
+    public function storeAction()
+    {
+        $this->validate([
+            'responsibility_name' => ['nullable'],
+            'followup_action' => ['nullable'],
+            'actionee_comment' => ['nullable'],
+            'action_condition' => ['nullable'],
+            'due_date' => ['nullable'],
+            'completion_date' => ['nullable'],
+        ]);
+        $fildsAction = [
+            'hazard_id'  => $this->hazard_id->id,
+            'followup_action'  => $this->followup_action,
+            'actionee_comment'  => $this->actionee_comment,
+            'action_condition'  => $this->action_condition,
+            'responsibility'  => $this->responsibility,
+            'due_date'  => $this->due_date,
+            'completion_date'  => $this->completion_date,
+        ];
+        ActionHazard::create($fildsAction);
     }
     public function openModal()
     {
