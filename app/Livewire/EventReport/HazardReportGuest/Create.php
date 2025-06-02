@@ -213,6 +213,7 @@ class Create extends Component
             'location_name' => $this->location_name,
             'site_id' => $this->site_id,
             'show_immidiate' => $this->show_immidiate,
+            'kondisi_tidak_aman' => $this->kondisi_tidak_aman,
             'company_involved' => $this->company_involved,
             'risk_consequence_id' => $this->risk_consequence_id,
             'risk_likelihood_id' => $this->risk_likelihood_id,

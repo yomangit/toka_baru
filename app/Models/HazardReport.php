@@ -43,6 +43,7 @@ class HazardReport extends Model
         'assign_to',
         'also_assign_to',
         'comments',
+        'kondisi_tidak_aman',
         'submitter'
     ];
     public function riskConsequence()
@@ -116,7 +117,7 @@ class HazardReport extends Model
             })
         );
     }
-   
+
     public function scopeSearchEventType($q, $term)
     {
         $q->when(
@@ -131,11 +132,11 @@ class HazardReport extends Model
             fn($q, $term) => $q->where('date', 'like', '%' . $term . '%')
         );
     }
-    public function scopeFindSubmitter($q,$term)
+    public function scopeFindSubmitter($q, $term)
     {
         $q->when(
             $term ?? false,
-            fn($q,$term) => $q->where('submitter',$term)
+            fn($q, $term) => $q->where('submitter', $term)
         );
     }
     public function scopeSearchEventSubType($q, $term)
@@ -152,7 +153,7 @@ class HazardReport extends Model
             fn($q, $term) => $q->where('id', $term)
         );
     }
-   
+
     public function scopeSearch($q, $term)
     {
         $q->when(
@@ -178,7 +179,7 @@ class HazardReport extends Model
                         $q->where('status_name', 'like', '%' . $term . '%');
                     });
                 })
-               
+
         );
     }
 }
