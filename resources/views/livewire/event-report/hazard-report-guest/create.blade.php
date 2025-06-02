@@ -131,6 +131,17 @@
             <x-label-error :messages="$errors->get('description')" />
         </div>
         <fieldset>
+            <x-label-no-req :value="__('kondisi tidak aman')" />
+            <input wire:model.live="kondisi_tidak _aman" value='yes' name="kondisi" id="aman"
+                class="radio-xs peer/aman checked:bg-indigo-500 radio" type="radio" name="13" />
+            <label for="aman"
+                class="text-xs font-semibold peer-checked/aman:text-indigo-500">{{ __('Yes') }}</label>
+            <input wire:model.live="kondisi_tidak _aman" value="no" id="tidak_aman"
+                class="peer/tidak_aman radio-xs radio" type="radio" name="kondisi" />
+            <label for="tidak_aman"
+                class="text-xs font-semibold peer-checked/tidak_aman:text-sky-500">{{ __('No') }}</label>
+        </fieldset>
+        <fieldset>
             @if ($show_immidiate === 'yes')
                 <x-label-req :value="__('immediate corrective action')" />
             @else
@@ -154,7 +165,8 @@
             <x-label-req :value="__('documentation')" />
             <div class="relative">
                 <x-input-file wire:model.live='documentation' :error="$errors->get('documentation')" />
-                <div class="absolute inset-y-0 right-0 avatar" wire:target="documentation" wire:loading.class="hidden">
+                <div class="absolute inset-y-0 right-0 avatar" wire:target="documentation"
+                    wire:loading.class="hidden">
                     <div class="w-6 rounded">
                         @include('livewire.event-report.svg-file')
                         {{ $documentation }}

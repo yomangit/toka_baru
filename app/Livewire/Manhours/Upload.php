@@ -35,7 +35,6 @@ class Upload extends ModalComponent
     {
         set_time_limit(300);
         $this->validate(['files' => 'required']);
-
         Excel::import(new ManhoursImport, $this->files);
         session()->flash('success', "importing file has done!!");
         $this->dispatch('manhours_upload');
@@ -59,5 +58,4 @@ class Upload extends ModalComponent
     {
         return false;
     }
-
 }
