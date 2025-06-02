@@ -128,7 +128,7 @@
             <label for="aman"
                 class="text-xs font-semibold peer-checked/aman:text-emerald-500">{{ __('Yes') }}</label>
             <input wire:model.live="kondisi_tidak_aman" value="no" id="tidak_aman"
-                class="peer/tidak_aman radio-xs radio" type="radio" name="kondisi" />
+                class="peer/tidak_aman checked:bg-sky-500 radio-xs radio" type="radio" name="kondisi" />
             <label for="tidak_aman"
                 class="text-xs font-semibold peer-checked/tidak_aman:text-sky-500">{{ __('No') }}</label>
         </fieldset>
@@ -151,8 +151,8 @@
                 class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
             <label for="draft"
                 class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
-            <input wire:model.live="show_immidiate" value="no" id="published" class="peer/published radio-xs radio"
-                type="radio" name="status" />
+            <input wire:model.live="show_immidiate" value="no" id="published"
+                class="peer/published checked:bg-sky-500 radio-xs radio" type="radio" name="status" />
             <label for="published"
                 class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
             <div wire:ignore class="hidden w-full peer-checked/draft:block form-control">
