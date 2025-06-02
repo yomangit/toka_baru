@@ -20,6 +20,7 @@ use App\Notifications\toModerator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Notification;
+use Livewire\Attributes\On;
 
 class Create extends Component
 {
@@ -43,6 +44,12 @@ class Create extends Component
     public $modal = 'modal', $dividerAction, $action_id, $orginal_due_date, $current_step;
     #[Validate]
     public $hazard_id, $responsibility, $responsibility_name, $followup_action, $actionee_comment, $action_condition, $due_date, $completion_date;
+
+
+    public function modalActionHazard()
+    {
+        $this->modal = ' modal-open';
+    }
     public function mount()
     {
 

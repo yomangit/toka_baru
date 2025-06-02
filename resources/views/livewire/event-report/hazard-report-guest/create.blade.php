@@ -178,6 +178,7 @@
             <x-label-error :messages="$errors->get('documentation')" />
         </div>
         {{-- start action --}}
+        <x-btn-add data-tip="tambah Action" wire:click="modalActionHazard" />
         <div>
             <div class="modal {{ $modal }} " role="dialog">
                 <div wire:target="store" wire:loading.class="skeleton" class="modal-box">
