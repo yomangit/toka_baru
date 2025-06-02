@@ -121,7 +121,7 @@
                 <x-label-error :messages="$errors->get('location_name')" />
             </div>
         </div>
-        <fieldset>
+        <fieldset class="flex justify-center">
             <x-label-no-req :value="__('kondisi tidak aman')" />
             <input wire:model.live="kondisi_tidak_aman" value='yes' name="kondisi" id="aman"
                 class="radio-xs peer/aman checked:bg-rose-500 radio" type="radio" name="13" />
