@@ -28,7 +28,7 @@
                 <div role="tabpanel" class="p-6 tab-content bg-base-100 border-base-300 rounded-box ">
                     <div class="grid gap-1 sm:grid-cols-2 lg:grid-cols-4">
 
-                        <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+                        <div class="w-full max-w-md xl:max-w-xl form-control">
                             <x-label-req :value="__('Name')" />
                             <div class="dropdown dropdown-end">
                                 <x-input-search-with-error placeholder="search name" wire:model.live='name_observer'
@@ -61,7 +61,7 @@
                             </div>
                             <x-label-error :messages="$errors->get('supervisor_area')" />
                         </div>
-                        <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+                        <div class="w-full max-w-md xl:max-w-xl form-control">
                             <x-label-req :value="__('Job Title')" />
                             <x-input wire:model.blur='job_title' :error="$errors->get('job_title')" />
                             <x-label-error :messages="$errors->get('job_title')" />
@@ -153,12 +153,12 @@
                     checked="checked" />
                 <div role="tabpanel" class="p-6 tab-content bg-base-100 border-base-300 rounded-box">
                     <div class="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
-                        <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+                        <div class="w-full max-w-md xl:max-w-xl form-control">
                             <x-label-req :value="__('Task Name')" />
                             <x-input wire:model.blur='task_name' :error="$errors->get('task_name')" />
                             <x-label-error :messages="$errors->get('task_name')" />
                         </div>
-                        <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+                        <div class="w-full max-w-md xl:max-w-xl form-control">
                             <x-label-req :value="__('supervisor area')" />
                             <div class="dropdown dropdown-end">
                                 <x-input-search-with-error placeholder="search Supervisor"
@@ -191,12 +191,12 @@
                             </div>
                             <x-label-error :messages="$errors->get('supervisor_area')" />
                         </div>
-                        <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+                        <div class="w-full max-w-md xl:max-w-xl form-control">
                             <x-label-req :value="__('no of worker')" />
                             <x-input wire:model.live='number_of_worker' type="number" :error="$errors->get('number_of_worker')" />
                             <x-label-error :messages="$errors->get('number_of_worker')" />
                         </div>
-                        <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+                        <div class="w-full max-w-md xl:max-w-xl form-control">
                             <x-label-req :value="__('Location')" />
                             <x-select wire:model.live='location_id' :error="$errors->get('location_id')">
                                 <option value="" selected>Select an option</option>
@@ -263,7 +263,7 @@
                             </fieldset>
                             <x-label-error :messages="$errors->get('job_guidance')" class="mt-0" />
                         </div>
-                        <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
+                        <div class="w-full max-w-md xl:max-w-xl form-control">
                             <x-label-req :value="__('reason of observation')" />
                             <x-select wire:model.live='reason_of_observation' :error="$errors->get('reason_of_observation')">
                                 <option value="" selected>Select an option</option>
