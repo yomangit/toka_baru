@@ -44,7 +44,6 @@ class Create extends Component
             'Report_By' => User::searchNama(trim($this->responsibility_name))->limit(500)->get()
         ]);
     }
-
     public function rules()
     {
         return [

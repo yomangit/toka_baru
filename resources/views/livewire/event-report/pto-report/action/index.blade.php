@@ -24,7 +24,7 @@
                             </td>
                             <td>{{ $item->new_data['completion_date'] ? date('d-m-Y', strtotime($item->new_data['completion_date'])) : '-' }}
                             </td>
-                            <td class="flex flex-row gap-1 justify-center">
+                            <td class="flex flex-row justify-center gap-1">
                                 <x-icon-btn-delete wire:click="delete({{ $item->id }})"
                                     wire:confirm.prompt="Are you sure delete ?\n\nType DELETE to confirm|DELETE"
                                     data-tip="Delete" />
