@@ -122,7 +122,7 @@
             </div>
         </div>
         <fieldset>
-            <x-label-no-req :value="__('kondisi tidak aman')" />
+            <x-label-req :value="__('kondisi tidak aman')" />
             <input wire:model.live="kondisi_tidak_aman" value='aman' name="kondisi" id="aman"
                 class="radio-xs peer/aman checked:bg-emerald-500 radio" type="radio" name="13" />
             <label for="aman"
