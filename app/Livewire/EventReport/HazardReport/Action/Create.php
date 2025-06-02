@@ -48,8 +48,8 @@ class Create extends Component
     public function rules()
     {
         return [
-            'responsibility_name' => ['required'],
-            'followup_action' => ['required'],
+            'responsibility_name' => ['nullable'],
+            'followup_action' => ['nullable'],
             'actionee_comment' => ['nullable'],
             'action_condition' => ['nullable'],
             'due_date' => ['nullable'],
@@ -122,7 +122,7 @@ class Create extends Component
     }
     public function closeModal()
     {
-        
-        $this->reset('followup_action', 'actionee_comment', 'action_condition', 'due_date', 'completion_date','modal');
+
+        $this->reset('followup_action', 'actionee_comment', 'action_condition', 'due_date', 'completion_date', 'modal');
     }
 }
