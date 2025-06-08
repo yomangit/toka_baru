@@ -151,7 +151,7 @@
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
         <fieldset>
-            <x-label-req :value="__('kondisi tidak aman')" />
+            {{-- <x-label-req :value="__('kondisi tidak aman')" />
             <input wire:model.live="kondisi_tidak_aman" value='aman' name="kondisi" id="aman"
                 class="radio-xs peer/aman checked:bg-emerald-500 radio" type="radio" name="13" />
             <label for="aman"
@@ -159,15 +159,18 @@
             <input wire:model.live="kondisi_tidak_aman" value="no" id="tidak_aman"
                 class="peer/tidak_aman checked:bg-rose-500 radio-xs radio" type="radio" name="kondisi" />
             <label for="tidak_aman"
-                class="text-xs font-semibold peer-checked/tidak_aman:text-rose-500">{{ __('No') }}</label>
+                class="text-xs font-semibold peer-checked/tidak_aman:text-rose-500">{{ __('No') }}</label> --}}
+            <label class="label">
+                <input type="checkbox" checked="checked" class="checkbox checkbox-accent checkbox-sm" />
+                Remember me
+            </label>
         </fieldset>
 
         <div class="w-full max-w-md xl:max-w-xl form-control">
             <x-label-req :value="__('documentation')" />
             <div class="relative">
                 <x-input-file wire:model.live='documentation' :error="$errors->get('documentation')" />
-                <div class="absolute inset-y-0 right-0 avatar" wire:target="documentation"
-                    wire:loading.class="hidden">
+                <div class="absolute inset-y-0 right-0 avatar" wire:target="documentation" wire:loading.class="hidden">
                     <div class="w-6 rounded">
                         @include('livewire.event-report.svg-file')
                         {{ $documentation }}
