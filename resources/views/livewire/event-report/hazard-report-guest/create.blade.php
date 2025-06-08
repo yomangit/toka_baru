@@ -151,7 +151,7 @@
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
         <fieldset class="fieldset   rounded-box w-32  ">
-            <x-label-req :value="__('kondisi tidak aman')" />
+            {{-- <x-label-req :value="__('kondisi tidak aman')" /> --}}
             {{-- <input wire:model.live="kondisi_tidak_aman" value='aman' name="kondisi" id="aman"
                 class="radio-xs peer/aman checked:bg-emerald-500 radio" type="radio" name="13" />
             <label for="aman"
@@ -161,8 +161,8 @@
             <label for="tidak_aman"
                 class="text-xs font-semibold peer-checked/tidak_aman:text-rose-500">{{ __('No') }}</label> --}}
             <label class="label text-xs px-0">
+                {{ __('kondisi tidak aman') }}
                 <input type="checkbox" checked="checked" class="checkbox checkbox-accent checkbox-sm" />
-                Remember me
             </label>
         </fieldset>
 
