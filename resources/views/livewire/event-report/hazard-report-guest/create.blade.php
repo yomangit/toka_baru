@@ -160,7 +160,7 @@
                 class="peer/tidak_aman checked:bg-rose-500 radio-xs radio" type="radio" name="kondisi" />
             <label for="tidak_aman"
                 class="text-xs font-semibold peer-checked/tidak_aman:text-rose-500">{{ __('No') }}</label> --}}
-            <label class="label">
+            <label class="label text-xs px-0">
                 <input type="checkbox" checked="checked" class="checkbox checkbox-accent checkbox-sm" />
                 Remember me
             </label>
