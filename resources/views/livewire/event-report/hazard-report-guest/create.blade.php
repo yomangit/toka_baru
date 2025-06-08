@@ -160,7 +160,7 @@
                 class="peer/tidak_aman checked:bg-rose-500 radio-xs radio" type="radio" name="kondisi" />
             <label for="tidak_aman"
                 class="text-xs font-semibold peer-checked/tidak_aman:text-rose-500">{{ __('No') }}</label> --}}
-            <label class="label text-xs px-0">
+            <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-2">
                 {{ __('kondisi tidak aman') }}
                 <input type="checkbox" checked="checked" class="checkbox checkbox-accent checkbox-sm" />
             </label>
