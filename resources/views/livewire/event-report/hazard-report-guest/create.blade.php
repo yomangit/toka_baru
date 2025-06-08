@@ -151,8 +151,8 @@
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
         <fieldset class="fieldset  border-base-300 rounded-box w-64 border ">
-            {{-- <x-label-req :value="__('kondisi tidak aman')" />
-            <input wire:model.live="kondisi_tidak_aman" value='aman' name="kondisi" id="aman"
+            <x-label-req :value="__('kondisi tidak aman')" />
+            {{-- <input wire:model.live="kondisi_tidak_aman" value='aman' name="kondisi" id="aman"
                 class="radio-xs peer/aman checked:bg-emerald-500 radio" type="radio" name="13" />
             <label for="aman"
                 class="text-xs font-semibold peer-checked/aman:text-emerald-500">{{ __('Aman') }}</label>
