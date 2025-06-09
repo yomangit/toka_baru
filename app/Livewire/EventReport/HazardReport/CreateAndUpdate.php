@@ -42,7 +42,7 @@ class CreateAndUpdate extends Component
     public $event_type_id,  $sub_event_type_id,  $report_by, $report_byName, $report_by_nolist, $report_to, $report_toName, $report_to_nolist, $date, $event_location_id, $site_id, $company_involved, $task_being_done, $documentation, $description, $immediate_corrective_action, $suggested_corrective_action, $preliminary_cause, $corrective_action_suggested;
     public $dropdownLocation = 'dropdown', $hidden = 'block';
     public $dropdownWorkgroup = 'dropdown', $hiddenWorkgroup = 'block';
-    public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block';
+    public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block', $kondisi_tidak_aman, $tindakkan_selanjutnya;
     public function mount()
     {
 
@@ -339,6 +339,8 @@ class CreateAndUpdate extends Component
                     'task_being_done' => $this->task_being_done,
                     'documentation' =>  $file_name,
                     'description' => $this->description,
+                    'kondisi_tidak_aman' => $this->kondisi_tidak_aman,
+                    'tindakkan_selanjutnya' => $this->tindakkan_selanjutnya,
                     'immediate_corrective_action' => $this->immediate_corrective_action,
                     'suggested_corrective_action' => $this->suggested_corrective_action,
                     'corrective_action_suggested' => $this->corrective_action_suggested,
@@ -360,6 +362,8 @@ class CreateAndUpdate extends Component
                 'company_involved' => $this->company_involved,
                 'risk_consequence_id' => $this->risk_consequence_id,
                 'risk_likelihood_id' => $this->risk_likelihood_id,
+                'kondisi_tidak_aman' => $this->kondisi_tidak_aman,
+                'tindakkan_selanjutnya' => $this->tindakkan_selanjutnya,
                 'workgroup_name' => $this->workgroup_name,
                 'report_byName' => $this->report_byName,
                 'task_being_done' => $this->task_being_done,
