@@ -150,20 +150,22 @@
             </div>
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
-        <fieldset class="fieldset   rounded-box w-40 ">
-            <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-2">
-                {{ __('kondisi tidak aman') }}
-                <input type="checkbox" wire:model.live="kondisi_tidak_aman" checked="checked"
-                    class="checkbox checkbox-accent checkbox-sm" />
-            </label>
-        </fieldset>
-        <fieldset class="fieldset   rounded-box w-40 ">
-            <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-2">
-                {{ __('perbaikan tingkat lanjut') }}
-                <input type="checkbox" wire:model.live="tindakkan_selanjutnya" checked="checked"
-                    class="checkbox checkbox-accent checkbox-sm" />
-            </label>
-        </fieldset>
+        <div class="flex flex-row">
+            <fieldset class="fieldset   rounded-box w-40 ">
+                <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-2">
+                    {{ __('kondisi tidak aman') }}
+                    <input type="checkbox" wire:model.live="kondisi_tidak_aman" checked="checked"
+                        class="checkbox checkbox-accent checkbox-sm" />
+                </label>
+            </fieldset>
+            <fieldset class="fieldset   rounded-box w-40 ">
+                <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-2">
+                    {{ __('perbaikan tingkat lanjut') }}
+                    <input type="checkbox" wire:model.live="tindakkan_selanjutnya" checked="checked"
+                        class="checkbox checkbox-accent checkbox-sm" />
+                </label>
+            </fieldset>
+        </div>
         {{ $kondisi_tidak_aman }}
         <div class="w-full max-w-md xl:max-w-xl form-control">
             <x-label-req :value="__('documentation')" />
