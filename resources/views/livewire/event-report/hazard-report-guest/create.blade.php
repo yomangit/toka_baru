@@ -162,10 +162,11 @@
                 class="text-xs font-semibold peer-checked/tidak_aman:text-rose-500">{{ __('No') }}</label> --}}
             <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-2">
                 {{ __('kondisi tidak aman') }}
-                <input type="checkbox" checked="checked" class="checkbox checkbox-accent checkbox-sm" />
+                <input type="checkbox" wire:model.live="kondisi_tidak_aman" checked="checked"
+                    class="checkbox checkbox-accent checkbox-sm" />
             </label>
         </fieldset>
-
+        {{ $kondisi_tidak_aman }}
         <div class="w-full max-w-md xl:max-w-xl form-control">
             <x-label-req :value="__('documentation')" />
             <div class="relative">
