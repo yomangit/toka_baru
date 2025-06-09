@@ -154,15 +154,15 @@
             <fieldset class="fieldset   rounded-box w-40 ">
                 <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt ">
                     {{ __('kondisi tidak aman') }}
-                    <input type="checkbox" wire:model.live="kondisi_tidak_aman" checked="checked"
-                        class="checkbox checkbox-accent checkbox-sm" />
+                    <input type="checkbox" wire:model.live="kondisi_tidak_aman"
+                        class="checkbox border-rose-600 bg-rose-500 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
                 </label>
             </fieldset>
             <fieldset class="fieldset   rounded-box w-48 ">
                 <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt ">
                     {{ __('perbaikan tingkat lanjut') }}
-                    <input type="checkbox" wire:model.live="tindakkan_selanjutnya" checked="checked"
-                        class="checkbox checkbox-accent checkbox-sm" />
+                    <input type="checkbox" wire:model.live="tindakkan_selanjutnya"
+                        class="checkbox border-rose-600 bg-rose-500 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
                 </label>
             </fieldset>
         </div>
