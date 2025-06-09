@@ -150,7 +150,7 @@
             </div>
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
-        <div class="flex flex-row gap-2">
+        <div class="grid grid-cols-2 gap-2">
             <fieldset class="fieldset   rounded-box w-40 ">
                 <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt ">
                     {{ __('kondisi tidak aman') }}
@@ -166,7 +166,7 @@
                 </label>
             </fieldset>
         </div>
-       
+
         <div class="w-full max-w-md xl:max-w-xl form-control">
             <x-label-req :value="__('documentation')" />
             <div class="relative">
