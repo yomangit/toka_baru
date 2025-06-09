@@ -150,7 +150,7 @@
             </div>
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
-        <fieldset class="fieldset   rounded-box w-44 ">
+        <fieldset class="fieldset   rounded-box w-40 ">
             {{-- <x-label-req :value="__('kondisi tidak aman')" /> --}}
             {{-- <input wire:model.live="kondisi_tidak_aman" value='aman' name="kondisi" id="aman"
                 class="radio-xs peer/aman checked:bg-emerald-500 radio" type="radio" name="13" />
