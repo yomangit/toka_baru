@@ -152,14 +152,14 @@
         </fieldset>
         <div class="flex flex-row">
             <fieldset class="fieldset   rounded-box w-40 ">
-                <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-2">
+                <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-0.5">
                     {{ __('kondisi tidak aman') }}
                     <input type="checkbox" wire:model.live="kondisi_tidak_aman" checked="checked"
                         class="checkbox checkbox-accent checkbox-sm" />
                 </label>
             </fieldset>
             <fieldset class="fieldset   rounded-box w-48 ">
-                <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-2">
+                <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-0.5">
                     {{ __('perbaikan tingkat lanjut') }}
                     <input type="checkbox" wire:model.live="tindakkan_selanjutnya" checked="checked"
                         class="checkbox checkbox-accent checkbox-sm" />
