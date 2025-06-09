@@ -33,7 +33,7 @@ class Create extends Component
     public $dropdownLocation = 'dropdown', $hidden = 'block';
     public $dropdownWorkgroup = 'dropdown', $hiddenWorkgroup = 'block';
     public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block';
-    public $alamat, $kondisi_tidak_aman;
+    public $alamat, $kondisi_tidak_aman, $tindakkan_selanjutnya;
     public $data = [];
 
     // data action
@@ -214,6 +214,7 @@ class Create extends Component
             'site_id' => $this->site_id,
             'show_immidiate' => $this->show_immidiate,
             'kondisi_tidak_aman' => $this->kondisi_tidak_aman,
+            'tindakkan_selanjutnya' => $this->tindakkan_selanjutnya,
             'company_involved' => $this->company_involved,
             'risk_consequence_id' => $this->risk_consequence_id,
             'risk_likelihood_id' => $this->risk_likelihood_id,

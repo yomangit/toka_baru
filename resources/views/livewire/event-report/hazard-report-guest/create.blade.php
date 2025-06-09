@@ -151,18 +151,16 @@
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
         <fieldset class="fieldset   rounded-box w-40 ">
-            {{-- <x-label-req :value="__('kondisi tidak aman')" /> --}}
-            {{-- <input wire:model.live="kondisi_tidak_aman" value='aman' name="kondisi" id="aman"
-                class="radio-xs peer/aman checked:bg-emerald-500 radio" type="radio" name="13" />
-            <label for="aman"
-                class="text-xs font-semibold peer-checked/aman:text-emerald-500">{{ __('Aman') }}</label>
-            <input wire:model.live="kondisi_tidak_aman" value="no" id="tidak_aman"
-                class="peer/tidak_aman checked:bg-rose-500 radio-xs radio" type="radio" name="kondisi" />
-            <label for="tidak_aman"
-                class="text-xs font-semibold peer-checked/tidak_aman:text-rose-500">{{ __('No') }}</label> --}}
             <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-2">
                 {{ __('kondisi tidak aman') }}
                 <input type="checkbox" wire:model.live="kondisi_tidak_aman" checked="checked"
+                    class="checkbox checkbox-accent checkbox-sm" />
+            </label>
+        </fieldset>
+        <fieldset class="fieldset   rounded-box w-40 ">
+            <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt gap-2">
+                {{ __('perbaikan tingkat lanjut') }}
+                <input type="checkbox" wire:model.live="tindakkan_selanjutnya" checked="checked"
                     class="checkbox checkbox-accent checkbox-sm" />
             </label>
         </fieldset>
@@ -171,7 +169,8 @@
             <x-label-req :value="__('documentation')" />
             <div class="relative">
                 <x-input-file wire:model.live='documentation' :error="$errors->get('documentation')" />
-                <div class="absolute inset-y-0 right-0 avatar" wire:target="documentation" wire:loading.class="hidden">
+                <div class="absolute inset-y-0 right-0 avatar" wire:target="documentation"
+                    wire:loading.class="hidden">
                     <div class="w-6 rounded">
                         @include('livewire.event-report.svg-file')
                         {{ $documentation }}
