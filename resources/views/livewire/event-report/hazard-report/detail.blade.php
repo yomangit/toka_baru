@@ -375,19 +375,18 @@
                         </label>
                     </fieldset>
                     <fieldset class="w-48 fieldset rounded-box ">
-                        @if ($show_immidiate === 'yes')
-                            <x-label-req :value="__('immediate corrective action')" />
-                        @else
-                            <x-label-no-req :value="__('immediate corrective action')" />
-                        @endif
-                        <input wire:model.live="show_immidiate" value='yes' name="status" id="draft"
-                            class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
+
+                        <x-label-req :value="__('perbaikan tingkat lanjut')" />
+
+                        <input wire:model.live="tindakkan_selanjutnya" value='yes' name="status" id="draft"
+                            class="radio-xs peer/draft checked:bg-rose-500 radio" type="radio" name="13" />
                         <label for="draft"
-                            class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
-                        <input wire:model.live="show_immidiate" value="no" id="published"
-                            class="peer/published checked:bg-sky-500 radio-xs radio" type="radio" name="status" />
+                            class="text-xs font-semibold peer-checked/draft:text-rose-500">{{ __('Yes') }}</label>
+                        <input wire:model.live="tindakkan_selanjutnya" value="no" id="published"
+                            class="peer/published checked:bg-emerald-500 radio-xs radio" type="radio"
+                            name="status" />
                         <label for="published"
-                            class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
+                            class="text-xs font-semibold peer-checked/published:text-emerald-500">{{ __('No') }}</label>
                     </fieldset>
                 </div>
                 <div class="flex flex-col w-full border-opacity-50">
