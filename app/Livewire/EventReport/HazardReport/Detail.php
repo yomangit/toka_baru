@@ -92,14 +92,12 @@ class Detail extends Component
                 $this->immediate_corrective_action_temp = $HazardReport->immediate_corrective_action;
                 $this->suggested_corrective_action_temp = $HazardReport->suggested_corrective_action;
                 $this->corrective_action_suggested_temp = $HazardReport->corrective_action_suggested;
-
                 $this->company_involved = $HazardReport->company_involved;
                 $this->location_name = $HazardReport->location_name;
                 $this->comment_temp = $HazardReport->comment;
             } else {
                 abort(401, 'Unauthorized Access Denied');
             }
-            $this->ReportByAndReportTo();
         } else {
             abort_unless($projectExists, 404, 'page not found');
         }
