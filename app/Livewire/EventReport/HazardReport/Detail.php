@@ -72,6 +72,7 @@ class Detail extends Component
                 $this->report_to = $HazardReport->report_to;
                 $this->submitter = $HazardReport->submitter;
                 $this->assign_to = $HazardReport->assign_to;
+                $this->kondisi_tidak_aman = $HazardReport->kondisi_tidak_aman;
                 $this->tindakkan_selanjutnya = $HazardReport->tindakkan_selanjutnya;
                 $this->also_assign_to = $HazardReport->also_assign_to;
                 $this->division_id = $HazardReport->division_id;
