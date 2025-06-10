@@ -184,6 +184,7 @@ class Detail extends Component
     }
     public function render()
     {
+        $this->ReportByAndReportTo();
         if (choseEventType::where('route_name', 'LIKE', '%' . '/eventReport/hazardReport' . '%')->exists()) {
             $eventType = choseEventType::where('route_name', 'LIKE', '%' . '/eventReport/hazardReport' . '%')->pluck('event_type_id');
             $Event_type = TypeEventReport::whereIn('id', $eventType)->get();
