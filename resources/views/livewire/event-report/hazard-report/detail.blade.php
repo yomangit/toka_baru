@@ -365,7 +365,7 @@
                 </table>
 
                 <div class="flex flex-row items-stretch gap-2 mt-2 px-2 border w-[25rem] border-base-200 rounded-box">
-                    <fieldset class="w-40 fieldset rounded-box ">
+                    <fieldset class="self-center w-40 fieldset rounded-box">
                         <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                             {{ __('kondisi tidak aman') }}
                             <input type="checkbox" wire:model.live="kondisi_tidak_aman"
