@@ -150,21 +150,32 @@
             </div>
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
-        <div class="grid grid-cols-2 gap-2 w-96">
-            <fieldset class="fieldset   rounded-box w-40 ">
-                <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt ">
+        <div class="flex flex-row items-stretch gap-4 mt-2 px-2 border w-[25rem] border-base-200 rounded-box">
+            <fieldset class="self-center w-40 fieldset rounded-box">
+                <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                     {{ __('kondisi tidak aman') }}
                     <input type="checkbox" wire:model.live="kondisi_tidak_aman"
+                        {{ $kondisi_tidak_aman = 1 ? 'checked="checked"' : '' }}
+                        {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                         class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
                 </label>
             </fieldset>
-            <fieldset class="fieldset   rounded-box w-48 ">
-                <label class="label text-xs px-0 capitalize relative font-semibold label-text-alt ">
-                    {{ __('perbaikan tingkat lanjut') }}
-                    <input type="checkbox" wire:model.live="tindakkan_selanjutnya"
-                        class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
-                </label>
-            </fieldset>
+            <div>
+                <fieldset class="w-48 fieldset rounded-box ">
+
+                    <x-label-req :value="__('perbaikan tingkat lanjut')" />
+
+                    <input wire:model.live="tindakkan_selanjutnya" value='1' name="status" id="yes_lanjut"
+                        class="radio-xs peer/yes_lanjut checked:bg-rose-500 radio" type="radio" name="13" />
+                    <label for="yes_lanjut"
+                        class="text-xs font-semibold peer-checked/yes_lanjut:text-rose-500">{{ __('Yes') }}</label>
+                    <input wire:model.live="tindakkan_selanjutnya" value="0" id="no_lanjut"
+                        class="peer/no_lanjut checked:bg-emerald-500 radio-xs radio" type="radio" name="status" />
+                    <label for="no_lanjut"
+                        class="text-xs font-semibold peer-checked/no_lanjut:text-emerald-500">{{ __('No') }}</label>
+                </fieldset>
+                <x-label-error :messages="$errors->get('tindakkan_selanjutnya')" />
+            </div>
         </div>
 
         <div class="w-full max-w-md xl:max-w-xl form-control">
