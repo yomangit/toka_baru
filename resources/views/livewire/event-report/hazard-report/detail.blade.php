@@ -375,12 +375,15 @@
                         </label>
                     </fieldset>
                     <fieldset class="w-48 fieldset rounded-box ">
-                        <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
+                        <label
+                            class="relative flex flex-row px-0 text-xs font-semibold capitalize label label-text-alt">
                             {{ __('perbaikan tingkat lanjut') }}
-                            <input type="checkbox" wire:model.live="tindakkan_selanjutnya"
+                            {{-- <input type="checkbox" wire:model.live="tindakkan_selanjutnya"
                                 {{ $tindakkan_selanjutnya = 1 ? 'checked="checked"' : '' }}
                                 {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
-                                class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
+                                class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" /> --}}
+                            <input type="radio" name="radio-1" class="radio" checked="checked" />
+                            <input type="radio" name="radio-1" class="radio" />
                         </label>
                     </fieldset>
                 </div>
