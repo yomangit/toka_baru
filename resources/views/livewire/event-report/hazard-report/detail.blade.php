@@ -375,16 +375,19 @@
                         </label>
                     </fieldset>
                     <fieldset class="w-48 fieldset rounded-box ">
-                        <label
-                            class="relative flex flex-row px-0 text-xs font-semibold capitalize label label-text-alt">
-                            {{ __('perbaikan tingkat lanjut') }}
-                            {{-- <input type="checkbox" wire:model.live="tindakkan_selanjutnya"
-                                {{ $tindakkan_selanjutnya = 1 ? 'checked="checked"' : '' }}
-                                {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
-                                class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" /> --}}
-                            <input type="radio" name="radio-1" class="radio" checked="checked" />
-                            <input type="radio" name="radio-1" class="radio" />
-                        </label>
+                        @if ($show_immidiate === 'yes')
+                            <x-label-req :value="__('immediate corrective action')" />
+                        @else
+                            <x-label-no-req :value="__('immediate corrective action')" />
+                        @endif
+                        <input wire:model.live="show_immidiate" value='yes' name="status" id="draft"
+                            class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
+                        <label for="draft"
+                            class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
+                        <input wire:model.live="show_immidiate" value="no" id="published"
+                            class="peer/published checked:bg-sky-500 radio-xs radio" type="radio" name="status" />
+                        <label for="published"
+                            class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
                     </fieldset>
                 </div>
                 <div class="flex flex-col w-full border-opacity-50">
