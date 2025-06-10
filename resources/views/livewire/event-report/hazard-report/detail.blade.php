@@ -58,67 +58,67 @@
                         <x-label-error :messages="$errors->get('sub_event_type_id')" />
                     </div>
                     <div class="w-full max-w-md xl:max-w-xl form-control">
-                <x-label-req :value="__('Perusahaan terkait')" />
-                <div class="dropdown dropdown-end">
-                    <x-input wire:click='clickWorkgroup' wire:model.live='workgroup_name'
-                        wire:keydown.self="changeConditionDivision" :error="$errors->get('workgroup_name')" class="cursor-pointer"
-                        tabindex="0" role="button" />
-                    <div tabindex="0"
-                        class="z-10 w-full   overflow-y-auto shadow dropdown-content card card-compact bg-base-200 text-primary-content {{ $hiddenWorkgroup }}">
-                        <ul class="h-full px-4 py-4 list-disc list-inside max-h-40 bg-base-200 rounded-box">
-                            @forelse ($Division as $item)
-                                <li wire:click="select_division({{ $item->id }})"
-                                    class = "text-[9px] text-wrap hover:bg-primary subpixel-antialiased text-left cursor-pointer">
-                                    {{ $item->DeptByBU->Department->department_name }}
-                                    @if (!empty($item->company_id))
-                                        -{{ $item->Company->name_company }}
-                                    @endif
-                                    @if (!empty($item->section_id))
-                                        -{{ $item->Section->name }}
-                                    @endif
-                                </li>
-                            @empty
-                                <li class='font-semibold text-center text-rose-500'>Division not found!! </li>
-                            @endforelse
-                        </ul>
-                    </div>
-                </div>
-                <x-label-error :messages="$errors->get('workgroup_name')" />
-            </div>
-                                <div class="w-full max-w-md xl:max-w-xl form-control">
-                <x-label-req :value="__('report_by')" />
-                <div class="dropdown dropdown-end">
-                    <x-input wire:click='clickReportBy' wire:model.live='report_byName' :error="$errors->get('report_byName')"
-                        class="cursor-pointer" tabindex="0" role="button" />
-                    <div tabindex="0"
-                        class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow {{ $hiddenReportBy }}">
-                        <div class="relative">
-                            <div class="h-full mb-2 overflow-auto max-h-40 scroll-smooth focus:scroll-auto"
-                                wire:target='report_byName' wire:loading.class='hidden'>
-                                @forelse ($Report_By as $report_by)
-                                    <div wire:click="reportedBy({{ $report_by->id }})"
-                                        class="flex flex-col border-b cursor-pointer border-base-200 ">
-                                        <strong
-                                            class="text-[10px] text-slate-800">{{ $report_by->lookup_name }}</strong>
-                                    </div>
-                                @empty
-                                    <strong
-                                        class="text-xs text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-rose-800">Name
-                                        Not Found!!!</strong>
-                                @endforelse
-                            </div>
-                            <div class="hidden pt-5 text-center" wire:target='report_byName'
-                                wire:loading.class.remove='hidden'> <x-loading-spinner /></div>
-                            <div class="pb-6">{{ $Report_By->links('pagination.minipaginate') }}</div>
-                            <div class="fixed bottom-0 left-0 right-0 px-2 mb-1 bg-base-300 opacity-95 ">
-                                <x-input-no-req wire:model.live='report_by_nolist'
-                                    placeholder="{{ __('name_notList') }}" />
+                        <x-label-req :value="__('Perusahaan terkait')" />
+                        <div class="dropdown dropdown-end">
+                            <x-input wire:click='clickWorkgroup' wire:model.live='workgroup_name'
+                                wire:keydown.self="changeConditionDivision" :error="$errors->get('workgroup_name')" class="cursor-pointer"
+                                tabindex="0" role="button" />
+                            <div tabindex="0"
+                                class="z-10 w-full   overflow-y-auto shadow dropdown-content card card-compact bg-base-200 text-primary-content {{ $hiddenWorkgroup }}">
+                                <ul class="h-full px-4 py-4 list-disc list-inside max-h-40 bg-base-200 rounded-box">
+                                    @forelse ($Division as $item)
+                                        <li wire:click="select_division({{ $item->id }})"
+                                            class = "text-[9px] text-wrap hover:bg-primary subpixel-antialiased text-left cursor-pointer">
+                                            {{ $item->DeptByBU->Department->department_name }}
+                                            @if (!empty($item->company_id))
+                                                -{{ $item->Company->name_company }}
+                                            @endif
+                                            @if (!empty($item->section_id))
+                                                -{{ $item->Section->name }}
+                                            @endif
+                                        </li>
+                                    @empty
+                                        <li class='font-semibold text-center text-rose-500'>Division not found!! </li>
+                                    @endforelse
+                                </ul>
                             </div>
                         </div>
+                        <x-label-error :messages="$errors->get('workgroup_name')" />
                     </div>
-                </div>
-                <x-label-error :messages="$errors->get('report_byName')" />
-            </div>
+                    <div class="w-full max-w-md xl:max-w-xl form-control">
+                        <x-label-req :value="__('report_by')" />
+                        <div class="dropdown dropdown-end">
+                            <x-input wire:click='clickReportBy' wire:model.live='report_byName' :error="$errors->get('report_byName')"
+                                class="cursor-pointer" tabindex="0" role="button" />
+                            <div tabindex="0"
+                                class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow {{ $hiddenReportBy }}">
+                                <div class="relative">
+                                    <div class="h-full mb-2 overflow-auto max-h-40 scroll-smooth focus:scroll-auto"
+                                        wire:target='report_byName' wire:loading.class='hidden'>
+                                        @forelse ($Report_By as $report_by)
+                                            <div wire:click="reportedBy({{ $report_by->id }})"
+                                                class="flex flex-col border-b cursor-pointer border-base-200 ">
+                                                <strong
+                                                    class="text-[10px] text-slate-800">{{ $report_by->lookup_name }}</strong>
+                                            </div>
+                                        @empty
+                                            <strong
+                                                class="text-xs text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-rose-800">Name
+                                                Not Found!!!</strong>
+                                        @endforelse
+                                    </div>
+                                    <div class="hidden pt-5 text-center" wire:target='report_byName'
+                                        wire:loading.class.remove='hidden'> <x-loading-spinner /></div>
+                                    <div class="pb-6">{{ $Report_By->links('pagination.minipaginate') }}</div>
+                                    <div class="fixed bottom-0 left-0 right-0 px-2 mb-1 bg-base-300 opacity-95 ">
+                                        <x-input-no-req wire:model.live='report_by_nolist'
+                                            placeholder="{{ __('name_notList') }}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <x-label-error :messages="$errors->get('report_byName')" />
+                    </div>
                     <div class="w-full max-w-md xl:max-w-xl form-control">
                         <x-label-req :value="__('report_to')" />
                         <div class="dropdown dropdown-end">
@@ -178,8 +178,8 @@
                         </x-select>
                         <x-label-error :messages="$errors->get('site_id')" />
                     </div>
-                    
-                    
+
+
                     <div class="w-full max-w-md xl:max-w-xl form-control">
                         <x-label-no-req :value="__('documentation')" />
                         <div class="relative">
@@ -207,14 +207,14 @@
                     <x-label-error :messages="$errors->get('description')" />
                 </div>
 
-                    <div>
-                        <div wire:ignore class="w-full form-control">
-                            <x-label-req :value="__('immediate corrective action')" />
-                            <textarea id="immediate_corrective_action">{{ $immediate_corrective_action_temp }}</textarea>
-                        </div>
-                        <x-label-error :messages="$errors->get('immediate_corrective_action')" />
+                <div>
+                    <div wire:ignore class="w-full form-control">
+                        <x-label-req :value="__('immediate corrective action')" />
+                        <textarea id="immediate_corrective_action">{{ $immediate_corrective_action_temp }}</textarea>
                     </div>
-               
+                    <x-label-error :messages="$errors->get('immediate_corrective_action')" />
+                </div>
+
 
                 <div
                     class="flex flex-col-reverse items-center mt-2 border-2 rounded-sm md:flex-row md:divide-x-2 divide-late-400/25 border-slate-400/25">
@@ -349,6 +349,24 @@
                     @endforeach
 
                 </table>
+                <div class="grid grid-cols-2 gap-2 w-96">
+                    <fieldset class="w-40 fieldset rounded-box ">
+                        <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
+                            {{ __('kondisi tidak aman') }}
+                            <input type="checkbox" wire:model.live="kondisi_tidak_aman"
+                                {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
+                                class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
+                        </label>
+                    </fieldset>
+                    <fieldset class="w-48 fieldset rounded-box ">
+                        <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
+                            {{ __('perbaikan tingkat lanjut') }}
+                            <input type="checkbox" wire:model.live="tindakkan_selanjutnya"
+                                {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
+                                class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
+                        </label>
+                    </fieldset>
+                </div>
                 <div class="flex flex-col w-full border-opacity-50">
                     <div class="divider divider-accent">Final Documentation</div>
                     <div class="grid card bg-base-300 rounded-box ">
