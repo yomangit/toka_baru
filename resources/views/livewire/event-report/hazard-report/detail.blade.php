@@ -364,7 +364,7 @@
 
                 </table>
 
-                <div class="grid grid-cols-2 gap-2 mt-2 px-2 border w-[25rem] border-base-200 rounded-box">
+                <div class="flex flex-col items-stretch gap-2 mt-2 px-2 border w-[25rem] border-base-200 rounded-box">
                     <fieldset class="w-40 fieldset rounded-box ">
                         <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                             {{ __('kondisi tidak aman') }}
