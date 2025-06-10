@@ -84,7 +84,7 @@ class Detail extends Component
                 $this->report_to_nolist = ($HazardReport->report_to_nolist) ? $HazardReport->report_to_nolist : "";
                 $this->report_by_nolist = ($HazardReport->report_by_nolist) ? $HazardReport->report_by_nolist : "";
                 $this->date = DateTime::createFromFormat('Y-m-d : H:i', $HazardReport->date)->format('d-m-Y : H:i');
-                $this->site_id = $HazardReport->site_id;
+                // $this->site_id = $HazardReport->site_id;
                 $this->task_being_done = $HazardReport->task_being_done;
                 $this->description_temp = $HazardReport->description;
                 $this->immediate_corrective_action_temp = $HazardReport->immediate_corrective_action;
@@ -113,7 +113,7 @@ class Detail extends Component
             'report_byName' => ['required'],
             'report_toName' => ['required'],
             'date' => ['required'],
-            'site_id' => ['required'],
+            'site_id' => ['nullable'],
             'file_doc' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
             'description' => ['required'],
             'immediate_corrective_action' => ['nullable'],
@@ -343,7 +343,7 @@ class Detail extends Component
             'division_id' =>  $this->division_id,
             'report_by' => $this->report_by,
             'report_to' => $this->report_to,
-            'site_id' => $this->site_id,
+            // 'site_id' => $this->site_id,
             'risk_consequence_id' => $this->risk_consequence_id,
             'risk_likelihood_id' => $this->risk_likelihood_id,
             'location_name' => $this->location_name,

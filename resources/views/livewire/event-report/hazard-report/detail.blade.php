@@ -166,7 +166,7 @@
                         <x-input wire:model.blur='location_name' :error="$errors->get('location_name')" />
                         <x-label-error :messages="$errors->get('location_name')" />
                     </div>
-                    <div class="w-full max-w-md xl:max-w-xl form-control">
+                    {{-- <div class="w-full max-w-md xl:max-w-xl form-control">
                         <x-label-req :value="__('sitename')" />
                         <x-select wire:model.live='site_id'
                             class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}"
@@ -177,7 +177,7 @@
                             @endforeach
                         </x-select>
                         <x-label-error :messages="$errors->get('site_id')" />
-                    </div>
+                    </div> --}}
 
 
                     <div class="w-full max-w-md xl:max-w-xl form-control">
