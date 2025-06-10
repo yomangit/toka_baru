@@ -288,7 +288,6 @@ class Detail extends Component
     }
     public function clickWorkgroup()
     {
-        $this->dropdownWorkgroup = 'dropdown dropdown-open dropdown-end';
         $this->hiddenWorkgroup = 'block';
     }
     public function dataUpdate()
