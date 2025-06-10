@@ -349,7 +349,7 @@
                     @endforeach
 
                 </table>
-                <div class="grid grid-cols-2 gap-2 border w-96 border-base-200 rounded-box">
+                <div class="grid grid-cols-2 gap-2 mt-2 border w-96 border-base-200 rounded-box">
                     <fieldset class="w-40 fieldset rounded-box ">
                         <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                             {{ __('kondisi tidak aman') }}
