@@ -371,7 +371,7 @@
                             <input type="checkbox" wire:model.live="kondisi_tidak_aman"
                                 {{ $kondisi_tidak_aman = 1 ? 'checked="checked"' : '' }}
                                 {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
-                                class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
+                                class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
                         </label>
                     </fieldset>
                     <div>
