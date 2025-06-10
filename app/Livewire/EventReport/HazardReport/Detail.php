@@ -48,9 +48,9 @@ class Detail extends Component
     public $workgroup_id, $workgroup_name,  $assign_to, $also_assign_to, $comment = '', $workflow_administration_id, $responsible_role_id, $show = false;
     public $search_workgroup = '', $search_report_by = '', $search_report_to = '', $fileUpload, $file_doc, $status, $data_id, $step, $stepJS = [], $currentStep, $nameFileDb;
     public $event_type_id, $sub_event_type_id,  $report_by, $report_byName, $submitter, $report_by_nolist, $report_to, $report_toName, $report_to_nolist, $date, $event_location_id, $site_id, $company_involved, $task_being_done, $documentation, $description, $immediate_corrective_action, $suggested_corrective_action, $corrective_action_suggested;
- public $dropdownLocation = 'dropdown', $hidden = 'block';
+    public $dropdownLocation = 'dropdown', $hidden = 'block';
     public $dropdownWorkgroup = 'dropdown', $hiddenWorkgroup = 'block';
-    public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block';
+    public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block', $kondisi_tidak_aman, $tindakkan_selanjutnya;
     protected $listeners = ['ubahData' => 'changeData'];
     public function mount($id)
     {
@@ -117,7 +117,7 @@ class Detail extends Component
             'file_doc' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
             'description' => ['required'],
             'immediate_corrective_action' => ['nullable'],
-           
+
             'location_name' => ['required'],
             'risk_consequence_id' => ['required'],
             'risk_likelihood_id' => ['required'],
@@ -173,7 +173,7 @@ class Detail extends Component
 
         if ($this->division_id) {
 
-           $divisi = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->first();
+            $divisi = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->first();
             if (!empty($divisi->company_id) && !empty($divisi->section_id)) {
                 $this->workgroup_name =   $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company . '-' . $divisi->Section->name;
             } elseif ($divisi->company_id) {
@@ -255,7 +255,7 @@ class Detail extends Component
         $this->select_divisi = null;
         $this->workgroup_name = null;
     }
-     public function clickReportBy()
+    public function clickReportBy()
     {
         $this->dropdownReportBy = 'dropdown dropdown-open dropdown-end';
         $this->hiddenReportBy = 'block';
@@ -353,6 +353,8 @@ class Detail extends Component
             'date' => DateTime::createFromFormat('d-m-Y : H:i', $this->date)->format('Y-m-d : H:i'),
             'documentation' =>   $this->documentation,
             'description' => $this->description,
+            'kondisi_tidak_aman' => $this->kondisi_tidak_aman,
+            'tindakkan_selanjutnya' => $this->tindakkan_selanjutnya,
             'immediate_corrective_action' => $this->immediate_corrective_action,
             'report_by_nolist' => $this->report_to_nolist,
             'report_to_nolist' => $this->report_to_nolist,
@@ -389,7 +391,7 @@ class Detail extends Component
                 Notification::send($users, new toModerator($offerData));
             }
         }
-        
+
 
         $this->dispatch('hzrd_updated', $this->data_id);
     }
