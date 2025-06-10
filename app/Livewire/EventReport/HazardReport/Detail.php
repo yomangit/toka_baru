@@ -50,7 +50,7 @@ class Detail extends Component
     public $event_type_id, $sub_event_type_id,  $report_by, $report_byName, $submitter, $report_by_nolist, $report_to, $report_toName, $report_to_nolist, $date, $event_location_id, $site_id, $company_involved, $task_being_done, $documentation, $description, $immediate_corrective_action, $suggested_corrective_action, $corrective_action_suggested;
     public $dropdownLocation = 'dropdown', $hidden = 'block';
     public $dropdownWorkgroup = 'dropdown', $hiddenWorkgroup = 'block';
-    public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block', $kondisi_tidak_aman, $tindakkan_selanjutnya;
+    public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block', $hiddenReportTo = 'block', $kondisi_tidak_aman, $tindakkan_selanjutnya;
     protected $listeners = ['ubahData' => 'changeData'];
     public function mount($id)
     {
@@ -279,8 +279,11 @@ class Detail extends Component
     }
     public function clickReportBy()
     {
-        $this->dropdownReportBy = 'dropdown dropdown-open dropdown-end';
         $this->hiddenReportBy = 'block';
+    }
+    public function clickReportTo()
+    {
+        $this->hiddenReportTo = 'block';
     }
     public function clickWorkgroup()
     {

@@ -122,10 +122,10 @@
                     <div class="w-full max-w-md xl:max-w-xl form-control">
                         <x-label-req :value="__('report_to')" />
                         <div class="dropdown dropdown-end">
-                            <x-input wire:model.live='report_toName' :error="$errors->get('report_toName')" class="cursor-pointer"
-                                tabindex="0" role="button" />
+                            <x-input wire:click='clickReportTo' wire:model.live='report_toName' :error="$errors->get('report_toName')"
+                                class="cursor-pointer" tabindex="0" role="button" />
                             <div tabindex="0"
-                                class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow">
+                                class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow {{ $hiddenReportTo }}">
                                 <div class="relative">
 
                                     <div class="h-40 mb-2 overflow-auto scroll-smooth focus:scroll-auto"
