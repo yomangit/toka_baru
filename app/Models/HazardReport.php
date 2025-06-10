@@ -44,6 +44,7 @@ class HazardReport extends Model
         'also_assign_to',
         'comments',
         'kondisi_tidak_aman',
+        'tindakkan_selanjutnya',
         'submitter'
     ];
     public function riskConsequence()
