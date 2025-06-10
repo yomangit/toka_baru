@@ -349,13 +349,13 @@
                     @endforeach
 
                 </table>
-                {{ $kondisi_tidak_aman }}
+
                 <div class="grid grid-cols-2 gap-2 mt-2 px-2 border w-[25rem] border-base-200 rounded-box">
                     <fieldset class="w-40 fieldset rounded-box ">
                         <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                             {{ __('kondisi tidak aman') }}
                             <input type="checkbox" wire:model.live="kondisi_tidak_aman"
-                                value="{{ $kondisi_tidak_aman }}"
+                                {{ $kondisi_tidak_aman = 1 ? 'checked="checked"' : '' }}
                                 {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                                 class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
                         </label>
@@ -364,7 +364,6 @@
                         <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                             {{ __('perbaikan tingkat lanjut') }}
                             <input type="checkbox" wire:model.live="tindakkan_selanjutnya"
-                                value="{{ $tindakkan_selanjutnya }}"
                                 {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                                 class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
                         </label>
