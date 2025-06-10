@@ -45,6 +45,7 @@ class HazardReport extends Model
         'comments',
         'kondisi_tidak_aman',
         'tindakkan_selanjutnya',
+        'show_immidiate',
         'submitter'
     ];
     public function riskConsequence()

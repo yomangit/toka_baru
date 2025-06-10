@@ -41,7 +41,7 @@ class Detail extends Component
     public $corrective_action_suggested_temp;
     public $comment_temp;
     public $description_temp;
-    public $location_name, $search, $procced_to, $location_id, $divider = 'Details Hazard Report', $TableRisk = [], $RiskAssessment = [], $EventSubType = [], $ResponsibleRole, $EventUserSecurity = [];
+    public $location_name, $search, $show_immidiate = 'yes', $procced_to, $location_id, $divider = 'Details Hazard Report', $TableRisk = [], $RiskAssessment = [], $EventSubType = [], $ResponsibleRole, $EventUserSecurity = [];
     public $searchLikelihood = '', $searchConsequence = '', $tablerisk_id, $risk_assessment_id, $reference, $workflow_detail_id, $division_id, $division, $parent_Company, $business_unit, $dept;
     public $risk_likelihood_id, $risk_likelihood_notes, $event_category, $select_divisi;
     public $risk_consequence_id, $risk_consequence_doc, $risk_probability_doc;
@@ -108,24 +108,44 @@ class Detail extends Component
 
     public function rules()
     {
-        return [
-            'event_type_id' => ['required'],
-            'sub_event_type_id' => ['required'],
-            'workgroup_name' => ['required'],
-            'report_byName' => ['required'],
-            'report_toName' => ['required'],
-            'date' => ['required'],
-            'site_id' => ['nullable'],
-            'file_doc' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
-            'description' => ['required'],
-            'immediate_corrective_action' => ['nullable'],
+        if ($this->show_immidiate === 'yes') {
 
-            'location_name' => ['required'],
-            'risk_consequence_id' => ['required'],
-            'risk_likelihood_id' => ['required'],
-            'report_by_nolist' => ['nullable'],
-            'comment' => ['nullable'],
-        ];
+            return [
+                'event_type_id' => ['required'],
+                'sub_event_type_id' => ['required'],
+                'workgroup_name' => ['required'],
+                'report_byName' => ['required'],
+                'report_toName' => ['required'],
+                'date' => ['required'],
+                'site_id' => ['nullable'],
+                'file_doc' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
+                'description' => ['required'],
+                'immediate_corrective_action' => ['required'],
+                'location_name' => ['required'],
+                'risk_consequence_id' => ['required'],
+                'risk_likelihood_id' => ['required'],
+                'report_by_nolist' => ['nullable'],
+                'comment' => ['nullable'],
+            ];
+        } else {
+            return [
+                'event_type_id' => ['required'],
+                'sub_event_type_id' => ['required'],
+                'workgroup_name' => ['required'],
+                'report_byName' => ['required'],
+                'report_toName' => ['required'],
+                'date' => ['required'],
+                'site_id' => ['nullable'],
+                'file_doc' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
+                'description' => ['required'],
+                'immediate_corrective_action' => ['nullable'],
+                'location_name' => ['required'],
+                'risk_consequence_id' => ['required'],
+                'risk_likelihood_id' => ['required'],
+                'report_by_nolist' => ['nullable'],
+                'comment' => ['nullable'],
+            ];
+        }
     }
     public function messages()
     {
@@ -337,6 +357,9 @@ class Detail extends Component
             $file_name = $this->file_doc->getClientOriginalName();
             $this->fileUpload = pathinfo($file_name, PATHINFO_EXTENSION);
             $this->file_doc->storeAs('public/documents/hzd', $file_name);
+        }
+        if ($this->show_immidiate === 'no') {
+            $this->immediate_corrective_action = null;
         }
         HazardReport::whereId($this->data_id)->update([
             'reference' => $this->reference,

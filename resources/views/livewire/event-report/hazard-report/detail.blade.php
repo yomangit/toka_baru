@@ -208,11 +208,25 @@
                 </div>
 
                 <div>
-                    <div wire:ignore class="w-full form-control">
-                        <x-label-req :value="__('immediate corrective action')" />
-                        <textarea id="immediate_corrective_action">{{ $immediate_corrective_action_temp }}</textarea>
-                    </div>
-                    <x-label-error :messages="$errors->get('immediate_corrective_action')" />
+                    <fieldset>
+                        @if ($show_immidiate === 'yes')
+                            <x-label-req :value="__('immediate corrective action')" />
+                        @else
+                            <x-label-no-req :value="__('immediate corrective action')" />
+                        @endif
+                        <input wire:model.live="show_immidiate" value='yes' name="status" id="draft"
+                            class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
+                        <label for="draft"
+                            class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
+                        <input wire:model.live="show_immidiate" value="no" id="published"
+                            class="peer/published checked:bg-sky-500 radio-xs radio" type="radio" name="status" />
+                        <label for="published"
+                            class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
+                        <div wire:ignore class="hidden w-full peer-checked/draft:block form-control">
+                            <x-text-area id="immediate_corrective_action" :error="$errors->get('immediate_corrective_action')" />
+                        </div>
+                        <x-label-error :messages="$errors->get('immediate_corrective_action')" />
+                    </fieldset>
                 </div>
 
 
