@@ -385,7 +385,8 @@ class Detail extends Component
             'report_to_nolist' => $this->report_to_nolist,
             'workflow_detail_id' => $this->workflow_detail_id,
             'submitter' => $this->submitter,
-            'comment' => $this->comment
+            'comment' => $this->comment,
+            'show_immidiate' => $this->show_immidiate
         ]);
         $this->dispatch(
             'alert',
