@@ -378,12 +378,12 @@
 
                         <x-label-req :value="__('perbaikan tingkat lanjut')" />
 
-                        <input wire:model.live="tindakkan_selanjutnya" value='yes' name="status" id="yes_lanjut"
+                        <input wire:model.live="tindakkan_selanjutnya" value='1' name="status" id="yes_lanjut"
                             class="radio-xs peer/yes_lanjut checked:bg-rose-500 radio" type="radio"
                             name="13" />
                         <label for="yes_lanjut"
                             class="text-xs font-semibold peer-checked/yes_lanjut:text-rose-500">{{ __('Yes') }}</label>
-                        <input wire:model.live="tindakkan_selanjutnya" value="no" id="no_lanjut"
+                        <input wire:model.live="tindakkan_selanjutnya" value="null" id="no_lanjut"
                             class="peer/no_lanjut checked:bg-emerald-500 radio-xs radio" type="radio"
                             name="status" />
                         <label for="no_lanjut"
