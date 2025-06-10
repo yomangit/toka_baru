@@ -374,21 +374,24 @@
                                 class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
                         </label>
                     </fieldset>
-                    <fieldset class="w-48 fieldset rounded-box ">
+                    <div>
+                        <fieldset class="w-48 fieldset rounded-box ">
 
-                        <x-label-req :value="__('perbaikan tingkat lanjut')" />
+                            <x-label-req :value="__('perbaikan tingkat lanjut')" />
 
-                        <input wire:model.live="tindakkan_selanjutnya" value='1' name="status" id="yes_lanjut"
-                            class="radio-xs peer/yes_lanjut checked:bg-rose-500 radio" type="radio"
-                            name="13" />
-                        <label for="yes_lanjut"
-                            class="text-xs font-semibold peer-checked/yes_lanjut:text-rose-500">{{ __('Yes') }}</label>
-                        <input wire:model.live="tindakkan_selanjutnya" value="0" id="no_lanjut"
-                            class="peer/no_lanjut checked:bg-emerald-500 radio-xs radio" type="radio"
-                            name="status" />
-                        <label for="no_lanjut"
-                            class="text-xs font-semibold peer-checked/no_lanjut:text-emerald-500">{{ __('No') }}</label>
-                    </fieldset>
+                            <input wire:model.live="tindakkan_selanjutnya" value='1' name="status"
+                                id="yes_lanjut" class="radio-xs peer/yes_lanjut checked:bg-rose-500 radio"
+                                type="radio" name="13" />
+                            <label for="yes_lanjut"
+                                class="text-xs font-semibold peer-checked/yes_lanjut:text-rose-500">{{ __('Yes') }}</label>
+                            <input wire:model.live="tindakkan_selanjutnya" value="0" id="no_lanjut"
+                                class="peer/no_lanjut checked:bg-emerald-500 radio-xs radio" type="radio"
+                                name="status" />
+                            <label for="no_lanjut"
+                                class="text-xs font-semibold peer-checked/no_lanjut:text-emerald-500">{{ __('No') }}</label>
+                        </fieldset>
+                        <x-label-error :messages="$errors->get('tindakkan_selanjutnya')" />
+                    </div>
                 </div>
                 <div class="flex flex-col w-full border-opacity-50">
                     <div class="divider divider-accent">Final Documentation</div>
