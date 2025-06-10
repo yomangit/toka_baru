@@ -240,6 +240,9 @@ class Detail extends Component
     public function select_division($id)
     {
         $this->division_id = $id;
+        $this->hiddenWorkgroup = 'hidden';
+        $this->hiddenReportBy = 'hidden';
+        $this->hiddenReportTo = 'hidden';
     }
     public function parentCompany($id)
     {
@@ -342,6 +345,7 @@ class Detail extends Component
         $ReportBy = User::whereId($id)->first();
         $this->report_byName = $ReportBy->lookup_name;
         $this->report_by_nolist = null;
+        $this->hiddenReportBy = 'hidden';
     }
     public function reportedTo($id)
     {
@@ -349,6 +353,7 @@ class Detail extends Component
         $ReportTo = User::whereId($id)->first();
         $this->report_toName = $ReportTo->lookup_name;
         $this->report_to_nolist = null;
+        $this->hiddenReportTo = 'hidden';
     }
     public function store()
     {
