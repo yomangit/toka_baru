@@ -354,6 +354,7 @@
                         <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                             {{ __('kondisi tidak aman') }}
                             <input type="checkbox" wire:model.live="kondisi_tidak_aman"
+                                value="{{ $kondisi_tidak_aman }}"
                                 {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                                 class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
                         </label>
@@ -362,6 +363,7 @@
                         <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                             {{ __('perbaikan tingkat lanjut') }}
                             <input type="checkbox" wire:model.live="tindakkan_selanjutnya"
+                                value="{{ $tindakkan_selanjutnya }}"
                                 {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                                 class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-sm" />
                         </label>
