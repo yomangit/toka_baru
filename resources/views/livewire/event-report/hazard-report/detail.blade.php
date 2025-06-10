@@ -223,7 +223,7 @@
                         <label for="published"
                             class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
                         <div wire:ignore class="hidden w-full peer-checked/draft:block form-control">
-                            <x-text-area id="immediate_corrective_action" :error="$errors->get('immediate_corrective_action')" />
+                            <textarea id="immediate_corrective_action" wire:model.live='immediate_corrective_action'>{{ $immediate_corrective_action }}</textarea>
                         </div>
                         <x-label-error :messages="$errors->get('immediate_corrective_action')" />
                     </fieldset>
