@@ -205,7 +205,7 @@ class Create extends Component
         if ($this->show_immidiate === 'no') {
             $this->immediate_corrective_action = null;
         }
-        if ($this->tindakkan_selanjutnya = false) {
+        if ($this->tindakkan_selanjutnya == 0) {
             $WorkflowDetail  = WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)->where('name', 'like', '%' . "closed" . '%')->first();
             $this->workflow_detail_id = $WorkflowDetail->id;
         }
