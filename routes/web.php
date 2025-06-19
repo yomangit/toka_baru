@@ -50,6 +50,7 @@ use App\Livewire\Admin\UserInputManhours\Index as userInputManhours;
 use App\Livewire\EventReport\IncidentReport\Detail as incidentReportDetail;
 use App\Livewire\Admin\WorkflowAdministration\Index as workflowAdministration;
 use App\Livewire\EventReport\HazardReport\CreateAndUpdate as hazardReportform;
+use App\Livewire\EventReport\HazardReport\TableExcel;
 use App\Livewire\EventReport\HazardReportGuest\Create as HazardReportGuestCreate;
 use App\Livewire\EventReport\IncidentReport\CreateAndUpdate as CreateAndUpdateIncidentReport;
 
@@ -78,6 +79,7 @@ Route::get('/config-clear', function () {
 Route::get('eventReport/hazardReportform/{workflow_template_id?}', hazardReportform::class)->name('hazardReportform');
 Route::get('eventReport/hazardReportGuest/{workflow_template_id?}', HazardReportGuestCreate::class)->name('hazardReportCreate');
 Route::get('manhours/manhoursTable', WebAccess::class)->name('WebAccess');
+Route::get('eventReport/hazardReportExcel', TableExcel::class)->name('TableExcel');
 Route::middleware(['auth', 'auth.session'])->group(function () {
 
     Route::get('/', dashoard::class)->name('dashboard');
