@@ -24,9 +24,9 @@
                 <td>{{ $hr->reference }}</td>
                 <td>{{$hr->subEventType->event_sub_type_name}}</td>
                 <td>{{ $hr->subEventType->event_sub_type_name }}</td>
-                <td>{{ $ActionHazard->where('hazard_id', $item->id)->count('due_date') }}/{{ $ActionHazard->where('hazard_id', $item->id)->WhereNull('completion_date')->count('completion_date') }}</td>
+                <td>{{ $ActionHazard->where('hazard_id', $hr->id)->count('due_date') }}/{{ $ActionHazard->where('hazard_id', $hr->id)->WhereNull('completion_date')->count('completion_date') }}</td>
                 <td>
-                    {{ $item->WorkflowDetails->Status->status_name }}</td>
+                    {{ $hr->WorkflowDetails->Status->status_name }}</td>
                 <td>{{ $hr->manhours }}</td>
                 <td>{{ $hr->manpower }}</td>
             </tr>
