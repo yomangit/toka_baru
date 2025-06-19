@@ -214,7 +214,7 @@
                         @else
                             <x-label-no-req :value="__('immediate corrective action')" />
                         @endif
-                        <input wire:model.live="show_immidiate" value='yes' name="status" id="draft"
+                        <input wire:model.live="show_immidiate" value='yes' name="status" id="draft" {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                             class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
                         <label for="draft"
                             class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
