@@ -47,7 +47,7 @@ class Detail extends Component
     public $risk_consequence_id, $risk_consequence_doc, $risk_probability_doc;
     public $workgroup_id, $workgroup_name,  $assign_to, $also_assign_to, $comment = '', $workflow_administration_id, $responsible_role_id, $show = false;
     public $search_workgroup = '', $search_report_by = '', $search_report_to = '', $fileUpload, $file_doc, $status, $data_id, $step, $stepJS = [], $currentStep, $nameFileDb;
-    public $event_type_id, $sub_event_type_id,  $report_by, $report_byName, $submitter, $report_by_nolist, $report_to, $report_toName, $report_to_nolist, $date, $event_location_id, $site_id, $company_involved, $task_being_done, $documentation, $description, $immediate_corrective_action, $suggested_corrective_action, $corrective_action_suggested;
+    public $event_type_id, $sub_event_type_id,  $report_by,$workflow_template_id, $report_byName, $submitter, $report_by_nolist, $report_to, $report_toName, $report_to_nolist, $date, $event_location_id, $site_id, $company_involved, $task_being_done, $documentation, $description, $immediate_corrective_action, $suggested_corrective_action, $corrective_action_suggested;
     public $dropdownLocation = 'dropdown', $hidden = 'block';
     public $dropdownWorkgroup = 'dropdown', $hiddenWorkgroup = 'block';
     public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block', $hiddenReportTo = 'block', $kondisi_tidak_aman, $tindakkan_selanjutnya;
@@ -78,6 +78,7 @@ class Detail extends Component
                 $this->division_id = $HazardReport->division_id;
                 $this->reference = $HazardReport->reference;
                 $this->workflow_detail_id = $HazardReport->workflow_detail_id;
+               $this->workflow_template_id = $HazardReport->workflow_template_id;
                 $this->event_type_id = $HazardReport->event_type_id;
                 $this->event_category = ($this->event_type_id == null) ? "" : $HazardReport->eventType->event_category_id;
                 $this->sub_event_type_id = $HazardReport->sub_event_type_id;

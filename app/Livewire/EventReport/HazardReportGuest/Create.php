@@ -230,6 +230,7 @@ class Create extends Component
             'corrective_action_suggested' => $this->corrective_action_suggested,
             'report_by_nolist' => $this->report_to_nolist,
             'workflow_detail_id' => $this->workflow_detail_id,
+            'workflow_template_id' => $this->workflow_template_id,
 
         ];
         $HazardReport = HazardReport::create($filds);

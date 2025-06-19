@@ -38,6 +38,7 @@ class HazardReport extends Model
         'moderator',
         'status',
         'closed_by',
+        'workflow_template_id',
         'responsible_manager',
         'workflow_detail_id',
         'assign_to',
