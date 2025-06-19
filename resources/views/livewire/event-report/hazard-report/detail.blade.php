@@ -34,7 +34,8 @@
                     <div class="w-full max-w-md xl:max-w-xl form-control">
                         <x-label-req :value="__('event_type')" />
                         <x-select wire:model.live='event_type_id'
-                            class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}"
+                         {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
+
                             :error="$errors->get('event_type_id')">
                             <option value="" selected>Select an option</option>
                             @foreach ($EventType as $event_type)
@@ -48,7 +49,7 @@
                     <div class="w-full max-w-md xl:max-w-xl form-control">
                         <x-label-req :value="__('sub_event_type')" />
                         <x-select wire:model.live='sub_event_type_id'
-                            class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}"
+                             {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                             :error="$errors->get('sub_event_type_id')">
                             <option value="" selected>Select an option</option>
                             @foreach ($EventSubType as $item)
@@ -61,6 +62,7 @@
                         <x-label-req :value="__('Perusahaan terkait')" />
                         <div class="dropdown dropdown-end">
                             <x-input wire:click='clickWorkgroup' wire:model.live='workgroup_name'
+                             {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                                 wire:keydown.self="changeConditionDivision" :error="$errors->get('workgroup_name')" class="cursor-pointer"
                                 tabindex="0" role="button" />
                             <div tabindex="0"
@@ -89,6 +91,7 @@
                         <x-label-req :value="__('report_by')" />
                         <div class="dropdown dropdown-end">
                             <x-input wire:click='clickReportBy' wire:model.live='report_byName' :error="$errors->get('report_byName')"
+                                 {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                                 class="cursor-pointer" tabindex="0" role="button" />
                             <div tabindex="0"
                                 class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow {{ $hiddenReportBy }}">
@@ -123,6 +126,7 @@
                         <x-label-req :value="__('report_to')" />
                         <div class="dropdown dropdown-end">
                             <x-input wire:click='clickReportTo' wire:model.live='report_toName' :error="$errors->get('report_toName')"
+                                 {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                                 class="cursor-pointer" tabindex="0" role="button" />
                             <div tabindex="0"
                                 class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow {{ $hiddenReportTo }}">
@@ -157,7 +161,7 @@
                     <div class="w-full max-w-md xl:max-w-xl form-control">
                         <x-label-req :value="__('date of event')" />
                         <x-input-date id="tanggal" wire:model.live='date'
-                            class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}"
+                            {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                             readonly :error="$errors->get('date')" />
                         <x-label-error :messages="$errors->get('date')" />
                     </div>
@@ -169,7 +173,7 @@
                     {{-- <div class="w-full max-w-md xl:max-w-xl form-control">
                         <x-label-req :value="__('sitename')" />
                         <x-select wire:model.live='site_id'
-                            class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}"
+                            {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                             :error="$errors->get('site_id')">
                             <option value="" selected>Select an option</option>
                             @foreach ($Site as $sites)
@@ -184,7 +188,7 @@
                         <x-label-no-req :value="__('documentation')" />
                         <div class="relative">
                             <x-input-file wire:model='file_doc'
-                                class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}"
+                                {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                                 :error="$errors->get('file_doc')" />
                             <div class="absolute inset-y-0 right-0 avatar" wire:target="file_doc"
                                 wire:loading.class="hidden">
@@ -248,7 +252,7 @@
                                 <div class="w-full max-w-md xl:max-w-xl form-control">
                                     <x-label-req :value="__('potential consequence')" />
                                     <x-select wire:model.live='risk_consequence_id'
-                                        class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}"
+                                        {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                                         :error="$errors->get('risk_consequence_id')">
                                         <option value="">Select an option</option>
                                         @foreach ($RiskConsequence as $consequence)
@@ -271,7 +275,7 @@
                                 <div class="w-full max-w-md xl:max-w-xl form-control">
                                     <x-label-req :value="__('Potential Likelihood')" />
                                     <x-select wire:model.live='risk_likelihood_id'
-                                        class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}"
+                                        {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }}
                                         :error="$errors->get('risk_likelihood_id')">
                                         <option value="">Select an option</option>
                                         @foreach ($RiskLikelihood as $likelihood)
