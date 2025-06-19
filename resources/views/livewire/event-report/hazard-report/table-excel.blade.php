@@ -36,8 +36,8 @@
                     {{ $hr->WorkflowDetails->Status->status_name }}</td>
                 <td>{{ ($hr->kondisi_tidak_aman==1)? "ya":'tidak' }}</td>
                 <td>{{ $hr->closed_by? "$hr->closed_by":'-' }}</td>
-                <td>{{ $hr->description? "$hr->description":'-' }}</td>
-                <td>{{ $hr->immediate_corrective_action? "$hr->immediate_corrective_action":'-' }}</td>
+                <td>{!! $hr->description? "$hr->description":'-' !!}</td>
+                <td>{!! $hr->immediate_corrective_action? "$hr->immediate_corrective_action":'-' !!}</td>
             </tr>
             @endforeach
         </tbody>
