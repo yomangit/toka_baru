@@ -24,6 +24,7 @@
                 <td>{{ $hr->reference }}</td>
                 <td>{{$hr->subEventType->event_sub_type_name}}</td>
                 <td>{{ $hr->subEventType->event_sub_type_name }}</td>
+                <td>  {{ $item->workgroup_name }}</td>
                 <td>{{ $ActionHazard->where('hazard_id', $hr->id)->count('due_date') }}/{{ $ActionHazard->where('hazard_id', $hr->id)->WhereNull('completion_date')->count('completion_date') }}</td>
                 <td>
                     {{ $hr->WorkflowDetails->Status->status_name }}</td>

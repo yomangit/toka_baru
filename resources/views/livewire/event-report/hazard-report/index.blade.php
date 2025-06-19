@@ -89,7 +89,7 @@
                             {{ $item->event_type_id != null ? $item->subEventType->event_sub_type_name : '' }}
                         </td>
                         <td>
-                            test
+                            {{ $item->workgroup_name }}
                         </td>
                         <td>
                             {{ $ActionHazard->where('hazard_id', $item->id)->count('due_date') }}/{{ $ActionHazard->where('hazard_id', $item->id)->WhereNull('completion_date')->count('completion_date') }}
