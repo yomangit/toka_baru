@@ -19,7 +19,7 @@
             <!-- row 1 -->
             @foreach ($HazardReport as $no => $hr)
             <tr class="text-center">
-                <th>{{ $HazardReport->firstItem() + $index }}</th>
+
                 <td>{{ date('d-m-Y', strtotime($hr->date)) }}</td>
                 <td>{{ $hr->reference }}</td>
                 <td>{{$hr->subEventType->event_sub_type_name}}</td>
