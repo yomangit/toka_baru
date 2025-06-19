@@ -27,6 +27,8 @@ class Index extends Component
         $this->also_assign_to_old = $id->also_assign_to;
         $this->responsible_role_id = $id->WorkflowDetails->ResponsibleRole->id;
         $this->task_being_done = $id->task_being_done;
+        $this->task_being_done = $id->task_being_done;
+        $this->workflow_template_id = $id->workflow_template_id;
     }
     public function mount(HazardReport $id)
     {
@@ -36,6 +38,7 @@ class Index extends Component
         $this->assign_to = $id->assign_to;
         $this->also_assign_to = $id->also_assign_to;
         $this->task_being_done = $id->task_being_done;
+        $this->workflow_template_id = $id->workflow_template_id;
     }
     public function render()
     {
