@@ -22,7 +22,7 @@
             @foreach ($HazardReport as $no => $hr)
             <tr class="text-center">
 
-                <td>{{ date('d-m-Y', strtotime($hr->date)) }}</td>
+                <td>{{ DateTime::createFromFormat('Y-m-d : H:i', $hr->date)->format('d-m-Y') }}</td>
                 <td>{{ $hr->reference }}</td>
                 <td>{{$hr->subEventType->event_sub_type_name}}</td>
                 <td>{{ $hr->subEventType->event_sub_type_name }}</td>
