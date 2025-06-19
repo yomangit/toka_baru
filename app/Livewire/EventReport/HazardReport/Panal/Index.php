@@ -126,7 +126,7 @@ class Index extends Component
             ]);
         }
         if ($this->procced_to) {
-            $WorkflowDetail  = WorkflowDetail::where('name', $this->procced_to)->where('workflow_template_id',$this->workflow_template_id)->first();
+            $WorkflowDetail  = WorkflowDetail::where('name', $this->procced_to)->where('workflow_administration_id',$this->workflow_template_id)->first();
             $this->workflow_detail_id = $WorkflowDetail->id;
         }
         $closed_by =Auth::user()->lookup_name;
