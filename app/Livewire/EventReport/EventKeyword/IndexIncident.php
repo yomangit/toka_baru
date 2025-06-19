@@ -29,7 +29,7 @@ class IndexIncident extends Component
     public function render()
     {
         $this->Event_Keyword = EventKeyword::where('reference', $this->reference)->pluck('keyword')->toArray();
-
+        $this->updatePanel();
         $key_pluck = [];
         foreach ($this->Event_Keyword as $key) {
             $key_pluck[] = $key1 = KeywordMaintenance::where('name', $key)->first()->parent_id;
