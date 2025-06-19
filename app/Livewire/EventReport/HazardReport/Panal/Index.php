@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Notification;
 class Index extends Component
 {
     public $procced_to, $EventUserSecurity = [], $Workflows, $show = false, $workflow_detail_id, $data_id, $assign_to, $also_assign_to, $current_step, $reference,  $event_type_id, $workflow_administration_id, $status, $bg_status, $muncul = false, $responsible_role_id;
-    public $wf_id, $division_id, $assign_to_old, $also_assign_to_old, $task_being_done;
+    public $wf_id, $division_id, $assign_to_old, $also_assign_to_old, $task_being_done,$workflow_template_id;
     #[On('hzrd_updated')]
     public function hzrd_updated(HazardReport $id)
     {
