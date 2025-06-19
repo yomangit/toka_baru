@@ -31,7 +31,7 @@
                 <td>{{ $ActionHazard->where('hazard_id', $hr->id)->count('due_date') }}/{{ $ActionHazard->where('hazard_id', $hr->id)->WhereNull('completion_date')->count('completion_date') }}</td>
                 <td>
                     {{ $hr->WorkflowDetails->Status->status_name }}</td>
-                <td>{{ $hr->closed_by }}</td>
+                <td>{{ $hr->closed_by?: $hr->closed_by'-' }}</td>
             </tr>
             @endforeach
         </tbody>
