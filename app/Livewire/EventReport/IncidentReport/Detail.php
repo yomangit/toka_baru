@@ -38,7 +38,7 @@ class Detail extends Component
     use WithFileUploads;
     use WithPagination;
     public $EventUserSecurity, $assign_to, $also_assign_to, $status, $currentStep, $nameFileDb, $select_divisi;
-    public $current_step, $workflow_administration_id, $procced_to, $show = false;
+    public $current_step, $workflow_administration_id,$workflow_template_id, $procced_to, $show = false;
     public $location_name, $search, $location_id, $divider = 'Detail Incident Report', $TableRisk = [], $RiskAssessment = [], $EventSubType = [];
     public $searchLikelihood = '', $searchConsequence = '', $tablerisk_id, $risk_assessment_id, $workflow_detail_id, $reference, $file_doc, $division_id, $parent_Company, $business_unit, $dept, $submitter;
     public $risk_likelihood_id, $risk_likelihood_notes, $description_temp;
@@ -63,6 +63,7 @@ class Detail extends Component
 
                 $incidentReport = IncidentReport::with(['reportsTo', 'reportBy'])->whereId($id)->first();
                 $this->risk_consequence_id = $incidentReport->risk_consequence_id;
+                $this->workflow_template_id = $incidentReport->workflow_administration_id;
                 $this->risk_likelihood_id = $incidentReport->risk_likelihood_id;
                 $this->reference = $incidentReport->reference;
                 $this->status = $incidentReport->WorkflowDetails->Status->status_name;

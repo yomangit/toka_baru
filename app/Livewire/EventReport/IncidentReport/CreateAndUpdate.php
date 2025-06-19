@@ -35,7 +35,7 @@ class CreateAndUpdate extends Component
     use WithFileUploads;
     use WithPagination;
     public $location_name, $search, $location_id, $divider = 'Input Incident Report', $TableRisk = [], $RiskAssessment = [], $EventSubType = [], $ResponsibleRole, $workflow_template_id, $show = false;
-    public $searchLikelihood = '', $searchConsequence = '', $tablerisk_id, $risk_assessment_id, $workflow_detail_id, $reference;
+    public $searchLikelihood = '', $searchConsequence = '', $tablerisk_id, $risk_assessment_id, $workflow_detail_id, $reference,$workflow_administration_id;
     public $risk_likelihood_id, $risk_likelihood_notes;
     public $risk_consequence_id, $risk_consequence_doc;
     public $workgroup_id, $workgroup_name, $parent_Company, $business_unit, $dept, $division_id, $select_divisi;
@@ -322,6 +322,7 @@ class CreateAndUpdate extends Component
             'report_by_nolist' => $this->report_to_nolist,
             'report_to_nolist' => $this->report_to_nolist,
             'workflow_detail_id' => $this->workflow_detail_id,
+            'workflow_administration_id' => $this->workflow_template_id,
             'submitter' => Auth::user()->id
         ]);
 
