@@ -2,15 +2,16 @@
 
 namespace App\Livewire\EventReport\EventKeyword;
 
+use Livewire\Component;
+use Illuminate\Support\Arr;
+use Livewire\Attributes\On;
 use App\Models\EventKeyword;
 use App\Models\HazardReport;
-use Livewire\Component;
 use App\Models\KeywordMaintenance;
-use Illuminate\Support\Arr;
 
 class Index extends Component
 {
-    public $hazard_id, $reference, $parent_id = [], $report_type, $event_keyword_id, $Event_Keyword = [], $event_date, $key_id, $show_checked;
+    public $hazard_id, $reference, $parent_id = [],$current_step, $report_type, $event_keyword_id, $Event_Keyword = [], $event_date, $key_id, $show_checked;
     public function mount(HazardReport $data_id)
     {
         $this->hazard_id = $data_id->id;
@@ -20,6 +21,12 @@ class Index extends Component
         $this->parent_id = EventKeyword::where('reference', $this->reference)->pluck('keyword')->toArray();
 
         $this->event_keyword_id = EventKeyword::where('reference', $this->reference)->pluck('keyword')->toArray();
+    }
+     #[On('panel_hazard')]
+    public function updatePanel()
+    {
+        $HazardReport = HazardReport::whereId($this->hazard_id)->first();
+        $this->current_step = $HazardReport->WorkflowDetails->name;
     }
     public function render()
     {
