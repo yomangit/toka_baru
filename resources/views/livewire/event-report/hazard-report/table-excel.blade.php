@@ -7,7 +7,7 @@
                     <th>Reference</th>
                     <th>Event Type</th>
                     <th>Event Sub Type</th>
-                    <th>Company Level</th>
+                    <th>{{ __('Perusahaan terkait') }}</th>
                     <th class="flex-col">
                         <p>Action</p>
                         <p>Total/Open</p>
