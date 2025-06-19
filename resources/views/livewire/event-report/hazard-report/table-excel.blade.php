@@ -3,16 +3,16 @@
         <!-- head -->
         <thead>
             <tr class="text-center">
-                <th>Date</th>
-                <th>Month</th>
-                <th>Year</th>
-                <th>Company Category</th>
-                <th>Company</th>
-                <th>Department</th>
-                <th>Dept Group</th>
-                <th>Job Class</th>
-                <th>Manhours</th>
-                <th>Manpower</th>
+               <th>Date</th>
+                    <th>Reference</th>
+                    <th>Event Type</th>
+                    <th>Event Sub Type</th>
+                    <th>Company Level</th>
+                    <th class="flex-col">
+                        <p>Action</p>
+                        <p>Total/Open</p>
+                    </th>
+                    <th>Status</th>
             </tr>
         </thead>
         <tbody>
