@@ -34,11 +34,11 @@
                 <td>{{ $ActionHazard->where('hazard_id', $hr->id)->count('due_date') }}/{{ $ActionHazard->where('hazard_id', $hr->id)->WhereNull('completion_date')->count('completion_date') }}</td>
                 <td>
                     @if ($hr->WorkflowDetails->Status->status_name ==='Closed')
-                    closed
+                    Closed
                     @elseif($hr->WorkflowDetails->Status->status_name ==='Cancelled')
-                    cancelled
+                    Cancelled
                     @else
-                    open
+                    Open
                     @endif
                 </td>
                 <td>{{ ($hr->kondisi_tidak_aman==1)? "ya":'tidak' }}</td>
