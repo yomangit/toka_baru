@@ -33,7 +33,7 @@
                 <td> {{ $hr->workgroup_name }}</td>
                 <td>{{ $ActionHazard->where('hazard_id', $hr->id)->count('due_date') }}/{{ $ActionHazard->where('hazard_id', $hr->id)->WhereNull('completion_date')->count('completion_date') }}</td>
                 <td>
-                    {{ $hr->WorkflowDetails->Status->status_name }}</td>
+                    {{ ($hr->WorkflowDetails->Status->status_name !='closed' && $hr->WorkflowDetails->Status->status_name !='cancelled')?'open':'closed' }}</td>
                 <td>{{ ($hr->kondisi_tidak_aman==1)? "ya":'tidak' }}</td>
                 <td>{{ $hr->closed_by? "$hr->closed_by":'-' }}</td>
                 <td>{!! $hr->description? "$hr->description":'-' !!}</td>

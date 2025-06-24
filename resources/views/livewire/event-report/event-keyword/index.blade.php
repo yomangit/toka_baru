@@ -8,7 +8,6 @@
     <form>
         @csrf
         <div>
-
             <ul class="menu menu-md bg-base-200 rounded-box " wire:target="store_keyword" wire:loading.class="skeleton">
                 @foreach ($Keyword as $keyword)
 
@@ -20,9 +19,7 @@
                     </label>
                 </li>
                 @else
-
                 <li>
-
                     <details @if (in_array($keyword->id,$key_id)) open @endif >
 
                         <summary>
