@@ -208,6 +208,11 @@ class Create extends Component
         if ($this->tindakkan_selanjutnya == 0) {
             $WorkflowDetail  = WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)->where('name', 'like', '%' . "closed" . '%')->first();
             $this->workflow_detail_id = $WorkflowDetail->id;
+            $closed_by=  $this->report_byName;
+        }
+        else
+        {
+            $closed_by='';
         }
         $filds = [
             'event_type_id' => $this->event_type_id,
@@ -235,6 +240,7 @@ class Create extends Component
             'report_by_nolist' => $this->report_to_nolist,
             'workflow_detail_id' => $this->workflow_detail_id,
             'workflow_template_id' => $this->workflow_template_id,
+            'closed_by' => $closed_by,
 
 
         ];
