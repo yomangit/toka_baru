@@ -12,12 +12,12 @@ use App\Models\KeywordMaintenance;
 class Index extends Component
 {
     public $hazard_id, $reference, $parent_id = [],$current_step, $report_type, $event_keyword_id, $Event_Keyword = [], $event_date, $key_id, $show_checked;
-    public function mount(HazardReport $data_id)
+    public function mount(HazardReport $data)
     {
-        $this->hazard_id = $data_id->id;
-        $this->reference = $data_id->reference;
-        $this->event_date = $data_id->date;
-        $this->report_type = ($data_id->event_type_id != null) ? $data_id->eventType->type_eventreport_name : "";
+        $this->hazard_id = $data->id;
+        $this->reference = $data->reference;
+        $this->event_date = $data->date;
+        $this->report_type = ($data->event_type_id != null) ? $data->eventType->type_eventreport_name : "";
         $this->parent_id = EventKeyword::where('reference', $this->reference)->pluck('keyword')->toArray();
 
         $this->event_keyword_id = EventKeyword::where('reference', $this->reference)->pluck('keyword')->toArray();

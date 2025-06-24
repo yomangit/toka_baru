@@ -140,242 +140,231 @@
                         <x-input wire:model.blur='location_name' class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}" :error="$errors->get('location_name')" />
                         <x-label-error :messages="$errors->get('location_name')" />
                     </div>
-                    {{-- <div class="w-full max-w-md xl:max-w-xl form-control">
-                        <x-label-req :value="__('sitename')" />
-                        <x-select wire:model.live='site_id'
-                            class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}"
-                    :error="$errors->get('site_id')">
-                    <option value="" selected>Select an option</option>
-                    @foreach ($Site as $sites)
-                    <option value="{{ $sites->id }}" selected>{{ $sites->site_name }}</option>
-                    @endforeach
-                    </x-select>
-                    <x-label-error :messages="$errors->get('site_id')" />
-                </div> --}}
 
 
-                <div class="w-full max-w-md xl:max-w-xl form-control">
-                    <x-label-no-req :value="__('documentation')" />
-                    <div class="relative">
-                        <x-input-file wire:model='file_doc' class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}" :error="$errors->get('file_doc')" />
-                        <div class="absolute inset-y-0 right-0 avatar" wire:target="file_doc" wire:loading.class="hidden">
-                            <div class="w-6 rounded  @if ($nameFileDb == $documentation) cursor-pointer @endif " @if ($nameFileDb==$documentation) wire:click="download" @endif>
-                                @include('livewire.event-report.svg-file')
+
+                    <div class="w-full max-w-md xl:max-w-xl form-control">
+                        <x-label-no-req :value="__('documentation')" />
+                        <div class="relative">
+                            <x-input-file wire:model='file_doc' class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}" :error="$errors->get('file_doc')" />
+                            <div class="absolute inset-y-0 right-0 avatar" wire:target="file_doc" wire:loading.class="hidden">
+                                <div class="w-6 rounded  @if ($nameFileDb == $documentation) cursor-pointer @endif " @if ($nameFileDb==$documentation) wire:click="download" @endif>
+                                    @include('livewire.event-report.svg-file')
+                                </div>
                             </div>
+                            <span wire:target="file_doc" wire:loading.class="absolute inset-y-0 right-0 loading loading-spinner text-warning"></span>
                         </div>
-                        <span wire:target="file_doc" wire:loading.class="absolute inset-y-0 right-0 loading loading-spinner text-warning"></span>
-                    </div>
-                    <x-label-error :messages="$errors->get('documentation')" />
-                </div>
-            </div>
-            <div>
-                <div wire:ignore class="w-full form-control">
-                    <x-label-req :value="__('Hazard Details')" />
-                    <textarea id="description">{{ $description_temp }}</textarea>
-                </div>
-                <x-label-error :messages="$errors->get('description')" />
-            </div>
-
-            <div>
-                <fieldset>
-                    @if ($show_immidiate === 'yes')
-                    <x-label-req :value="__('immediate corrective action')" />
-                    @else
-                    <x-label-no-req :value="__('immediate corrective action')" />
-                    @endif
-                    <input wire:model.live="show_immidiate" value='yes' name="status" id="draft" {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }} class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
-                    <label for="draft" class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
-                    <input wire:model.live="show_immidiate" value="no" id="published" {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }} class="peer/published checked:bg-sky-500 radio-xs radio" type="radio" name="status" />
-                    <label for="published" class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
-                    <div wire:ignore class="hidden w-full peer-checked/draft:block form-control">
-                        <textarea id="immediate_corrective_action">{{ $immediate_corrective_action_temp }}</textarea>
-                    </div>
-                    <x-label-error :messages="$errors->get('immediate_corrective_action')" />
-                </fieldset>
-            </div>
-
-
-            <div class="flex flex-col-reverse items-center mt-2 border-2 rounded-sm md:flex-row md:divide-x-2 divide-late-400/25 border-slate-400/25">
-                <div class="flex-auto p-2 divide-y-2 divide-slate-400/25">
-                    <div class="flex flex-col sm:items-center sm:flex-row">
-
-                        <div class="w-full px-2">
-                            <p class="font-mono text-sm font-semibold text-justify">
-                                {{ $risk_probability_doc }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col sm:items-center sm:flex-row">
-                        <div class="flex-none px-2 w-52">
-                            <div class="w-full max-w-md xl:max-w-xl form-control">
-                                <x-label-req :value="__('potential consequence')" />
-                                <x-select wire:model.live='risk_consequence_id' class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}" :error="$errors->get('risk_consequence_id')">
-                                    <option value="">Select an option</option>
-                                    @foreach ($RiskConsequence as $consequence)
-                                    <option value="{{ $consequence->id }}">
-                                        {{ $consequence->risk_consequence_name }}
-                                    </option>
-                                    @endforeach
-                                </x-select>
-                                <x-label-error :messages="$errors->get('risk_consequence_id')" />
-                            </div>
-                        </div>
-                        <div class="w-full px-2">
-                            <p class="font-mono text-sm font-semibold text-justify">
-                                {{ $risk_consequence_doc }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col sm:items-center sm:flex-row">
-                        <div class="flex-none px-2 w-52">
-                            <div class="w-full max-w-md xl:max-w-xl form-control">
-                                <x-label-req :value="__('Potential Likelihood')" />
-                                <x-select wire:model.live='risk_likelihood_id' class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}" :error="$errors->get('risk_likelihood_id')">
-                                    <option value="">Select an option</option>
-                                    @foreach ($RiskLikelihood as $likelihood)
-                                    <option value="{{ $likelihood->id }}">
-                                        {{ $likelihood->risk_likelihoods_name }}
-                                    </option>
-                                    @endforeach
-                                </x-select>
-                                <x-label-error :messages="$errors->get('risk_likelihood_id')" />
-                            </div>
-                        </div>
-                        <div class="px-2 ">
-                            <p class="font-mono text-sm font-semibold text-justify">{{ $risk_likelihood_notes }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none md:w-72 ">
-                    <div class="m-1 overflow-x-auto ">
-                        <table class="table bg-base-300 table-xs">
-                            <caption class="caption-top">
-                                Table Initial Risk Assessment
-                            </caption>
-                            <thead>
-                                <tr class="">
-                                    <th colspan="2" class="p-0 text-center border-2 border-black">Legand</th>
-                                    @foreach ($RiskAssessments as $risk_assessment)
-                                    <td class="rotate_text text-start text-xs border-2 border-black   {{ $risk_assessment->colour }}">
-                                        {{ $risk_assessment->risk_assessments_name }}
-
-                                    </td>
-                                    @endforeach
-                                </tr>
-                                <tr class="">
-                                    <th class="text-center border-2 border-black">Likelihood</th>
-                                    @foreach ($RiskConsequence as $risk_consequence)
-                                    <th class="border-2 border-black rotate_text text-start">
-                                        {{ $risk_consequence->risk_consequence_name }}</th>
-                                    @endforeach
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($RiskLikelihood as $risk_likelihood)
-                                <tr>
-                                    <th class=" p-0 text-[10px] font-semibold border-2 border-black">
-                                        {{ $risk_likelihood->risk_likelihoods_name }}
-                                    </th>
-                                    @foreach ($risk_likelihood->RiskConsequence()->get() as $risk_consequence)
-                                    <th class="p-0 text-xs font-semibold text-center border-2 border-black {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? ' opacity-35 bg-gray-500' : '' }}">
-                                        <label @if ($currentStep==='Closed' || $currentStep==='Cancelled' ) @else wire:click="riskId({{ $risk_likelihood->id }}, {{ $risk_consequence->id }},{{ $TableRisk->where('risk_likelihood_id', $risk_likelihood->id)->where('risk_consequence_id', $risk_consequence->id)->first()->risk_assessment_id }})" @endif class="btn p-0 mt-1 btn-block btn-xs {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'cursor-not-allowed' : '' }}  @if (
-                                                            $tablerisk_id ==
-                                                                $TableRisk->where('risk_likelihood_id', $risk_likelihood->id)->where('risk_consequence_id', $risk_consequence->id)->first()->id) border-4 border-neutral @endif {{ $TableRisk->where('risk_likelihood_id', $risk_likelihood->id)->where('risk_consequence_id', $risk_consequence->id)->first()->RiskAssessment->colour }}">
-                                        </label>
-                                    </th>
-                                    @endforeach
-                                </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <table class="table table-xs">
-                @foreach ($RiskAssessment as $item)
-                <tr>
-                    <th class="w-40 text-xs border-2 border-slate-400">Potential Risk Rating</th>
-                    <td class="pl-2 text-xs border-2 border-slate-400">
-                        {{ $item->RiskAssessment->risk_assessments_name }}</td>
-                </tr>
-                <tr>
-                    <th class="w-40 text-xs border-2 border-slate-400">Notify</th>
-                    <td class="pl-2 text-xs border-2 border-slate-400">
-                        {{ $item->RiskAssessment->reporting_obligation }}</td>
-                </tr>
-                <tr>
-                    <th class="w-40 text-xs border-2 border-slate-400">Deadline</th>
-                    <td class="pl-2 text-xs border-2 border-slate-400">{{ $item->RiskAssessment->notes }}</td>
-                </tr>
-                <tr>
-                    <th class="w-40 text-xs border-2 border-slate-400">Coordinator</th>
-                    <td class="pl-2 text-xs border-2 border-slate-400">
-                        {{ $item->RiskAssessment->coordinator }}
-                    </td>
-                </tr>
-                @endforeach
-
-            </table>
-
-            <div class="flex flex-row items-stretch gap-4 mt-2 px-2 border w-[25rem] border-base-200 rounded-box">
-                <fieldset class="self-center w-40 fieldset rounded-box">
-                    <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
-                        {{ __('kondisi tidak aman') }}
-                        <input type="checkbox" wire:model.live="kondisi_tidak_aman" {{ $kondisi_tidak_aman = 1 ? 'checked="checked"' : '' }} {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }} class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
-                    </label>
-                </fieldset>
-                <div>
-                    <fieldset class="w-48 fieldset rounded-box ">
-
-                        <x-label-req :value="__('perbaikan tingkat lanjut')" />
-
-                        <input wire:model.live="tindakkan_selanjutnya" value='1' name="tingkat_lanjut" {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }} id="yes_lanjut" class="radio-xs peer/yes_lanjut checked:bg-rose-500 radio" type="radio" />
-                        <label for="yes_lanjut" class="text-xs font-semibold peer-checked/yes_lanjut:text-rose-500">{{ __('Yes') }}</label>
-                        <input wire:model.live="tindakkan_selanjutnya" value="0" id="no_lanjut" {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }} class="peer/no_lanjut checked:bg-emerald-500 radio-xs radio" type="radio" name="tingkat_lanjut" />
-                        <label for="no_lanjut" class="text-xs font-semibold peer-checked/no_lanjut:text-emerald-500">{{ __('No') }}</label>
-                    </fieldset>
-                    <x-label-error :messages="$errors->get('tindakkan_selanjutnya')" />
-                </div>
-            </div>
-            <div class="flex flex-col w-full border-opacity-50">
-                <div class="divider divider-accent">Final Documentation</div>
-                <div class="grid card bg-base-300 rounded-box ">
-
-                    <div class="mx-4 my-2">
-                        <x-btn-add data-tip="Add" class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled ' : '' }}" wire:click="$dispatch('openModal', { component: 'event-report.hazard-report.documentation.create', arguments: { doc: {{ $data_id }} }})" />
-                        <livewire:event-report.hazard-report.documentation.index :id="$data_id">
-                    </div>
-
-
-                </div>
-                <div class="divider divider-accent">Additional Action</div>
-                <div class="grid card bg-base-300 rounded-box ">
-                    <div class="mx-4 my-2">
-                        <livewire:event-report.hazard-report.action.index :id="$data_id">
-                    </div>
-                </div>
-                <div class="divider divider-accent">Event Keyword</div>
-                <div class="grid card bg-base-300 rounded-box ">
-                    <div class="mx-4 my-2">
-                        <livewire:event-report.event-keyword.index :data_id="$data_id">
+                        <x-label-error :messages="$errors->get('documentation')" />
                     </div>
                 </div>
                 <div>
                     <div wire:ignore class="w-full form-control">
-                        <x-label-no-req :value="__('moderator comment')" />
-                        <textarea id="comment">{{ $comment_temp }}</textarea>
+                        <x-label-req :value="__('Hazard Details')" />
+                        <textarea id="description">{{ $description_temp }}</textarea>
+                    </div>
+                    <x-label-error :messages="$errors->get('description')" />
+                </div>
+
+                <div>
+                    <fieldset>
+                        @if ($show_immidiate === 'yes')
+                        <x-label-req :value="__('immediate corrective action')" />
+                        @else
+                        <x-label-no-req :value="__('immediate corrective action')" />
+                        @endif
+                        <input wire:model.live="show_immidiate" value='yes' name="status" id="draft" {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }} class="radio-xs peer/draft checked:bg-indigo-500 radio" type="radio" name="13" />
+                        <label for="draft" class="text-xs font-semibold peer-checked/draft:text-indigo-500">{{ __('Yes') }}</label>
+                        <input wire:model.live="show_immidiate" value="no" id="published" {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }} class="peer/published checked:bg-sky-500 radio-xs radio" type="radio" name="status" />
+                        <label for="published" class="text-xs font-semibold peer-checked/published:text-sky-500">{{ __('No') }}</label>
+                        <div wire:ignore class="hidden w-full peer-checked/draft:block form-control">
+                            <textarea id="immediate_corrective_action">{{ $immediate_corrective_action_temp }}</textarea>
+                        </div>
+                        <x-label-error :messages="$errors->get('immediate_corrective_action')" />
+                    </fieldset>
+                </div>
+
+
+                <div class="flex flex-col-reverse items-center mt-2 border-2 rounded-sm md:flex-row md:divide-x-2 divide-late-400/25 border-slate-400/25">
+                    <div class="flex-auto p-2 divide-y-2 divide-slate-400/25">
+                        <div class="flex flex-col sm:items-center sm:flex-row">
+
+                            <div class="w-full px-2">
+                                <p class="font-mono text-sm font-semibold text-justify">
+                                    {{ $risk_probability_doc }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:items-center sm:flex-row">
+                            <div class="flex-none px-2 w-52">
+                                <div class="w-full max-w-md xl:max-w-xl form-control">
+                                    <x-label-req :value="__('potential consequence')" />
+                                    <x-select wire:model.live='risk_consequence_id' class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}" :error="$errors->get('risk_consequence_id')">
+                                        <option value="">Select an option</option>
+                                        @foreach ($RiskConsequence as $consequence)
+                                        <option value="{{ $consequence->id }}">
+                                            {{ $consequence->risk_consequence_name }}
+                                        </option>
+                                        @endforeach
+                                    </x-select>
+                                    <x-label-error :messages="$errors->get('risk_consequence_id')" />
+                                </div>
+                            </div>
+                            <div class="w-full px-2">
+                                <p class="font-mono text-sm font-semibold text-justify">
+                                    {{ $risk_consequence_doc }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:items-center sm:flex-row">
+                            <div class="flex-none px-2 w-52">
+                                <div class="w-full max-w-md xl:max-w-xl form-control">
+                                    <x-label-req :value="__('Potential Likelihood')" />
+                                    <x-select wire:model.live='risk_likelihood_id' class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled bg-gray-300' : '' }}" :error="$errors->get('risk_likelihood_id')">
+                                        <option value="">Select an option</option>
+                                        @foreach ($RiskLikelihood as $likelihood)
+                                        <option value="{{ $likelihood->id }}">
+                                            {{ $likelihood->risk_likelihoods_name }}
+                                        </option>
+                                        @endforeach
+                                    </x-select>
+                                    <x-label-error :messages="$errors->get('risk_likelihood_id')" />
+                                </div>
+                            </div>
+                            <div class="px-2 ">
+                                <p class="font-mono text-sm font-semibold text-justify">{{ $risk_likelihood_notes }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-none md:w-72 ">
+                        <div class="m-1 overflow-x-auto ">
+                            <table class="table bg-base-300 table-xs">
+                                <caption class="caption-top">
+                                    Table Initial Risk Assessment
+                                </caption>
+                                <thead>
+                                    <tr class="">
+                                        <th colspan="2" class="p-0 text-center border-2 border-black">Legand</th>
+                                        @foreach ($RiskAssessments as $risk_assessment)
+                                        <td class="rotate_text text-start text-xs border-2 border-black   {{ $risk_assessment->colour }}">
+                                            {{ $risk_assessment->risk_assessments_name }}
+
+                                        </td>
+                                        @endforeach
+                                    </tr>
+                                    <tr class="">
+                                        <th class="text-center border-2 border-black">Likelihood</th>
+                                        @foreach ($RiskConsequence as $risk_consequence)
+                                        <th class="border-2 border-black rotate_text text-start">
+                                            {{ $risk_consequence->risk_consequence_name }}</th>
+                                        @endforeach
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($RiskLikelihood as $risk_likelihood)
+                                    <tr>
+                                        <th class=" p-0 text-[10px] font-semibold border-2 border-black">
+                                            {{ $risk_likelihood->risk_likelihoods_name }}
+                                        </th>
+                                        @foreach ($risk_likelihood->RiskConsequence()->get() as $risk_consequence)
+                                        <th class="p-0 text-xs font-semibold text-center border-2 border-black {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? ' opacity-35 bg-gray-500' : '' }}">
+                                            <label @if ($currentStep==='Closed' || $currentStep==='Cancelled' ) @else wire:click="riskId({{ $risk_likelihood->id }}, {{ $risk_consequence->id }},{{ $TableRisk->where('risk_likelihood_id', $risk_likelihood->id)->where('risk_consequence_id', $risk_consequence->id)->first()->risk_assessment_id }})" @endif class="btn p-0 mt-1 btn-block btn-xs {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'cursor-not-allowed' : '' }}  @if (
+                                                            $tablerisk_id ==
+                                                                $TableRisk->where('risk_likelihood_id', $risk_likelihood->id)->where('risk_consequence_id', $risk_consequence->id)->first()->id) border-4 border-neutral @endif {{ $TableRisk->where('risk_likelihood_id', $risk_likelihood->id)->where('risk_consequence_id', $risk_consequence->id)->first()->RiskAssessment->colour }}">
+                                            </label>
+                                        </th>
+                                        @endforeach
+                                    </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-xs">
+                    @foreach ($RiskAssessment as $item)
+                    <tr>
+                        <th class="w-40 text-xs border-2 border-slate-400">Potential Risk Rating</th>
+                        <td class="pl-2 text-xs border-2 border-slate-400">
+                            {{ $item->RiskAssessment->risk_assessments_name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="w-40 text-xs border-2 border-slate-400">Notify</th>
+                        <td class="pl-2 text-xs border-2 border-slate-400">
+                            {{ $item->RiskAssessment->reporting_obligation }}</td>
+                    </tr>
+                    <tr>
+                        <th class="w-40 text-xs border-2 border-slate-400">Deadline</th>
+                        <td class="pl-2 text-xs border-2 border-slate-400">{{ $item->RiskAssessment->notes }}</td>
+                    </tr>
+                    <tr>
+                        <th class="w-40 text-xs border-2 border-slate-400">Coordinator</th>
+                        <td class="pl-2 text-xs border-2 border-slate-400">
+                            {{ $item->RiskAssessment->coordinator }}
+                        </td>
+                    </tr>
+                    @endforeach
+
+                </table>
+
+                <div class="flex flex-row items-stretch gap-4 mt-2 px-2 border w-[25rem] border-base-200 rounded-box">
+                    <fieldset class="self-center w-40 fieldset rounded-box">
+                        <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
+                            {{ __('kondisi tidak aman') }}
+                            <input type="checkbox" wire:model.live="kondisi_tidak_aman" {{ $kondisi_tidak_aman = 1 ? 'checked="checked"' : '' }} {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }} class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
+                        </label>
+                    </fieldset>
+                    <div>
+                        <fieldset class="w-48 fieldset rounded-box ">
+
+                            <x-label-req :value="__('perbaikan tingkat lanjut')" />
+
+                            <input wire:model.live="tindakkan_selanjutnya" value='1' name="tingkat_lanjut" {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }} id="yes_lanjut" class="radio-xs peer/yes_lanjut checked:bg-rose-500 radio" type="radio" />
+                            <label for="yes_lanjut" class="text-xs font-semibold peer-checked/yes_lanjut:text-rose-500">{{ __('Yes') }}</label>
+                            <input wire:model.live="tindakkan_selanjutnya" value="0" id="no_lanjut" {{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'disabled ' : '' }} class="peer/no_lanjut checked:bg-emerald-500 radio-xs radio" type="radio" name="tingkat_lanjut" />
+                            <label for="no_lanjut" class="text-xs font-semibold peer-checked/no_lanjut:text-emerald-500">{{ __('No') }}</label>
+                        </fieldset>
+                        <x-label-error :messages="$errors->get('tindakkan_selanjutnya')" />
+                    </div>
+                </div>
+                <div class="flex flex-col w-full border-opacity-50">
+                    <div class="divider divider-accent">Final Documentation</div>
+                    <div class="grid card bg-base-300 rounded-box ">
+
+                        <div class="mx-4 my-2">
+                            <x-btn-add data-tip="Add" class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled ' : '' }}" wire:click="$dispatch('openModal', { component: 'event-report.hazard-report.documentation.create', arguments: { doc: {{ $data_id }} }})" />
+                            <livewire:event-report.hazard-report.documentation.index :id="$data_id">
+                        </div>
+
 
                     </div>
-                    <x-label-error :messages="$errors->get('comment')" />
+                    <div class="divider divider-accent">Additional Action</div>
+                    <div class="grid card bg-base-300 rounded-box ">
+                        <div class="mx-4 my-2">
+                            <livewire:event-report.hazard-report.action.index :id="$data_id">
+                        </div>
+                    </div>
+                    <div class="divider divider-accent">Event Keyword</div>
+                    <div class="grid card bg-base-300 rounded-box ">
+                        <div class="mx-4 my-2">
+                            <livewire:event-report.event-keyword.index :data="$data_id">
+                        </div>
+                    </div>
+                    <div>
+                        <div wire:ignore class="w-full form-control">
+                            <x-label-no-req :value="__('moderator comment')" />
+                            <textarea id="comment">{{ $comment_temp }}</textarea>
+
+                        </div>
+                        <x-label-error :messages="$errors->get('comment')" />
+                    </div>
                 </div>
             </div>
-</div>
-</form>
-<livewire:event-report.hazard-report.action.create>
-    <script nonce="{{ csp_nonce() }}" type="module">
-        ClassicEditor
+        </form>
+        <livewire:event-report.hazard-report.action.create>
+            <script nonce="{{ csp_nonce() }}" type="module">
+                ClassicEditor
                     .create(document.querySelector('#immediate_corrective_action'), {
                         toolbar: ['undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList', 'link'],
                         placeholder: 'Type the content here!'
@@ -402,7 +391,6 @@
                         newEditor1.model.document.on('change:data', () => {
                             @this.set('immediate_corrective_action', newEditor1.getData())
                         });
-
                     })
                     .catch(error => {
                         console.error(error);
@@ -412,13 +400,11 @@
                         toolbar: ['undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList', 'link'],
                         placeholder: 'Type the content here!'
                     })
-
                     .then(newEditor2 => {
                         newEditor2.editing.view.change((writer) => {
                             writer.setStyle(
                                 "height",
                                 "155px",
-
                                 newEditor2.editing.view.document.getRoot()
                             );
                         });
@@ -430,7 +416,6 @@
                                 } else {
                                     newEditor2.disableReadOnlyMode('description');
                                 }
-
                             });
                         });
                         newEditor2.model.document.on('change:data', () => {
@@ -461,7 +446,6 @@
                                 } else {
                                     newEditor3.disableReadOnlyMode('suggested_corrective_action');
                                 }
-
                             });
                         });
                         newEditor3.model.document.on('change:data', () => {
@@ -475,7 +459,6 @@
                     .create(document.querySelector('#corrective_action_suggested'), {
                         toolbar: ['undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList', 'link'],
                         placeholder: 'Type the content here!'
-
                     })
                     .then(newEditor4 => {
                         newEditor4.editing.view.change((writer) => {
@@ -507,7 +490,6 @@
                     .create(document.querySelector('#comment'), {
                         toolbar: ['undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList', 'link'],
                         placeholder: 'Type the content here!'
-
                     })
                     .then(newEditor5 => {
                         newEditor5.editing.view.change((writer) => {
@@ -525,7 +507,6 @@
                                 } else {
                                     newEditor5.disableReadOnlyMode('comment');
                                 }
-
                             });
                         });
                         newEditor5.model.document.on('change:data', () => {
@@ -537,4 +518,4 @@
                     });
             </script>
 
-    </div>
+</div>
