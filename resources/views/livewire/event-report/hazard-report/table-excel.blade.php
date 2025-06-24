@@ -33,9 +33,9 @@
                 <td> {{ $hr->workgroup_name }}</td>
                 <td>{{ $ActionHazard->where('hazard_id', $hr->id)->count('due_date') }}/{{ $ActionHazard->where('hazard_id', $hr->id)->WhereNull('completion_date')->count('completion_date') }}</td>
                 <td>
-                    @if ($hr->WorkflowDetails->Status->status_name ==='closed')
+                    @if ($hr->WorkflowDetails->Status->status_name ==='Closed')
                     closed
-                    @elseif($hr->WorkflowDetails->Status->status_name ==='cancelled')
+                    @elseif($hr->WorkflowDetails->Status->status_name ==='Cancelled')
                     cancelled
                     @else
                     open
