@@ -1,7 +1,7 @@
 <div class="" wire:target="store_keyword" wire:loading.class="skeleton">
     <div class="w-full max-w-xs form-control">
         <label class="cursor-pointer label">
-            <span class="label-text">{{__('Show Selected Only')}} {{ $hazard_id }}</span>
+            <span class="label-text">{{__('Show Selected Only')}} </span>
             <input wire:model.live='show_checked' type="checkbox" class="checkbox [--chkbg:oklch(var(--a))] [--chkfg:oklch(var(--p))] checked:border-rose-500 checkbox-xs" />
         </label>
     </div>

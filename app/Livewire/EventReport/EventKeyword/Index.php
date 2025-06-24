@@ -30,6 +30,7 @@ class Index extends Component
     }
     public function render()
     {
+         $this->updatePanel();
         $this->Event_Keyword = EventKeyword::where('reference', $this->reference)->pluck('keyword')->toArray();
         $key_pluck = [];
         foreach ($this->Event_Keyword as $key) {
