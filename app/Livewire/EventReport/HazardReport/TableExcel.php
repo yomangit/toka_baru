@@ -11,7 +11,7 @@ class TableExcel extends Component
     public function render()
     {
         return view('livewire.event-report.hazard-report.table-excel',[
-            'HazardReport'=> HazardReport::orderBy('date', 'desc')->get(),
+            'HazardReport'=> HazardReport::with(['reportBy','subEventType','eventType'])->orderBy('date', 'desc')->get(),
             'ActionHazard' => ActionHazard::get(),
         ])->extends('base.web_table')->section('content');
     }

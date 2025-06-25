@@ -8,6 +8,7 @@
                 <th>Event Type</th>
                 <th>Event Sub Type</th>
                 <th>{{ __('report_by') }}</th>
+                <th>{{ __('Divisi yang melapor') }}</th>
                 <th>{{ __('Perusahaan terkait') }}</th>
                 <th class="flex-col">
                     <p>Action</p>
@@ -30,6 +31,7 @@
                 <td>{{$hr->eventType->type_eventreport_name}}</td>
                 <td>{{ $hr->subEventType->event_sub_type_name }}</td>
                 <td> {{ $hr->report_byName }}</td>
+                <td> {{ $hr->reportBy->department_name }}</td>
                 <td> {{ $hr->workgroup_name }}</td>
                 <td>{{ $ActionHazard->where('hazard_id', $hr->id)->count('due_date') }}/{{ $ActionHazard->where('hazard_id', $hr->id)->WhereNull('completion_date')->count('completion_date') }}</td>
                 <td>

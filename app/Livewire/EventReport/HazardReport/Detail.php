@@ -19,6 +19,7 @@ use App\Models\choseEventType;
 use App\Models\RiskAssessment;
 use App\Models\RiskLikelihood;
 use App\Models\CompanyCategory;
+use App\Models\EventKeyword;
 use App\Models\RiskConsequence;
 use App\Models\TypeEventReport;
 use App\Models\EventParticipants;
@@ -435,6 +436,7 @@ class Detail extends Component
         }
         $HazardReport->delete();
         EventParticipants::where('reference', $this->reference)->delete();
+        EventKeyword::where('reference', $this->reference)->delete();
         return redirect()->route('hazardReport');
         $this->dispatch(
             'alert',

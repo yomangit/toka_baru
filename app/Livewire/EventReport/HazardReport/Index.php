@@ -89,6 +89,7 @@ class Index extends Component
         $reference = $HazardReport->first()->reference;
         $HazardReport->delete();
         EventParticipants::where('reference', $reference)->delete();
+        EventKeyword::where('reference', $this->reference)->delete();
         return redirect()->route('hazardReport');
         $this->dispatch(
             'alert',
