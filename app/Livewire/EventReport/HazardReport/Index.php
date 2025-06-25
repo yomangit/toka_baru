@@ -5,6 +5,7 @@ namespace App\Livewire\EventReport\HazardReport;
 use Livewire\Component;
 use App\Models\StatusEvent;
 use App\Models\ActionHazard;
+use App\Models\EventKeyword;
 use App\Models\Eventsubtype;
 use App\Models\HazardReport;
 use Livewire\Attributes\Url;
