@@ -124,7 +124,7 @@ class Create extends Component
                 $offerData = [
                     'greeting' => 'Hi' . '' .   $value->lookup_name,
                     'subject' => 'Hazard Report' . ' ' . $this->reference,
-                    'line' =>  Auth::user()->lookup_name . ' ' . 'has update a hazard report Action, please review',
+                    'line' => $this->responsibility_name . ' ' . 'has update a hazard report Action, please review',
                     'line2' => 'Please review this report',
                     'line3' => 'Thank you',
                     'actionUrl' => url("/eventReport/hazardReportDetail/$url"),
