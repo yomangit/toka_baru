@@ -125,7 +125,7 @@
                 </x-select>
                 <x-label-error :messages="$errors->get('location_id')" />
             </div>
-            <div class="w-full max-w-md xl:max-w-xl form-control{{ $showLocation==true ? 'block':'hidden' }}">
+            <div class="w-full max-w-md xl:max-w-xl form-control {{ $showLocation==true ? 'block' : 'hidden' }}">
                 <x-label-req :value="__('Lokasi')" />
                 <x-input wire:model.blur='location_name' :error="$errors->get('location_name')" />
                 <x-label-error :messages="$errors->get('location_name')" />
