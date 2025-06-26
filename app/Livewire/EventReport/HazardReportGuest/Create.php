@@ -230,7 +230,7 @@ class Create extends Component
             'division_id' => $this->division_id,
             'date' => DateTime::createFromFormat('d-m-Y : H:i', $this->date)->format('Y-m-d : H:i'),
             'location_name' => $this->location_name,
-            'location_id' => $this->location_id,
+            'event_location_id' => $this->location_id,
             'site_id' => $this->site_id,
             'show_immidiate' => $this->show_immidiate,
             'kondisi_tidak_aman' => $this->kondisi_tidak_aman,

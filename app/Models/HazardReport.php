@@ -137,9 +137,14 @@ class HazardReport extends Model
     }
     public function scopeFindSubmitter($q, $term)
     {
+       $dept_name = User::whereId()->first()->department_name;
         $q->when(
             $term ?? false,
-            fn($q, $term) => $q->where('submitter', $term)->orWhere('description', 'LIKE', "%{$term}%")
+            fn($q, $term) => $q->where('submitter', $term)
+            ->orWhere('assign_to', $term)->orWhere('assign_to', $term)
+            ->orWhereHas('reportBy', function ($q) use ($dept_name) {
+                    $q->where('department_name', 'like', '%' . $dept_name . '%');
+                })
         );
     }
     public function scopeSearchEventSubType($q, $term)
