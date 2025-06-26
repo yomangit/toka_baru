@@ -116,6 +116,16 @@
                 <x-label-error :messages="$errors->get('date')" />
             </div>
             <div class="w-full max-w-md xl:max-w-xl form-control">
+                <x-label-req :value="__('eventLocation')" />
+                <x-select wire:model.live='location_id' :error="$errors->get('location_id')">
+                    <option value="" selected>Select an option</option>
+                    @forelse ($Location as  $location)
+                        <option value="{{ $location->id }}" selected>{{ $location->location_name }}</option>
+                    @endforeach
+                </x-select>
+                <x-label-error :messages="$errors->get('location_id')" />
+            </div>
+            <div class="w-full max-w-md xl:max-w-xl form-control{{ $showLocation=true ? 'block':'hidden' }}">
                 <x-label-req :value="__('Lokasi')" />
                 <x-input wire:model.blur='location_name' :error="$errors->get('location_name')" />
                 <x-label-error :messages="$errors->get('location_name')" />
@@ -159,6 +169,14 @@
                         class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
                 </label>
             </fieldset>
+            <fieldset class="self-center w-40 fieldset rounded-box">
+                <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
+                    {{ __('kondisi tidak aman') }}
+                    <input type="checkbox" wire:model.live="tindakan_tidak_aman"
+                        {{ $tindakan_tidak_aman = 1 ? 'checked="checked"' : '' }}
+                        class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
+                </label>
+            </fieldset>
             <div>
                 <fieldset class="w-48 fieldset rounded-box ">
 
@@ -179,7 +197,7 @@
         </div>
 
         <div class="w-full max-w-md xl:max-w-xl form-control">
-            <x-label-req :value="__('documentation')" />
+            <x-label-no-req :value="__('documentation')" />
             <div class="relative">
                 <x-input-file wire:model.live='documentation' :error="$errors->get('documentation')" />
                 <div class="absolute inset-y-0 right-0 avatar" wire:target="documentation"

@@ -9,6 +9,7 @@ use App\Models\Division;
 use App\Models\Eventsubtype;
 use App\Models\HazardReport;
 use Livewire\WithPagination;
+use App\Models\LocationEvent;
 use Livewire\WithFileUploads;
 use App\Models\choseEventType;
 use App\Models\WorkflowDetail;
@@ -33,7 +34,7 @@ class Create extends Component
     public $dropdownLocation = 'dropdown', $hidden = 'block';
     public $dropdownWorkgroup = 'dropdown', $hiddenWorkgroup = 'block';
     public $dropdownReportBy = 'dropdown', $hiddenReportBy = 'block';
-    public $alamat, $kondisi_tidak_aman, $tindakkan_selanjutnya;
+    public $alamat, $kondisi_tidak_aman,$tindakan_tidak_aman, $tindakkan_selanjutnya,$showLocation=false;
     public $data = [];
 
     // data action
@@ -56,10 +57,11 @@ class Create extends Component
                 'report_byName' => ['required'],
                 'date' => ['required'],
                 'tindakkan_selanjutnya' => ['required'],
-                'documentation' => 'required|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
+                'documentation' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
                 'description' => ['required'],
                 'immediate_corrective_action' => ['required'],
                 'location_name' => ['required'],
+                'location_id' => ['required'],
             ];
         } else {
             return [
@@ -68,8 +70,9 @@ class Create extends Component
                 'sub_event_type_id' => ['required'],
                 'report_byName' => ['required'],
                 'date' => ['required'],
-                'documentation' => 'required|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
+                'documentation' => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
                 'description' => ['required'],
+                'location_id' => ['required'],
                 'location_name' => ['required'],
                 'tindakkan_selanjutnya' => ['required'],
             ];
@@ -85,10 +88,11 @@ class Create extends Component
             'date.required' => 'kolom wajib di isi',
             'site_id.required' => 'kolom wajib di isi',
             'documentation.mimes' => 'hanya format jpg,jpeg,png,svg,gif,xlsx,pdf,docx file types are allowed',
-            'documentation.required' => 'kolom wajib di isi',
+            'documentation.nullable' => 'kolom wajib di isi',
             'description.required' => 'kolom wajib di isi',
             'immediate_corrective_action.required' => 'kolom wajib di isi',
             'location_name.required' => 'kolom wajib di isi',
+            'location_id.required' => 'kolom wajib di isi',
             'workgroup_name.required' => 'kolom wajib di isi',
         ];
     }
@@ -132,6 +136,11 @@ class Create extends Component
     }
     public function realTimeFunc()
     {
+        if ($this->location_id) {
+           $this->showLocation=true;
+        } else {
+           $this->showLocation=false;
+        }
         if (choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->exists()) {
             $eventType = choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->pluck('event_type_id');
             $this->Event_type = TypeEventReport::whereIn('id', $eventType)->get();
@@ -176,6 +185,7 @@ class Create extends Component
             'Report_By' => User::searchNama(trim($this->report_byName))->paginate(100, ['*'], 'Report_By'),
             'Division' => $this->divisi_search,
             'EventType' =>  $this->Event_type,
+            'Location' => LocationEvent::get()
         ])->extends('base.index', ['header' => 'Hazard Report', 'title' => 'Hazard Report'])->section('content');
     }
     public function store()
@@ -196,9 +206,7 @@ class Create extends Component
         if (!empty($this->documentation)) {
             $file_name = $this->documentation->getClientOriginalName();
             $this->fileUpload = pathinfo($file_name, PATHINFO_EXTENSION);
-            $destinationPath = public_path() . '/documents/hzd';
             $this->documentation->storeAs('public/documents/hzd', $file_name);
-            // $this->documentation->move($destinationPath, $file_name);
         } else {
             $file_name = "";
         }
@@ -222,9 +230,11 @@ class Create extends Component
             'division_id' => $this->division_id,
             'date' => DateTime::createFromFormat('d-m-Y : H:i', $this->date)->format('Y-m-d : H:i'),
             'location_name' => $this->location_name,
+            'location_id' => $this->location_id,
             'site_id' => $this->site_id,
             'show_immidiate' => $this->show_immidiate,
             'kondisi_tidak_aman' => $this->kondisi_tidak_aman,
+            'tindakan_tidak_aman' => $this->tindakan_tidak_aman,
             'tindakkan_selanjutnya' => $this->tindakkan_selanjutnya,
             'company_involved' => $this->company_involved,
             'risk_consequence_id' => $this->risk_consequence_id,
@@ -241,8 +251,6 @@ class Create extends Component
             'workflow_detail_id' => $this->workflow_detail_id,
             'workflow_template_id' => $this->workflow_template_id,
             'closed_by' => $closed_by,
-
-
         ];
         $HazardReport = HazardReport::create($filds);
         $this->dispatch(
@@ -290,8 +298,6 @@ class Create extends Component
         }
         $this->clearFields();
         // $this->redirectRoute('hazardReportCreate', ['workflow_template_id' => $this->workflow_template_id]);
-
-
     }
 
     public function clearFields()
