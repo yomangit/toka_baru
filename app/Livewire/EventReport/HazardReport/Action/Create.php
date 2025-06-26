@@ -7,14 +7,18 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\ActionHazard;
 use App\Models\HazardReport;
+use App\Models\EventUserSecurity;
 use Livewire\Attributes\Validate;
+use App\Notifications\toModerator;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class Create extends Component
 {
     public $search_report_by = '', $hiddenResponsibility = 'block';
     public $modal = 'modal', $divider, $action_id, $orginal_due_date, $current_step;
     #[Validate]
-    public $hazard_id, $responsibility, $responsibility_name, $followup_action, $actionee_comment, $action_condition, $due_date, $completion_date;
+    public $hazard_id,$responsible_role_id, $responsibility, $responsibility_name, $followup_action, $actionee_comment, $action_condition, $due_date, $completion_date;
 
     #[On('modalActionHazard')]
     public function modalActionHazard(HazardReport $hazard, ActionHazard $action)
@@ -22,6 +26,7 @@ class Create extends Component
         $this->modal = ' modal-open';
         $this->hazard_id = $hazard->id;
         $this->current_step = $hazard->WorkflowDetails->name;
+         $this->responsible_role_id = $hazard->WorkflowDetails->responsible_role_id;
         $this->action_id = $action->id;
         if ($this->action_id) {
             $this->responsibility = $action->responsibility;
@@ -107,6 +112,25 @@ class Create extends Component
                 ]
             );
             $this->reset('followup_action', 'actionee_comment', 'action_condition', 'due_date', 'completion_date', 'responsibility_name');
+        }
+
+         $url = $this->hazard_id;
+         if ($this->responsible_role_id = 1) {
+            $getModerator = EventUserSecurity::where('responsible_role_id', $this->responsible_role_id)->where('user_id', 'NOT LIKE', Auth::user()->id)->pluck('user_id')->toArray();
+            $User = User::whereIn('id', $getModerator)->get();
+            $url = $this->data_id;
+            foreach ($User as $key => $value) {
+                $users = User::whereId($value->id)->get();
+                $offerData = [
+                    'greeting' => 'Hi' . '' .   $value->lookup_name,
+                    'subject' => 'Hazard Report' . ' ' . $this->reference,
+                    'line' =>  Auth::user()->lookup_name . ' ' . 'has update a hazard report Action, please review',
+                    'line2' => 'Please review this report',
+                    'line3' => 'Thank you',
+                    'actionUrl' => url("/eventReport/hazardReportDetail/$url"),
+                ];
+                Notification::send($users, new toModerator($offerData));
+            }
         }
         $this->dispatch('actionHazard_created');
     }
