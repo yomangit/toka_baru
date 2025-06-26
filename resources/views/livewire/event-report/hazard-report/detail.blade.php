@@ -329,16 +329,16 @@
                     </div>
                 </div>
                 <div class="flex flex-col w-full border-opacity-50">
-                    <div class="divider divider-accent">Final Documentation</div>
-                    <div class="grid card bg-base-300 rounded-box ">
-
-                        <div class="mx-4 my-2">
-                            <x-btn-add data-tip="Add" class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled ' : '' }}" wire:click="$dispatch('openModal', { component: 'event-report.hazard-report.documentation.create', arguments: { doc: {{ $data_id }} }})" />
-                            <livewire:event-report.hazard-report.documentation.index :id="$data_id">
+                    <div class="tabs-lift tabs min-w-max">
+                        <input type="radio" name="my_tabs_7" class="tab z-1" aria-label="Final Documentation" checked="checked" />
+                        <div class="sticky start-0 tab-content max-w-60 border-base-300 bg-base-100 p-6">
+                            <div class="mx-4 my-2">
+                                <x-btn-add data-tip="Add" class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled ' : '' }}" wire:click="$dispatch('openModal', { component: 'event-report.hazard-report.documentation.create', arguments: { doc: {{ $data_id }} }})" />
+                                <livewire:event-report.hazard-report.documentation.index :id="$data_id">
+                            </div>
                         </div>
-
-
                     </div>
+
                     <div class="divider divider-accent">Additional Action</div>
                     <div class="grid card bg-base-300 rounded-box ">
                         <div class="mx-4 my-2">
