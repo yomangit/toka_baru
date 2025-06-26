@@ -28,11 +28,11 @@
                     <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
                         <x-label-no-req  for="name" :value="__('Responsibility')" />
                         <div class="dropdown dropdown-end">
-                            <x-input-search-with-error placeholder="search name" wire:model.live='responsibility_name'
+                            <x-input-search-with-error wire:click='clickResponsibility' placeholder="search name" wire:model.live='responsibility_name'
                                 :error="$errors->get('responsibility_name')" class="cursor-pointer read-only:bg-gray-200 " tabindex="0"
                                 role="button" />
                             <div tabindex="0"
-                                class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow">
+                                class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow {{ $hiddenResponsibility }}">
                                 <div class="relative">
                                     <ul class="overflow-auto scroll-smooth focus:scroll-auto h-28 pt-2 mb-2"
                                         wire:target='responsibility_name' wire:loading.class='hidden'>

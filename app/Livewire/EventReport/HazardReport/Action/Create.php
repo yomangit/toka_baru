@@ -11,7 +11,7 @@ use Livewire\Attributes\Validate;
 
 class Create extends Component
 {
-    public $search_report_by = '';
+    public $search_report_by = '', $hiddenResponsibility = 'block';
     public $modal = 'modal', $divider, $action_id, $orginal_due_date, $current_step;
     #[Validate]
     public $hazard_id, $responsibility, $responsibility_name, $followup_action, $actionee_comment, $action_condition, $due_date, $completion_date;
@@ -32,6 +32,10 @@ class Create extends Component
             $this->due_date = $action->due_date;
             $this->completion_date = $action->completion_date;
         }
+    }
+    public function clickResponsibility()
+    {
+        $this->hiddenResponsibility = 'block';
     }
     public function render()
     {
@@ -112,9 +116,8 @@ class Create extends Component
         $this->responsibility = $id;
         $ReportBy = User::whereId($id)->first();
         $this->responsibility_name = $ReportBy->lookup_name;
+        $this->hiddenResponsibility = 'hidden';
     }
-
-
     public function openModal()
     {
         $this->modal = ' modal-open';
