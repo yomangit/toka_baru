@@ -24,6 +24,7 @@
                     <th>Email</th>
                     <th>Company</th>
                     <th>employer</th>
+                    <th>Divisi</th>
                     <th>{{__('date_birth')}}</th>
                     <th>{{__('date_commenced')}}</th>
                     <th>Action</th>
@@ -39,6 +40,7 @@
                         <td>{{ $user->email }}</td>
                         <td>{{$user->company_id?$user->company->CompanyCategory->name_category_company:''}}</td>
                         <td>{{$user->company_id?$user->company->name_company:''}}</td>
+                        <td>{{$user->department_name}}</td>
                         <td>{{$user->date_birth}}</td>
                         <td>{{$user->date_commenced}}</td>
                         <td class="flex flex-row gap-1 justify-center">
