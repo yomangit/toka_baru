@@ -18,7 +18,7 @@ class Create extends Component
     public $search_report_by = '', $hiddenResponsibility = 'block';
     public $modal = 'modal', $divider, $action_id, $orginal_due_date, $current_step;
     #[Validate]
-    public $hazard_id,$responsible_role_id, $responsibility, $responsibility_name, $followup_action, $actionee_comment, $action_condition, $due_date, $completion_date;
+    public $hazard_id,$responsible_role_id,$reference, $responsibility, $responsibility_name, $followup_action, $actionee_comment, $action_condition, $due_date, $completion_date;
 
     #[On('modalActionHazard')]
     public function modalActionHazard(HazardReport $hazard, ActionHazard $action)
@@ -27,6 +27,7 @@ class Create extends Component
         $this->hazard_id = $hazard->id;
         $this->current_step = $hazard->WorkflowDetails->name;
          $this->responsible_role_id = $hazard->WorkflowDetails->responsible_role_id;
+         $this->reference = $hazard->reference;
         $this->action_id = $action->id;
         if ($this->action_id) {
             $this->responsibility = $action->responsibility;
