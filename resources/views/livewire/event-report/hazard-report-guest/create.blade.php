@@ -171,7 +171,7 @@
             </fieldset>
             <fieldset class="self-center w-40 fieldset rounded-box">
                 <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
-                    {{ __('kondisi tidak aman') }}
+                    {{ __('Tindakanw tidak aman') }}
                     <input type="checkbox" wire:model.live="tindakan_tidak_aman"
                         {{ $tindakan_tidak_aman = 1 ? 'checked="checked"' : '' }}
                         class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
