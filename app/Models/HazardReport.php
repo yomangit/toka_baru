@@ -137,7 +137,7 @@ class HazardReport extends Model
     }
     public function scopeFindSubmitter($q, $term)
     {
-       $dept_name = User::whereId()->first()->department_name;
+       $dept_name = User::whereId($term)->first()->department_name;
         $q->when(
             $term ?? false,
             fn($q, $term) => $q->where('submitter', $term)
