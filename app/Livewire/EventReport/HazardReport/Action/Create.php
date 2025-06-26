@@ -118,7 +118,7 @@ class Create extends Component
          if ($this->responsible_role_id = 1) {
             $getModerator = EventUserSecurity::where('responsible_role_id', $this->responsible_role_id)->where('user_id', 'NOT LIKE', Auth::user()->id)->pluck('user_id')->toArray();
             $User = User::whereIn('id', $getModerator)->get();
-            $url = $this->data_id;
+
             foreach ($User as $key => $value) {
                 $users = User::whereId($value->id)->get();
                 $offerData = [
