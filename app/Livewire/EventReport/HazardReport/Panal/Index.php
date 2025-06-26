@@ -133,21 +133,22 @@ class Index extends Component
             $this->workflow_detail_id = $WorkflowDetail->id;
         }
         $closed_by =Auth::user()->lookup_name;
-        if($this->procced_to ==="Closed")
+        if($this->procced_to!="Closed" ||$this->procced_to!="Cancelled")
         {
             $filds = [
             'workflow_detail_id' => $this->workflow_detail_id,
             'assign_to' => $this->assign_to,
             'also_assign_to' => $this->also_assign_to,
-            'closed_by' => $closed_by
+             'closed_by' => ""
         ];
         }
         else{
-           $filds = [
+             $filds = [
             'workflow_detail_id' => $this->workflow_detail_id,
             'assign_to' => $this->assign_to,
             'also_assign_to' => $this->also_assign_to,
-             'closed_by' => ""
+            'closed_by' => $closed_by
+
         ];
         }
 

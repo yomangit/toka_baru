@@ -139,7 +139,7 @@ class HazardReport extends Model
     {
         $q->when(
             $term ?? false,
-            fn($q, $term) => $q->where('submitter', $term)
+            fn($q, $term) => $q->where('submitter', $term)->orWhere('description', 'LIKE', "%{$term}%")
         );
     }
     public function scopeSearchEventSubType($q, $term)
