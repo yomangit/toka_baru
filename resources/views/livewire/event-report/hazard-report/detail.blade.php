@@ -328,9 +328,9 @@
                         <x-label-error :messages="$errors->get('tindakkan_selanjutnya')" />
                     </div>
                 </div>
-                <div class="flex flex-col w-full border-opacity-50">
+                <div class="flex flex-col w-full border-opacity-50 mt-4">
                     <div role="tablist" class="mb-4 tabs tabs-lifted">
-                        <input type="radio" name="my_tabs_7" class="tab z-1" aria-label="Final Documentation" checked="checked" />
+                        <input type="radio" name="my_tabs_1" class="tab z-1 font-semibold  font-signika text-sky-500" aria-label="Final Documentation" checked="checked" />
                         <div role="tabpanel" class="p-6 tab-content bg-base-100 border-base-300 rounded-box">
                             <div class="mx-4 my-2">
                                 <x-btn-add data-tip="Add" class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled ' : '' }}" wire:click="$dispatch('openModal', { component: 'event-report.hazard-report.documentation.create', arguments: { doc: {{ $data_id }} }})" />
@@ -338,17 +338,20 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="divider divider-accent">Additional Action</div>
-                    <div class="grid card bg-base-300 rounded-box ">
-                        <div class="mx-4 my-2">
-                            <livewire:event-report.hazard-report.action.index :id="$data_id">
+                    <div role="tablist" class="mb-4 tabs tabs-lifted">
+                        <input type="radio" name="my_tabs_2" class="tab z-1 font-semibold  font-signika text-sky-500" aria-label="Additional Action" checked="checked" />
+                        <div role="tabpanel" class="p-6 tab-content bg-base-100 border-base-300 rounded-box">
+                            <div class="mx-4 my-2">
+                                <livewire:event-report.hazard-report.action.index :id="$data_id">
+                            </div>
                         </div>
                     </div>
-                    <div class="divider divider-accent">Event Keyword</div>
-                    <div class="grid card bg-base-300 rounded-box ">
-                        <div class="mx-4 my-2">
-                            <livewire:event-report.event-keyword.index :data="$data_id">
+                    <div role="tablist" class="mb-4 tabs tabs-lifted">
+                        <input type="radio" name="my_tabs_3" class="tab z-1 font-semibold  font-signika text-sky-500" aria-label="Event Keyword" checked="checked" />
+                        <div role="tabpanel" class="p-6 tab-content bg-base-100 border-base-300 rounded-box">
+                            <div class="mx-4 my-2">
+                                <livewire:event-report.event-keyword.index :data="$data_id">
+                            </div>
                         </div>
                     </div>
                     <div>
