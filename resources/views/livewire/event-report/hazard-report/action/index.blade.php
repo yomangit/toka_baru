@@ -4,7 +4,7 @@
            <div class="w-full max-w-xs" > <x-inputsearch wire:model.live='search' /></div>
     </div>
     @forelse ($ActionHazard as $no => $index)
-        <div class="flex flex-col sm:flex-row items-center justify-between border mb-2 border-gray-500 p-2">
+        <div class="flex flex-col sm:flex-row items-center justify-between border-b-2 mb-2 border-base-300 p-2">
             <div class=" w-full basis-1/5">
                 <div class="text-gray-500 space-x-4">
                     <span class="font-mono text-[10px] font-semibold">Action No.</span>
@@ -76,5 +76,5 @@
         @empty
         <div class="text-rose-500 font-semibold text-center text-xs">there is no action</div>
     @endforelse
-   
+
 </div>
