@@ -7,13 +7,13 @@
             <form wire:submit.prevent='store'>
                 @csrf
                 @method('PATCH')
-              
+
                 <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
                     <x-label-req :value="__('Followup Action')" />
                     <x-text-area wire:model.blur='followup_action' :error="$errors->get('followup_action')" />
                     <x-label-error :messages="$errors->get('followup_action')" />
                 </div>
-              
+
                 <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
                     <x-label-no-req :value="__('Actionee Comment')" />
                     <x-text-area wire:model.blur='actionee_comment' :error="$errors->get('actionee_comment')" />
@@ -26,7 +26,7 @@
                 </div>
                 <!-- Name -->
                     <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
-                        <x-label-req  for="name" :value="__('Responsibility')" />
+                        <x-label-no-req  for="name" :value="__('Responsibility')" />
                         <div class="dropdown dropdown-end">
                             <x-input-search-with-error placeholder="search name" wire:model.live='responsibility_name'
                                 :error="$errors->get('responsibility_name')" class="cursor-pointer read-only:bg-gray-200 " tabindex="0"
@@ -56,12 +56,12 @@
                         <x-label-error :messages="$errors->get('responsibility_name')" />
                     </div>
                 <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
-                    <x-label-req :value="__('Due Date')" />
+                    <x-label-no-req :value="__('Due Date')" />
                     <x-input-date id="due_date" wire:model.live='due_date' readonly :error="$errors->get('due_date')" />
                     <x-label-error :messages="$errors->get('due_date')" />
                 </div>
                 <div class="w-full max-w-xs sm:max-w-sm xl:max-w-xl form-control">
-                    <x-label-req :value="__('Completion Date')" />
+                    <x-label-no-req :value="__('Completion Date')" />
                     <x-input-date id="completion_date" wire:model.live='completion_date' readonly :error="$errors->get('completion_date')" />
                     <x-label-error :messages="$errors->get('completion_date')" />
                 </div>
@@ -73,5 +73,5 @@
         </div>
     </div>
 
-    
+
 </div>

@@ -48,7 +48,7 @@ class Create extends Component
     {
         return [
             'responsibility_name' => ['nullable'],
-            'followup_action' => ['nullable'],
+            'followup_action' => ['required'],
             'actionee_comment' => ['nullable'],
             'action_condition' => ['nullable'],
             'due_date' => ['nullable'],
