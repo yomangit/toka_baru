@@ -126,7 +126,7 @@
                 <x-label-error :messages="$errors->get('location_id')" />
             </div>
             <div class="w-full max-w-md xl:max-w-xl form-control {{ $showLocation==true ? 'block' : 'hidden' }}">
-                <x-label-req :value="__('Lokasi')" />
+                <x-label-req :value="__('Lokasi Spesifik')" />
                 <x-input wire:model.blur='location_name' :error="$errors->get('location_name')" />
                 <x-label-error :messages="$errors->get('location_name')" />
             </div>
@@ -171,7 +171,7 @@
             </fieldset>
             <fieldset class="self-center w-40 fieldset rounded-box">
                 <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
-                    {{ __('Tindakanw tidak aman') }}
+                    {{ __('Tindakan tidak aman') }}
                     <input type="checkbox" wire:model.live="tindakan_tidak_aman"
                         {{ $tindakan_tidak_aman = 1 ? 'checked="checked"' : '' }}
                         class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
