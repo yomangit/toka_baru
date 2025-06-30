@@ -93,7 +93,7 @@
                             <div class="h-full mb-2 overflow-auto max-h-40 scroll-smooth focus:scroll-auto"
                                 wire:target='report_toName' wire:loading.class='hidden'>
                                 @forelse ($Report_To as $report_to)
-                                    <div wire:click="reportedBy({{ $report_to->id }})"
+                                    <div wire:click="reportedTo({{ $report_to->id }})"
                                         class="flex flex-col border-b cursor-pointer hover:bg-primary border-base-200 ">
                                         <strong
                                             class="text-[10px] text-slate-800">{{ $report_to->lookup_name }}</strong>
