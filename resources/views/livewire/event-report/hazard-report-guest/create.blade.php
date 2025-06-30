@@ -128,7 +128,7 @@
                             @forelse ($Division as $item)
                                 <li wire:click="select_division({{ $item->id }})"
                                     class = "text-[9px] text-wrap hover:bg-primary subpixel-antialiased text-left cursor-pointer">
-                                    {{ $item->DeptByBU->Department->department_name }}
+                                     {{ $item->DeptByBU->BusinesUnit->Company->name_company }}-{{ $item->DeptByBU->Department->department_name }}
                                     @if (!empty($item->company_id))
                                         -{{ $item->Company->name_company }}
                                     @endif
