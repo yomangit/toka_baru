@@ -297,8 +297,8 @@ class Create extends Component
             ];
             Notification::send($users, new toModerator($offerData));
         }
-        $Users = User::where('id', $this->report_to)->whereNotNull('email')->get();
-        if ($Users) {
+        $report_to = User::where('id', $this->report_to)->whereNotNull('email')->get();
+        if ($report_to) {
             $offerData = [
                 'greeting'  => 'Hi' . ' ' . $this->report_toName,
                 'subject'   => 'hazard report with reference number ' . ' ' . $this->reference,
@@ -307,7 +307,7 @@ class Create extends Component
                 'line3'     => 'Thank you',
                 'actionUrl' => url("/eventReport/hazardReportDetail/$url"),
             ];
-            Notification::send($this->report_to, new toModerator($offerData));
+            Notification::send($report_to, new toModerator($offerData));
         $this->clearFields();
         // $this->redirectRoute('hazardReportCreate', ['workflow_template_id' => $this->workflow_template_id]);
     }
