@@ -82,6 +82,41 @@
                 <x-label-error :messages="$errors->get('report_byName')" />
             </div>
             <div class="w-full max-w-md xl:max-w-xl form-control">
+                <x-label-req :value="__('report_to')" />
+                <div class="dropdown dropdown-end">
+                    <x-input wire:click='clickReportTo' wire:model.live='report_toName'
+                        placeholder='cari nama pelapor...' :error="$errors->get('report_toName')" class="cursor-pointer" tabindex="0"
+                        role="button" />
+                    <div tabindex="0"
+                        class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow {{ $hiddenReportTo }}">
+                        <div class="relative">
+                            <div class="h-full mb-2 overflow-auto max-h-40 scroll-smooth focus:scroll-auto"
+                                wire:target='report_byName' wire:loading.class='hidden'>
+                                @forelse ($Report_To as $report_to)
+                                    <div wire:click="reportedBy({{ $report_to->id }})"
+                                        class="flex flex-col border-b cursor-pointer hover:bg-primary border-base-200 ">
+                                        <strong
+                                            class="text-[10px] text-slate-800">{{ $report_to->lookup_name }}</strong>
+                                    </div>
+                                @empty
+                                    <strong
+                                        class="text-xs text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-rose-800">Name
+                                        Not Found!!!</strong>
+                                @endforelse
+                            </div>
+                            <div class="hidden pt-5 text-center" wire:target='report_toName'
+                                wire:loading.class.remove='hidden'> <x-loading-spinner /></div>
+                            <div class="pb-6">{{ $Report_By->links('pagination.minipaginate') }}</div>
+                            <div class="fixed bottom-0 left-0 right-0 px-2 mb-1 bg-base-300 opacity-95 ">
+                                <x-input-no-req wire:model.live='report_to_nolist'
+                                    placeholder="{{ __('name_notList') }}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <x-label-error :messages="$errors->get('report_toName')" />
+            </div>
+            <div class="w-full max-w-md xl:max-w-xl form-control">
                 <x-label-req :value="__('Perusahaan terkait')" />
                 <div class="dropdown dropdown-end">
                     <x-input wire:click='clickWorkgroup' wire:model.live='workgroup_name'

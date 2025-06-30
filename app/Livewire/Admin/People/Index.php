@@ -18,7 +18,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.admin.people.index', [
-            'People' => User::with(['company','company.CompanyCategory'])->searchFor(trim($this->search))->paginate(20)
+            'People' => User::with(['company','company.CompanyCategory'])->searchNama(trim($this->search))->paginate(20)
         ])->extends('base.index', ['header' => 'People', 'title' => 'People'])->section('content');
     }
     public function updateData($id)
