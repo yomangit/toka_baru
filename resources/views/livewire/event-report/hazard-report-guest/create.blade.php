@@ -85,7 +85,7 @@
                 <x-label-req :value="__('report_to')" />
                 <div class="dropdown dropdown-end">
                     <x-input wire:click='clickReportTo' wire:model.live='report_toName'
-                        placeholder='cari nama pelapor...' :error="$errors->get('report_toName')" class="cursor-pointer" tabindex="0"
+                        placeholder="{{ __('report_to') }}" :error="$errors->get('report_toName')" class="cursor-pointer" tabindex="0"
                         role="button" />
                     <div tabindex="0"
                         class="dropdown-content card card-compact  bg-base-300 text-primary-content z-[1] w-full  p-2 shadow {{ $hiddenReportTo }}">
