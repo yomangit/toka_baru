@@ -82,7 +82,7 @@
                 <x-label-error :messages="$errors->get('report_byName')" />
             </div>
             <div class="w-full max-w-md xl:max-w-xl form-control">
-                <x-label-req :value="__('report_to')" />
+                <x-label-no-req :value="__('report_to')" />
                 <div class="dropdown dropdown-end">
                     <x-input wire:click='clickReportTo' wire:model.live='report_toName'
                         placeholder="{{ __('report_to') }}" :error="$errors->get('report_toName')" class="cursor-pointer" tabindex="0"
