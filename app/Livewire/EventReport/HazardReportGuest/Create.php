@@ -291,28 +291,27 @@ class Create extends Component
                 'greeting'  => 'Hi' . ' ' . $value->lookup_name,
                 'subject'   => 'Hazard Report' . ' ' . $this->task_being_done,
                 'line'      => $this->report_byName . ' ' . 'has submitted a hazard report, please review',
-                'line2'     => 'Please review this report',
+                'line2'     => 'by click the button below',
                 'line3'     => 'Thank you',
                 'actionUrl' => url("/eventReport/hazardReportDetail/$url"),
             ];
             Notification::send($users, new toModerator($offerData));
         }
         $Users = User::where('id', $this->report_to)->whereNotNull('email')->get();
-        foreach ($Users as $key => $value) {
-            $report_to = User::whereId($value->id)->get();
+        if ($Users) {
             $offerData = [
                 'greeting'  => 'Hi' . ' ' . $this->report_toName,
-                'subject'   => 'Hazard Report' . ' ' . $this->task_being_done,
+                'subject'   => 'hazard report with reference number ' . ' ' . $this->reference,
                 'line'      => $this->report_byName . ' ' . 'has sent a hazard <br/> report to you, please review it',
-                'line2'     => 'Please check by click the button below',
+                'line2'     => 'by click the button below',
                 'line3'     => 'Thank you',
                 'actionUrl' => url("/eventReport/hazardReportDetail/$url"),
             ];
-            Notification::send($report_to, new toModerator($offerData));
-        }
+            Notification::send($Users->id, new toModerator($offerData));
         $this->clearFields();
         // $this->redirectRoute('hazardReportCreate', ['workflow_template_id' => $this->workflow_template_id]);
     }
+}
 
     public function clearFields()
     {
