@@ -307,7 +307,7 @@ class Create extends Component
                 'line3'     => 'Thank you',
                 'actionUrl' => url("/eventReport/hazardReportDetail/$url"),
             ];
-            Notification::send($Users->first()->id, new toModerator($offerData));
+            Notification::send($this->report_to, new toModerator($offerData));
         $this->clearFields();
         // $this->redirectRoute('hazardReportCreate', ['workflow_template_id' => $this->workflow_template_id]);
     }
