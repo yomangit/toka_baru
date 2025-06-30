@@ -302,7 +302,7 @@ class Create extends Component
             $offerData = [
                 'greeting'  => 'Hi' . ' ' . $this->report_toName,
                 'subject'   => 'hazard report with reference number ' . ' ' . $this->reference,
-                'line'      => $this->report_byName . ' ' . 'has sent a hazard <br/> report to you, please review it',
+                'line'      => $this->report_byName . ' ' . 'has sent a hazard report to you, please review it',
                 'line2'     => 'by click the button below',
                 'line3'     => 'Thank you',
                 'actionUrl' => url("/eventReport/hazardReportDetail/$url"),
