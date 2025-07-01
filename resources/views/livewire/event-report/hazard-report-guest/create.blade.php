@@ -196,7 +196,8 @@
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
         <div class="flex flex-col md:flex-row items-stretch gap-4 mt-2 px-2 mx-2 divide-y-2 md:divide-x-2 divide-base-200 border md:w-[25rem] border-base-200 rounded-box">
-            <fieldset class="self-center w-40 md:w-full max-w-sm fieldset rounded-box">
+            <div>
+                <fieldset class="self-center w-40 md:w-full max-w-sm fieldset rounded-box">
                 <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                     {{ __('kondisi tidak aman') }}
                     <input type="checkbox" wire:model.live="kondisi_tidak_aman"
@@ -204,7 +205,9 @@
                         class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
                 </label>
             </fieldset>
-            <fieldset class="self-center w-40 md:w-full max-w-sm fieldset rounded-box">
+            </div>
+            <div>
+                <fieldset class="self-center w-40 md:w-full max-w-sm fieldset rounded-box">
                 <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                     {{ __('Tindakan tidak aman') }}
                     <input type="checkbox" wire:model.live="tindakan_tidak_aman"
@@ -212,6 +215,7 @@
                         class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
                 </label>
             </fieldset>
+            </div>
             <div>
                 <fieldset class="w-48 md:w-full max-w-sm  fieldset rounded-box ">
 
