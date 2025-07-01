@@ -173,7 +173,7 @@
             </div>
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
-        <div class="grid grid-rows-3 md:grid-cols-3  gap-4 mt-2  divide-y-2 md:divide-x-2 divide-base-200 border  border-base-200 rounded-box">
+        <div class="grid grid-rows-3 md:grid-cols-3  md:gap-4 mt-2  divide-y-2 md:divide-x-2 divide-base-200 border  border-base-200 rounded-box">
             <div class='mx-4'>
                 <fieldset class="self-center w-40 max-w-sm fieldset rounded-box">
                     <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
