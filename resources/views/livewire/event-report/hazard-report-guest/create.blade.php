@@ -173,8 +173,8 @@
             </div>
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
-        <div class="flex flex-col md:flex-row items-stretch gap-4 mt-2 px-2 mx-2 divide-y-2 md:divide-x-2 divide-base-200 border  border-base-200 rounded-box">
-            <div>
+        <div class="grid grid-rows-3 md:grid-cols-3 items-stretch gap-4 mt-2  divide-y-2 md:divide-x-2 divide-base-200 border  border-base-200 rounded-box">
+            <div class='mx-4'>
                 <fieldset class="self-center  max-w-sm fieldset rounded-box">
                     <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                         {{ __('kondisi tidak aman') }}
@@ -182,7 +182,7 @@
                     </label>
                 </fieldset>
             </div>
-            <div>
+            <div class='mx-4'>
                 <fieldset class="self-center  max-w-sm fieldset rounded-box">
                     <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                         {{ __('Tindakan tidak aman') }}
@@ -190,7 +190,7 @@
                     </label>
                 </fieldset>
             </div>
-            <div>
+            <div class='mx-4'>
                 <fieldset class=" max-w-sm  fieldset rounded-box ">
 
                     <x-label-req :value="__('perbaikan tingkat lanjut')" />
