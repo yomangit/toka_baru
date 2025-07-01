@@ -120,6 +120,7 @@ class Detail extends Component
                 'file_doc'                    => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
                 'description'                 => ['required'],
                 'immediate_corrective_action' => ['required'],
+                'location_id'               => ['required'],
                 'location_name'               => ['required'],
                 'risk_consequence_id'         => ['required'],
                 'risk_likelihood_id'          => ['required'],
@@ -138,6 +139,7 @@ class Detail extends Component
                 'file_doc'                    => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
                 'description'                 => ['required'],
                 'immediate_corrective_action' => ['nullable'],
+                'location_id'               => ['required'],
                 'location_name'               => ['required'],
                 'risk_consequence_id'         => ['required'],
                 'risk_likelihood_id'          => ['required'],
@@ -168,6 +170,8 @@ class Detail extends Component
             'risk_likelihood_id.required'          => 'risk likelihood fild is required',
             'document_id.required'                 => 'document id fild is required',
             'workgroup_name.required'              => 'workgroup name fild is required',
+            'location_name.required'              => 'Specific Location name fild is required',
+            'location_id.required'              => 'Location fild is required',
         ];
     }
     public function ReportByAndReportTo()
@@ -385,6 +389,7 @@ class Detail extends Component
             'risk_consequence_id'         => $this->risk_consequence_id,
             'risk_likelihood_id'          => $this->risk_likelihood_id,
             'location_name'               => $this->location_name,
+            'event_location_id'               => $this->location_id,
             'workgroup_name'              => $this->workgroup_name,
             'report_byName'               => $this->report_byName,
             'report_toName'               => $this->report_toName,
@@ -392,6 +397,7 @@ class Detail extends Component
             'documentation'               => $this->documentation,
             'description'                 => $this->description,
             'kondisi_tidak_aman'          => $this->kondisi_tidak_aman,
+            'tindakan_tidak_aman'          => $this->tindakan_tidak_aman,
             'tindakkan_selanjutnya'       => $this->tindakkan_selanjutnya,
             'immediate_corrective_action' => $this->immediate_corrective_action,
             'report_by_nolist'            => $this->report_to_nolist,
