@@ -192,7 +192,36 @@
                         <x-label-error :messages="$errors->get('immediate_corrective_action')" />
                     </fieldset>
                 </div>
+                <div class="grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 content-center md:gap-4 mt-2  divide-y-2 md:divide-x-2 divide-base-200 border  border-base-200 rounded-box">
+                    <div class='px-4 '>
+                        <fieldset class="self-center w-40 max-w-sm fieldset rounded-box">
+                            <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
+                                {{ __('kondisi tidak aman') }}
+                                <input type="checkbox" wire:model.live="kondisi_tidak_aman" {{ $kondisi_tidak_aman = 1 ? 'checked="checked"' : '' }} class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
+                            </label>
+                        </fieldset>
+                    </div>
+                    <div class='px-4'>
+                        <fieldset class="self-center w-40 max-w-sm fieldset rounded-box">
+                            <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
+                                {{ __('Tindakan tidak aman') }}
+                                <input type="checkbox" wire:model.live="tindakan_tidak_aman" {{ $tindakan_tidak_aman = 1 ? 'checked="checked"' : '' }} class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
+                            </label>
+                        </fieldset>
+                    </div>
+                    <div class='px-4'>
+                        <fieldset class=" max-w-sm w-40 fieldset rounded-box ">
 
+                            <x-label-req :value="__('perbaikan tingkat lanjut')" />
+
+                            <input wire:model.live="tindakkan_selanjutnya" value='1' name="tingkat_lanjut" id="yes_lanjut" class="radio-xs peer/yes_lanjut checked:bg-rose-500 radio" type="radio" />
+                            <label for="yes_lanjut" class="text-xs font-semibold peer-checked/yes_lanjut:text-rose-500">{{ __('Yes') }}</label>
+                            <input wire:model.live="tindakkan_selanjutnya" value="0" id="no_lanjut" class="peer/no_lanjut checked:bg-emerald-500 radio-xs radio" type="radio" name="tingkat_lanjut" />
+                            <label for="no_lanjut" class="text-xs font-semibold peer-checked/no_lanjut:text-emerald-500">{{ __('No') }}</label>
+                        </fieldset>
+                        <x-label-error :messages="$errors->get('tindakkan_selanjutnya')" />
+                    </div>
+                </div>
 
                 <div class="flex flex-col-reverse items-center mt-2 border-2 rounded-sm md:flex-row md:divide-x-2 divide-late-400/25 border-slate-400/25">
                     <div class="flex-auto p-2 divide-y-2 divide-slate-400/25">
@@ -318,36 +347,7 @@
 
                 </table>
 
-                <div class="grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 content-center md:gap-4 mt-2  divide-y-2 md:divide-x-2 divide-base-200 border  border-base-200 rounded-box">
-                    <div class='px-4 '>
-                        <fieldset class="self-center w-40 max-w-sm fieldset rounded-box">
-                            <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
-                                {{ __('kondisi tidak aman') }}
-                                <input type="checkbox" wire:model.live="kondisi_tidak_aman" {{ $kondisi_tidak_aman = 1 ? 'checked="checked"' : '' }} class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
-                            </label>
-                        </fieldset>
-                    </div>
-                    <div class='px-4'>
-                        <fieldset class="self-center w-40 max-w-sm fieldset rounded-box">
-                            <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
-                                {{ __('Tindakan tidak aman') }}
-                                <input type="checkbox" wire:model.live="tindakan_tidak_aman" {{ $tindakan_tidak_aman = 1 ? 'checked="checked"' : '' }} class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
-                            </label>
-                        </fieldset>
-                    </div>
-                    <div class='px-4'>
-                        <fieldset class=" max-w-sm w-40 fieldset rounded-box ">
 
-                            <x-label-req :value="__('perbaikan tingkat lanjut')" />
-
-                            <input wire:model.live="tindakkan_selanjutnya" value='1' name="tingkat_lanjut" id="yes_lanjut" class="radio-xs peer/yes_lanjut checked:bg-rose-500 radio" type="radio" />
-                            <label for="yes_lanjut" class="text-xs font-semibold peer-checked/yes_lanjut:text-rose-500">{{ __('Yes') }}</label>
-                            <input wire:model.live="tindakkan_selanjutnya" value="0" id="no_lanjut" class="peer/no_lanjut checked:bg-emerald-500 radio-xs radio" type="radio" name="tingkat_lanjut" />
-                            <label for="no_lanjut" class="text-xs font-semibold peer-checked/no_lanjut:text-emerald-500">{{ __('No') }}</label>
-                        </fieldset>
-                        <x-label-error :messages="$errors->get('tindakkan_selanjutnya')" />
-                    </div>
-                </div>
                 <div class="flex flex-col w-full border-opacity-50 mt-4">
                     <div role="tablist" class="mb-4 tabs tabs-lifted">
                         <input type="radio" name="my_tabs_1" class="tab z-1 font-semibold  font-signika text-sky-500" aria-label="Final Documentation" checked="checked" />
