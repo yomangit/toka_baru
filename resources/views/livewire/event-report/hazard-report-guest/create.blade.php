@@ -195,7 +195,7 @@
             </div>
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
-        <div class="flex flex-row items-stretch gap-4 mt-2 px-2 divide-x-2 divide-base-100 border md:w-[25rem] border-base-200 rounded-box">
+        <div class="flex flex-row items-stretch gap-4 mt-2 px-2 divide-x-4 divide-base-200 border md:w-[25rem] border-base-200 rounded-box">
             <fieldset class="self-center w-40 fieldset rounded-box">
                 <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                     {{ __('kondisi tidak aman') }}
