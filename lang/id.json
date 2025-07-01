@@ -1,6 +1,6 @@
 {
-    "event_type": "Tipe Kejadian",
-    "sub_event_type": "jenis sub kejadian ",
+    "event_type": "Tipe Hazard",
+    "sub_event_type": "jenis sub Hazard ",
     "workgroup": "workgroup",
     "name": "nama",
     "Responsibility": "Penanggung Jawab",
