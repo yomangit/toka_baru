@@ -175,7 +175,7 @@
         </fieldset>
         <div class="grid grid-rows-3 md:grid-cols-3  gap-4 mt-2  divide-y-2 md:divide-x-2 divide-base-200 border  border-base-200 rounded-box">
             <div class='mx-4'>
-                <fieldset class="self-center  max-w-sm fieldset rounded-box">
+                <fieldset class="self-center w-40 max-w-sm fieldset rounded-box">
                     <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                         {{ __('kondisi tidak aman') }}
                         <input type="checkbox" wire:model.live="kondisi_tidak_aman" {{ $kondisi_tidak_aman = 1 ? 'checked="checked"' : '' }} class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
@@ -183,7 +183,7 @@
                 </fieldset>
             </div>
             <div class='mx-4'>
-                <fieldset class="self-center  max-w-sm fieldset rounded-box">
+                <fieldset class="self-center w-40 max-w-sm fieldset rounded-box">
                     <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
                         {{ __('Tindakan tidak aman') }}
                         <input type="checkbox" wire:model.live="tindakan_tidak_aman" {{ $tindakan_tidak_aman = 1 ? 'checked="checked"' : '' }} class="checkbox border-rose-600 bg-base-300 checked:border-emerald-500 checked:bg-emerald-400 checked:text-emerald-800 checkbox-xs" />
@@ -191,7 +191,7 @@
                 </fieldset>
             </div>
             <div class='mx-4'>
-                <fieldset class=" max-w-sm  fieldset rounded-box ">
+                <fieldset class=" max-w-sm w-40 fieldset rounded-box ">
 
                     <x-label-req :value="__('perbaikan tingkat lanjut')" />
 
