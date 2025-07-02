@@ -327,6 +327,7 @@ class CreateAndUpdate extends Component
     public function clearFields()
     {
         $this->report_byName               = "";
+        $this->report_toName               = "";
         $this->workgroup_name              = "";
         $this->division_id                 = "";
         $this->date                        = "";
@@ -334,6 +335,10 @@ class CreateAndUpdate extends Component
         $this->description                 = "";
         $this->immediate_corrective_action = "";
         $this->location_name               = "";
+        $this->location_id                 = "";
+        $this->kondisi_tidak_aman          = "";
+        $this->tindakan_tidak_aman         = "";
+        $this->tindakkan_selanjutnya         = "";
         $this->workgroup_name              = "";
     }
 }
