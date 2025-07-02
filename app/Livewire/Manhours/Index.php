@@ -3,15 +3,17 @@
 namespace App\Livewire\Manhours;
 
 use App\Models\Company;
-use App\Models\CompanyCategory;
-use App\Models\Department;
 use Livewire\Component;
 use App\Models\Manhours;
-use App\Models\UserInputManhours;
+use App\Models\Department;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ManhoursExport;
+use App\Models\CompanyCategory;
+use App\Models\UserInputManhours;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+
 class Index extends Component
 {
     #[Url]
@@ -27,15 +29,15 @@ class Index extends Component
     {
 
 
-        $this->companyID = UserInputManhours::where('user_id', auth()->user()->id)->get()->pluck('Company.name_company');
+        $this->companyID = UserInputManhours::where('user_id', Auth::user()->id)->get()->pluck('Company.name_company');
         if ($this->rangeDate) {
-            if (auth()->user()->role_user_permit_id == 1) {
+            if (Auth::user()->role_user_permit_id == 1) {
                 $manhours = Manhours::searchCompanyCategory(trim($this->search_companyCategory))->searchDepartment(trim($this->search_department))->whereBetween('date', array([$this->tglMulai, $this->tglAkhir]))->searchCompany(trim($this->search_name_company))->orderBy('created_at', 'desc')->orderBy('date', 'desc')->paginate(30);
             } else {
                 $manhours = Manhours::whereIn('company', $this->companyID)->searchCompanyCategory(trim($this->search_companyCategory))->searchDepartment(trim($this->search_department))->whereBetween('date', array([$this->tglMulai, $this->tglAkhir]))->searchCompany(trim($this->search_name_company))->orderBy('date', 'desc')->paginate(30);
             }
         } else {
-            if (auth()->user()->role_user_permit_id == 1) {
+            if (Auth::user()->role_user_permit_id == 1) {
                 $manhours = Manhours::searchManhours(trim($this->search))->searchCompanyCategory(trim($this->search_companyCategory))->searchCompany(trim($this->search_name_company))->searchDepartment(trim($this->search_department))->orderBy('date', 'desc')->paginate(30);
             } else {
                 $manhours = Manhours::whereIn('company', $this->companyID)->searchCompanyCategory(trim($this->search_companyCategory))->searchCompany(trim($this->search_name_company))->searchDepartment(trim($this->search_department))->orderBy('date', 'desc')->paginate(30);
@@ -99,7 +101,7 @@ class Index extends Component
             $this->seleted_manhours = [];
         }
     }
-    public function export() 
+    public function export()
     {
         //return (new ManhoursExport($this->seleted_manhours))->download("manhours.xlsx");
         return (new ManhoursExport($this->seleted_manhours))->download('manhours.xlsx');

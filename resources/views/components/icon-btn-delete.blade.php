@@ -1,5 +1,5 @@
 <label
-    {{ $attributes->merge(['class' => 'btn btn-xs z-40 btn-error btn-square btn-outline tooltip tooltip-top tooltip-error']) }}>
+    {{ $attributes->merge(['class' => 'btn btn-xs  btn-error btn-square btn-outline tooltip tooltip-top tooltip-error']) }}>
     <svg version="1.1" id="Uploaded to svgrepo.com" xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink" class="size-5 ml-[5%] mt-[5%]" viewBox="0 0 32 32" xml:space="preserve">
         <style type="text/css">

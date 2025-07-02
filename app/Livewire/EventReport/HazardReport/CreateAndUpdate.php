@@ -1,33 +1,26 @@
 <?php
-
 namespace App\Livewire\EventReport\HazardReport;
 
-use DateTime;
-use App\Models\Site;
-use App\Models\User;
+use App\Models\BusinesUnit;
+use App\Models\choseEventType;
 use App\Models\Company;
-use Livewire\Component;
 use App\Models\DeptByBU;
 use App\Models\Division;
-use App\Models\BusinesUnit;
 use App\Models\Eventsubtype;
-use App\Models\HazardReport;
-use Livewire\WithPagination;
-use App\Models\LocationEvent;
-use Livewire\WithFileUploads;
-use App\Models\choseEventType;
-use App\Models\RiskAssessment;
-use App\Models\RiskLikelihood;
-use App\Models\WorkflowDetail;
-use App\Models\CompanyCategory;
-use App\Models\RiskConsequence;
-use App\Models\TypeEventReport;
 use App\Models\EventUserSecurity;
+use App\Models\HazardReport;
+use App\Models\LocationEvent;
+use App\Models\TypeEventReport;
+use App\Models\User;
+use App\Models\WorkflowDetail;
 use App\Notifications\toModerator;
-use App\Models\TableRiskAssessment;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Request;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class CreateAndUpdate extends Component
 {
@@ -116,11 +109,11 @@ class CreateAndUpdate extends Component
     }
     public function reportedTo($id)
     {
-        $this->report_to = $id;
-        $ReportTo = User::whereId($id)->first();
-        $this->report_toName = $ReportTo->lookup_name;
+        $this->report_to        = $id;
+        $ReportTo               = User::whereId($id)->first();
+        $this->report_toName    = $ReportTo->lookup_name;
         $this->report_to_nolist = null;
-         $this->hiddenReportTo   = 'hidden';
+        $this->hiddenReportTo   = 'hidden';
     }
     public function ReportByAndReportTo()
     {
@@ -181,13 +174,13 @@ class CreateAndUpdate extends Component
         if ($this->division_id) {
             $divisi = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->first();
             if (! empty($divisi->company_id) && ! empty($divisi->section_id)) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company.'-'.$divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company . '-' . $divisi->Section->name;
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company . '-' . $divisi->Section->name;
             } elseif ($divisi->company_id) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company.'-'.$divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company;
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company;
             } elseif ($divisi->section_id) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company.'-'.$divisi->DeptByBU->Department->department_name . '-' . $divisi->Section->name;
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Section->name;
             } else {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company.'-'.$divisi->DeptByBU->Department->department_name;
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name;
             }
             $this->divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
         } else {
@@ -205,16 +198,16 @@ class CreateAndUpdate extends Component
         $this->ReportByAndReportTo();
 
         return view('livewire.event-report.hazard-report.create-and-update', [
-             'Report_By' => User::searchNama(trim($this->report_byName))->paginate(100, ['*'], 'Report_By'),
+            'Report_By' => User::searchNama(trim($this->report_byName))->paginate(100, ['*'], 'Report_By'),
             'Report_To' => User::searchNama(trim($this->report_toName))->paginate(100, ['*'], 'Report_To'),
             'Division'  => $this->divisi_search,
             'EventType' => $this->Event_type,
             'Location'  => LocationEvent::get(),
         ])->extends('base.index', ['header' => 'Hazard Report', 'title' => 'Hazard Report'])->section('content');
     }
-      public function store()
+    public function store()
     {
-         $hazard          = HazardReport::exists();
+        $hazard          = HazardReport::exists();
         $referenceHazard = "TT–OHS–HZD-";
         if (! $hazard) {
             $reference       = 1;
@@ -338,7 +331,7 @@ class CreateAndUpdate extends Component
         $this->location_id                 = "";
         $this->kondisi_tidak_aman          = "";
         $this->tindakan_tidak_aman         = "";
-        $this->tindakkan_selanjutnya         = "";
+        $this->tindakkan_selanjutnya       = "";
         $this->workgroup_name              = "";
     }
 }
