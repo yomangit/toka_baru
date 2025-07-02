@@ -106,11 +106,11 @@ class Create extends Component
     }
     public function reportedTo($id)
     {
-        $this->report_to = $id;
-        $ReportTo = User::whereId($id)->first();
-        $this->report_toName = $ReportTo->lookup_name;
+        $this->report_to        = $id;
+        $ReportTo               = User::whereId($id)->first();
+        $this->report_toName    = $ReportTo->lookup_name;
         $this->report_to_nolist = null;
-         $this->hiddenReportTo   = 'hidden';
+        $this->hiddenReportTo   = 'hidden';
     }
     public function ReportByAndReportTo()
     {
@@ -171,13 +171,13 @@ class Create extends Component
         if ($this->division_id) {
             $divisi = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->first();
             if (! empty($divisi->company_id) && ! empty($divisi->section_id)) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company.'-'.$divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company . '-' . $divisi->Section->name;
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company . '-' . $divisi->Section->name;
             } elseif ($divisi->company_id) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company.'-'.$divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company;
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company;
             } elseif ($divisi->section_id) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company.'-'.$divisi->DeptByBU->Department->department_name . '-' . $divisi->Section->name;
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Section->name;
             } else {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company.'-'.$divisi->DeptByBU->Department->department_name;
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name;
             }
             $this->divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
         } else {
@@ -308,10 +308,10 @@ class Create extends Component
                 'actionUrl' => url("/eventReport/hazardReportDetail/$url"),
             ];
             Notification::send($report_to, new toModerator($offerData));
-        $this->clearFields();
-        // $this->redirectRoute('hazardReportCreate', ['workflow_template_id' => $this->workflow_template_id]);
+            $this->clearFields();
+            // $this->redirectRoute('hazardReportCreate', ['workflow_template_id' => $this->workflow_template_id]);
+        }
     }
-}
 
     public function clearFields()
     {
