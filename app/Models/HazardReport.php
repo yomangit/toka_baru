@@ -27,6 +27,7 @@ class HazardReport extends Model
         'documentation',
         'description',
         'location_name',
+        'event_location_id',
         'immediate_corrective_action',
         'suggested_corrective_action',
         'corrective_action_suggested',

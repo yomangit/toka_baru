@@ -212,9 +212,9 @@ class CreateAndUpdate extends Component
             'Location'  => LocationEvent::get(),
         ])->extends('base.index', ['header' => 'Hazard Report', 'title' => 'Hazard Report'])->section('content');
     }
-       public function store()
+      public function store()
     {
-        $hazard          = HazardReport::exists();
+         $hazard          = HazardReport::exists();
         $referenceHazard = "TT–OHS–HZD-";
         if (! $hazard) {
             $reference       = 1;
