@@ -57,7 +57,7 @@
                                 <ul class="h-full px-4 py-4 list-disc list-inside max-h-40 bg-base-200 rounded-box">
                                     @forelse ($Division as $item)
                                     <li wire:click="select_division({{ $item->id }})" class="text-[9px] text-wrap hover:bg-primary subpixel-antialiased text-left cursor-pointer">
-                                        {{ $item->DeptByBU->Department->department_name }}
+                                        {{ $item->DeptByBU->BusinesUnit->Company->name_company }}-{{ $item->DeptByBU->Department->department_name }}
                                         @if (!empty($item->company_id))
                                         -{{ $item->Company->name_company }}
                                         @endif
@@ -192,7 +192,7 @@
                         <x-label-error :messages="$errors->get('immediate_corrective_action')" />
                     </fieldset>
                 </div>
-                <div class="grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 md:content-center md:gap-4 mt-2  divide-y-2 md:divide-y-0 md:divide-x-2 divide-base-200 border  border-base-200 rounded-box">
+                <div class="grid grid-rows-3 mt-2 border divide-y-2 md:grid-rows-1 md:grid-cols-3 md:content-center md:gap-4 md:divide-y-0 md:divide-x-2 divide-base-200 border-base-200 rounded-box">
                     <div class='px-4 md:place-self-center '>
                         <fieldset class="self-center w-40 max-w-sm fieldset rounded-box">
                             <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
@@ -210,7 +210,7 @@
                         </fieldset>
                     </div>
                     <div class='px-4 md:place-self-center'>
-                        <fieldset class=" max-w-sm w-40 fieldset rounded-box ">
+                        <fieldset class="w-40 max-w-sm  fieldset rounded-box">
 
                             <x-label-req :value="__('perbaikan tingkat lanjut')" />
 
@@ -348,9 +348,9 @@
                 </table>
 
 
-                <div class="flex flex-col w-full border-opacity-50 mt-4">
+                <div class="flex flex-col w-full mt-4 border-opacity-50">
                     <div role="tablist" class="mb-4 tabs tabs-lifted">
-                        <input type="radio" name="my_tabs_1" class="tab z-1 font-semibold  font-signika text-sky-500" aria-label="Final Documentation" checked="checked" />
+                        <input type="radio" name="my_tabs_1" class="font-semibold tab z-1 font-signika text-sky-500" aria-label="Final Documentation" checked="checked" />
                         <div role="tabpanel" class="p-6 tab-content bg-base-100 border-base-300 rounded-box">
                             <div class="mx-4 my-2">
                                 <x-btn-add data-tip="Add" class="{{ $currentStep === 'Closed' || $currentStep === 'Cancelled' ? 'btn-disabled ' : '' }}" wire:click="$dispatch('openModal', { component: 'event-report.hazard-report.documentation.create', arguments: { doc: {{ $data_id }} }})" />
@@ -359,7 +359,7 @@
                         </div>
                     </div>
                     <div role="tablist" class="mb-4 tabs tabs-lifted">
-                        <input type="radio" name="my_tabs_2" class="tab z-1 font-semibold  font-signika text-sky-500" aria-label="Additional Action" checked="checked" />
+                        <input type="radio" name="my_tabs_2" class="font-semibold tab z-1 font-signika text-sky-500" aria-label="Additional Action" checked="checked" />
                         <div role="tabpanel" class="p-6 tab-content bg-base-100 border-base-300 rounded-box">
                             <div class="mx-4 my-2">
                                 <livewire:event-report.hazard-report.action.index :id="$data_id">
@@ -367,7 +367,7 @@
                         </div>
                     </div>
                     <div role="tablist" class="mb-4 tabs tabs-lifted">
-                        <input type="radio" name="my_tabs_3" class="tab z-1 font-semibold  font-signika text-sky-500" aria-label="Event Keyword" checked="checked" />
+                        <input type="radio" name="my_tabs_3" class="font-semibold tab z-1 font-signika text-sky-500" aria-label="Event Keyword" checked="checked" />
                         <div role="tabpanel" class="p-6 tab-content bg-base-100 border-base-300 rounded-box">
                             <div class="mx-4 my-2">
                                 <livewire:event-report.event-keyword.index :data="$data_id">
