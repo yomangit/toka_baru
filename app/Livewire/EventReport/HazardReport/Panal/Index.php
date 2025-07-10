@@ -54,7 +54,7 @@ class Index extends Component
                 $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name;
             }
         }
-         dd($this->workgroup_name);
+ 
     }
     public function render()
     {
@@ -112,11 +112,10 @@ class Index extends Component
     public function realtimeUpdate()
     {
         $ERM = ClassHierarchy::searchDivision(trim($this->division_id))->pluck('dept_by_business_unit_id');
-       
         if ($this->procced_to === "ERM Assigned") {
             foreach ($ERM as $value) {
                 if (!empty($value)) {
-                    $this->EventUserSecurity = (EventUserSecurity::where('responsible_role_id', 2)->where('dept_by_business_unit_id', $value)->where('type_event_report_id', $this->event_type_id)->exists()) ? EventUserSecurity::where('responsible_role_id', 2)->where('dept_by_business_unit_id', $value)->where('type_event_report_id', $this->event_type_id)->get() : EventUserSecurity::where('responsible_role_id', 2)->where('dept_by_business_unit_id', $value)->get();
+                    $this->EventUserSecurity = (EventUserSecurity::where('responsible_role_id', 2)->where('name',$this->workgroup_name)->where('type_event_report_id', $this->event_type_id)->exists()) ? EventUserSecurity::where('responsible_role_id', 2)->where('name',$this->workgroup_name)->where('type_event_report_id', $this->event_type_id)->get() : EventUserSecurity::where('responsible_role_id', 2)->where('name',$this->workgroup_name)->get();
                     $this->show = true;
                 } else {
                     $this->show = false;
