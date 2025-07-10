@@ -280,7 +280,6 @@ class Create extends Component
             // Simpan hasil kompres ke storage secara manual
             $filename = uniqid() . '.' . strtolower($this->documentation->getClientOriginalExtension());
             Storage::disk('public')->put('documents/hzd/' . $filename, $image);
-
             $this->fileUpload = $filename;
         } else {
             $this->fileUpload = null;
