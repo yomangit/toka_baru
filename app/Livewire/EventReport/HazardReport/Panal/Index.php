@@ -4,6 +4,7 @@ namespace App\Livewire\EventReport\HazardReport\Panal;
 
 use App\Models\User;
 use Livewire\Component;
+use App\Models\Division;
 use Livewire\Attributes\On;
 use App\Models\HazardReport;
 use App\Models\ClassHierarchy;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Notification;
 class Index extends Component
 {
     public $procced_to, $EventUserSecurity = [], $Workflows, $show = false, $workflow_detail_id, $data_id, $assign_to, $also_assign_to, $current_step, $reference,  $event_type_id, $workflow_administration_id, $status, $bg_status, $muncul = false, $responsible_role_id;
-    public $wf_id, $division_id, $assign_to_old, $also_assign_to_old, $task_being_done,$workflow_template_id,$comment;
+    public $wf_id, $division_id, $assign_to_old, $also_assign_to_old, $task_being_done, $workflow_template_id, $comment,$workgroup_name;
     #[On('hzrd_updated')]
     public function hzrd_updated(HazardReport $id)
     {
@@ -41,11 +42,23 @@ class Index extends Component
         $this->also_assign_to = $id->also_assign_to;
         $this->task_being_done = $id->task_being_done;
         $this->workflow_template_id = $id->workflow_template_id;
+        $this->division_id = $id->division_id;
         $this->comment = $id->comment;
     }
     public function render()
     {
-
+        if ($this->division_id) {
+            $divisi = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->first();
+            if (! empty($divisi->company_id) && ! empty($divisi->section_id)) {
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company . '-' . $divisi->Section->name;
+            } elseif ($divisi->company_id) {
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company;
+            } elseif ($divisi->section_id) {
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Section->name;
+            } else {
+                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name;
+            }
+        }
         $this->updatePanel();
         $this->workflow_administration_id = (!empty(WorkflowApplicable::where('type_event_report_id', $this->event_type_id)->first()->workflow_administration_id)) ? WorkflowApplicable::where('type_event_report_id', $this->event_type_id)->first()->workflow_administration_id : null;
         $this->Workflows = WorkflowDetail::where('workflow_administration_id', $this->workflow_administration_id)->where('name', $this->current_step)->get();
@@ -99,10 +112,10 @@ class Index extends Component
     public function realtimeUpdate()
     {
         if ($this->procced_to === "ERM Assigned") {
-            $ERM = ClassHierarchy::searchDivision(trim($this->division_id))->pluck('dept_by_business_unit_id');
+            $ERM = ClassHierarchy::searchDivision(trim($this->division_id))->get();
             foreach ($ERM as $value) {
                 if (!empty($value)) {
-                    $this->EventUserSecurity = (EventUserSecurity::where('responsible_role_id', 2)->where('dept_by_business_unit_id', $value)->where('type_event_report_id', $this->event_type_id)->exists()) ? EventUserSecurity::where('responsible_role_id', 2)->where('dept_by_business_unit_id', $value)->where('type_event_report_id', $this->event_type_id)->get() : EventUserSecurity::where('responsible_role_id', 2)->where('dept_by_business_unit_id', $value)->get();
+                    $this->EventUserSecurity = (EventUserSecurity::where('responsible_role_id', 2)->where('name', $this->division_id)->where('type_event_report_id', $this->event_type_id)->exists()) ? EventUserSecurity::where('responsible_role_id', 2)->where('name', $this->division_id)->where('type_event_report_id', $this->event_type_id)->get() : EventUserSecurity::where('responsible_role_id', 2)->where('name', $this->division_id)->get();
                     $this->show = true;
                 } else {
                     $this->show = false;
@@ -132,27 +145,25 @@ class Index extends Component
             ]);
         }
         if ($this->procced_to) {
-            $WorkflowDetail  = WorkflowDetail::where('workflow_administration_id',$this->workflow_template_id)->where('name', $this->procced_to)->first();
+            $WorkflowDetail  = WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)->where('name', $this->procced_to)->first();
             $this->workflow_detail_id = $WorkflowDetail->id;
         }
-        $closed_by =Auth::user()->lookup_name;
-        if($this->procced_to!="Closed" ||$this->procced_to!="Cancelled")
-        {
+        $closed_by = Auth::user()->lookup_name;
+        if ($this->procced_to != "Closed" || $this->procced_to != "Cancelled") {
             $filds = [
-            'workflow_detail_id' => $this->workflow_detail_id,
-            'assign_to' => $this->assign_to,
-            'also_assign_to' => $this->also_assign_to,
-             'closed_by' => ""
-        ];
-        }
-        else{
-             $filds = [
-            'workflow_detail_id' => $this->workflow_detail_id,
-            'assign_to' => $this->assign_to,
-            'also_assign_to' => $this->also_assign_to,
-            'closed_by' => $closed_by
+                'workflow_detail_id' => $this->workflow_detail_id,
+                'assign_to' => $this->assign_to,
+                'also_assign_to' => $this->also_assign_to,
+                'closed_by' => ""
+            ];
+        } else {
+            $filds = [
+                'workflow_detail_id' => $this->workflow_detail_id,
+                'assign_to' => $this->assign_to,
+                'also_assign_to' => $this->also_assign_to,
+                'closed_by' => $closed_by
 
-        ];
+            ];
         }
 
         HazardReport::whereId($this->data_id)->update($filds);
