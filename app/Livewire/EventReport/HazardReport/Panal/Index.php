@@ -77,45 +77,33 @@ class Index extends Component
             $Department = $ClassHierarchy->dept_by_business_unit_id;
             $company = trim($Company);
             $department = trim($Department);
-            // Cek apakah user adalah ERM (responsible_role_id = 2)
+            // Cek apakah user adalah ERM
             $isErm = EventUserSecurity::where('user_id', $userId)
                 ->where('responsible_role_id', 2)
-                ->where('type_event_report_id', $this->event_type_id)
+                ->where('type_event_report_id', $typeId)
                 ->exists();
+
+            // Cek langkah proses
             if ($this->current_step === 'ERM Assigned' && $isErm) {
                 $this->muncul = true;
                 return;
             }
 
-            // Ambil user_id dari user dengan responsible_role_id = 1
-            $userIds = EventUserSecurity::where('user_id', $userId)
+            // Jika bukan ERM, cek apakah user punya role 1 dan akses ke company/dept
+            $hasRole1Access = EventUserSecurity::where('user_id', $userId)
                 ->where('responsible_role_id', 1)
-                ->where('type_event_report_id', $typeId)
-                ->pluck('user_id');
+                ->where(function ($query) use ($typeId) {
+                    $query->where('type_event_report_id', $typeId)
+                        ->orWhereNull('type_event_report_id'); // optional: jika ingin fallback ke global role
+                })
+                ->where(function ($query) use ($company, $department) {
+                    $query->whereHas('company', fn($q) => $q->where('name', 'like', "%$company%"))
+                        ->orWhereHas('department', fn($q) => $q->where('name', 'like', "%$department%"));
+                })
+                ->exists();
 
-            // Jika tidak ada yang cocok berdasarkan type_event_report_id, ambil semua berdasarkan user_id dan role_id = 1
-            if ($userIds->isEmpty()) {
-                $userIds = EventUserSecurity::where('user_id', $userId)
-                    ->where('responsible_role_id', 1)
-                    ->pluck('user_id');
-            }
-
-            // Cek akses berdasarkan perusahaan atau departemen
-            $this->muncul = false;
-            foreach ($userIds as $uid) {
-                $hasCompanyAccess = EventUserSecurity::where('user_id', $uid)
-                    ->searchCompany($company)
-                    ->exists();
-
-                $hasDepartmentAccess = EventUserSecurity::where('user_id', $uid)
-                    ->searchDept($department)
-                    ->exists();
-
-                if ($hasCompanyAccess || $hasDepartmentAccess) {
-                    $this->muncul = true;
-                    break; // tidak perlu lanjut loop
-                }
-            }
+            // Tampilkan jika punya akses dari role 1
+            $this->muncul = $hasRole1Access;
         } else {
             $this->dispatch(
                 'alert',
