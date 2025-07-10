@@ -97,8 +97,7 @@ class Index extends Component
                         ->orWhereNull('type_event_report_id'); // optional: jika ingin fallback ke global role
                 })
                 ->where(function ($query) use ($company, $department) {
-                    $query->whereHas('company', fn($q) => $q->where('name', 'like', "%$company%"))
-                        ->orWhereHas('department', fn($q) => $q->where('name', 'like', "%$department%"));
+                    $query->searchCompany($company)->searchDept($department);
                 })
                 ->exists();
 
