@@ -6,6 +6,8 @@ namespace Aws;
  *
  * @method \Aws\ACMPCA\ACMPCAClient createACMPCA(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionACMPCA(array $args = [])
+ * @method \Aws\AIOps\AIOpsClient createAIOps(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionAIOps(array $args = [])
  * @method \Aws\ARCZonalShift\ARCZonalShiftClient createARCZonalShift(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionARCZonalShift(array $args = [])
  * @method \Aws\AccessAnalyzer\AccessAnalyzerClient createAccessAnalyzer(array $args = [])
@@ -298,6 +300,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionEntityResolution(array $args = [])
  * @method \Aws\EventBridge\EventBridgeClient createEventBridge(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionEventBridge(array $args = [])
+ * @method \Aws\Evs\EvsClient createEvs(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionEvs(array $args = [])
  * @method \Aws\FIS\FISClient createFIS(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionFIS(array $args = [])
  * @method \Aws\FMS\FMSClient createFMS(array $args = [])
@@ -404,6 +408,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionKendraRanking(array $args = [])
  * @method \Aws\Keyspaces\KeyspacesClient createKeyspaces(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionKeyspaces(array $args = [])
+ * @method \Aws\KeyspacesStreams\KeyspacesStreamsClient createKeyspacesStreams(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionKeyspacesStreams(array $args = [])
  * @method \Aws\Kinesis\KinesisClient createKinesis(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionKinesis(array $args = [])
  * @method \Aws\KinesisAnalytics\KinesisAnalyticsClient createKinesisAnalytics(array $args = [])
@@ -452,6 +458,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionLookoutMetrics(array $args = [])
  * @method \Aws\LookoutforVision\LookoutforVisionClient createLookoutforVision(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionLookoutforVision(array $args = [])
+ * @method \Aws\MPA\MPAClient createMPA(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionMPA(array $args = [])
  * @method \Aws\MQ\MQClient createMQ(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMQ(array $args = [])
  * @method \Aws\MTurk\MTurkClient createMTurk(array $args = [])
@@ -542,6 +550,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionOSIS(array $args = [])
  * @method \Aws\ObservabilityAdmin\ObservabilityAdminClient createObservabilityAdmin(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionObservabilityAdmin(array $args = [])
+ * @method \Aws\Odb\OdbClient createOdb(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionOdb(array $args = [])
  * @method \Aws\Omics\OmicsClient createOmics(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionOmics(array $args = [])
  * @method \Aws\OpenSearchServerless\OpenSearchServerlessClient createOpenSearchServerless(array $args = [])
@@ -592,8 +602,6 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPolly(array $args = [])
  * @method \Aws\Pricing\PricingClient createPricing(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPricing(array $args = [])
- * @method \Aws\PrivateNetworks\PrivateNetworksClient createPrivateNetworks(array $args = [])
- * @method \Aws\MultiRegionClient createMultiRegionPrivateNetworks(array $args = [])
  * @method \Aws\PrometheusService\PrometheusServiceClient createPrometheusService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPrometheusService(array $args = [])
  * @method \Aws\Proton\ProtonClient createProton(array $args = [])
@@ -664,6 +672,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionS3Tables(array $args = [])
  * @method \Aws\SSMContacts\SSMContactsClient createSSMContacts(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSSMContacts(array $args = [])
+ * @method \Aws\SSMGuiConnect\SSMGuiConnectClient createSSMGuiConnect(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSSMGuiConnect(array $args = [])
  * @method \Aws\SSMIncidents\SSMIncidentsClient createSSMIncidents(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSSMIncidents(array $args = [])
  * @method \Aws\SSMQuickSetup\SSMQuickSetupClient createSSMQuickSetup(array $args = [])
@@ -794,6 +804,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionWorkSpacesThinClient(array $args = [])
  * @method \Aws\WorkSpacesWeb\WorkSpacesWebClient createWorkSpacesWeb(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionWorkSpacesWeb(array $args = [])
+ * @method \Aws\WorkspacesInstances\WorkspacesInstancesClient createWorkspacesInstances(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionWorkspacesInstances(array $args = [])
  * @method \Aws\XRay\XRayClient createXRay(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionXRay(array $args = [])
  * @method \Aws\drs\drsClient createdrs(array $args = [])
@@ -813,7 +825,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.342.19';
+    const VERSION = '3.349.3';
 
     /** @var array Arguments for creating clients */
     private $args;

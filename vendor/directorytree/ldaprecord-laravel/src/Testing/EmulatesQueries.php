@@ -593,16 +593,16 @@ trait EmulatesQueries
     /**
      * Transform the database attributes into a single array.
      */
-    protected function transform($attributes): array
+    protected function transform(array $attributes): array
     {
         return collect(Arr::pull($attributes, 'attributes'))->mapWithKeys(function ($attribute) {
-            return [$attribute['name'] => collect($attribute['values'])->map->value->toArray()];
+            return [$attribute['name'] => collect($attribute['values'])->map->value->all()];
         })->when(! empty($this->only), function ($attributes) {
             return $attributes->filter(function ($value, $key) {
                 return in_array($key, $this->only);
             });
         })->tap(function () {
             $this->only = [];
-        })->toArray();
+        })->all();
     }
 }

@@ -135,7 +135,7 @@ class Builder
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->grammar = new Grammar();
+        $this->grammar = new Grammar;
     }
 
     /**
@@ -428,6 +428,8 @@ class Builder
      */
     public function chunk(int $pageSize, Closure $callback, bool $isCritical = false, bool $isolate = false): bool
     {
+        $this->limit(0);
+
         $start = microtime(true);
 
         $chunk = function (Builder $query) use ($pageSize, $callback, $isCritical) {
@@ -686,11 +688,11 @@ class Builder
         $result = $this->limit(2)->get($columns);
 
         if (empty($result)) {
-            throw new ObjectsNotFoundException();
+            throw new ObjectsNotFoundException;
         }
 
         if (count($result) > 1) {
-            throw new MultipleObjectsFoundException();
+            throw new MultipleObjectsFoundException;
         }
 
         return reset($result);
@@ -850,19 +852,23 @@ class Builder
     /**
      * Add an order by control to the query.
      */
-    public function orderBy(string $attribute, string $direction = 'asc'): static
+    public function orderBy(string $attribute, string $direction = 'asc', array $options = []): static
     {
         return $this->addControl(LDAP_CONTROL_SORTREQUEST, true, [
-            ['attr' => $attribute, 'reverse' => $direction === 'desc'],
+            [
+                ...$options,
+                'attr' => $attribute,
+                'reverse' => $direction === 'desc',
+            ],
         ]);
     }
 
     /**
      * Add an order by descending control to the query.
      */
-    public function orderByDesc(string $attribute): static
+    public function orderByDesc(string $attribute, array $options = []): static
     {
-        return $this->orderBy($attribute, 'desc');
+        return $this->orderBy($attribute, 'desc', $options);
     }
 
     /**
@@ -1313,7 +1319,7 @@ class Builder
      */
     public function hasSelects(): bool
     {
-        return count($this->columns) > 0;
+        return count($this->columns ?? []) > 0;
     }
 
     /**
