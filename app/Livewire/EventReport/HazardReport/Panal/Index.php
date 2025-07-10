@@ -54,7 +54,6 @@ class Index extends Component
                 $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name;
             }
         }
- 
     }
     public function render()
     {
@@ -74,15 +73,19 @@ class Index extends Component
         if ($ClassHierarchy) {
             $Company = $ClassHierarchy->company_category_id;
             $Department = $ClassHierarchy->dept_by_business_unit_id;
+            $Moderator = EventUserSecurity::where('user_id', Auth::user()->id)->where('responsible_role_id',  1)->where('type_event_report_id', $this->event_type_id)->exists();
             $User = (EventUserSecurity::where('user_id', Auth::user()->id)->where('responsible_role_id',  1)->where('type_event_report_id', $this->event_type_id)->exists()) ? EventUserSecurity::where('user_id', Auth::user()->id)->where('responsible_role_id',  1)->where('type_event_report_id', $this->event_type_id)->pluck('user_id') : EventUserSecurity::where('user_id', Auth::user()->id)->where('responsible_role_id',  1)->pluck('user_id');
-
-            foreach ($User as $value) {
-                if (EventUserSecurity::where('user_id', $value)->searchCompany(trim($Company))->exists()) {
-                    $this->muncul = true;
-                } elseif (EventUserSecurity::where('user_id', $value)->searchDept(trim($Department))->exists()) {
-                    $this->muncul = true;
-                } else {
-                    $this->muncul = false;
+            if ($this->current_step === 'ERM Assigned') {
+                $this->muncul = false;
+            } else {
+                foreach ($User as $value) {
+                    if (EventUserSecurity::where('user_id', $value)->searchCompany(trim($Company))->exists()) {
+                        $this->muncul = true;
+                    } elseif (EventUserSecurity::where('user_id', $value)->searchDept(trim($Department))->exists()) {
+                        $this->muncul = true;
+                    } else {
+                        $this->muncul = false;
+                    }
                 }
             }
         } else {
@@ -115,7 +118,7 @@ class Index extends Component
         if ($this->procced_to === "ERM Assigned") {
             foreach ($ERM as $value) {
                 if (!empty($value)) {
-                    $this->EventUserSecurity = (EventUserSecurity::where('responsible_role_id', 2)->where('name',$this->workgroup_name)->where('type_event_report_id', $this->event_type_id)->exists()) ? EventUserSecurity::where('responsible_role_id', 2)->where('name',$this->workgroup_name)->where('type_event_report_id', $this->event_type_id)->get() : EventUserSecurity::where('responsible_role_id', 2)->where('name',$this->workgroup_name)->get();
+                    $this->EventUserSecurity = (EventUserSecurity::where('responsible_role_id', 2)->where('name', $this->workgroup_name)->where('type_event_report_id', $this->event_type_id)->exists()) ? EventUserSecurity::where('responsible_role_id', 2)->where('name', $this->workgroup_name)->where('type_event_report_id', $this->event_type_id)->get() : EventUserSecurity::where('responsible_role_id', 2)->where('name', $this->workgroup_name)->get();
                     $this->show = true;
                 } else {
                     $this->show = false;
