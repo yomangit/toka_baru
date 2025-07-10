@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire\EventReport\HazardReportGuest;
 
 use App\Models\choseEventType;
@@ -148,45 +149,88 @@ class Create extends Component
     }
     public function realTimeFunc()
     {
-        if ($this->location_id) {
-            $this->showLocation = true;
-        } else {
-            $this->showLocation = false;
-        }
-        if (choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->exists()) {
-            $eventType        = choseEventType::where('route_name', 'LIKE', Request::getPathInfo())->pluck('event_type_id');
-            $this->Event_type = TypeEventReport::whereIn('id', $eventType)->get();
+        // Tampilkan lokasi jika dipilih
+        $this->showLocation = !empty($this->location_id);
+
+        // Ambil event_type berdasarkan route
+        $routePath = Request::getPathInfo();
+        if (choseEventType::where('route_name', 'LIKE', $routePath)->exists()) {
+            $eventTypeIds = choseEventType::where('route_name', 'LIKE', $routePath)
+                ->pluck('event_type_id');
+            $this->Event_type = TypeEventReport::whereIn('id', $eventTypeIds)->get();
         }
 
-        $this->EventSubType = (isset($this->event_type_id)) ? $this->EventSubType = Eventsubtype::where('event_type_id', $this->event_type_id)->get() : [];
+        // Ambil subtype jika event_type_id dipilih
+        $this->EventSubType = $this->event_type_id
+            ? Eventsubtype::where('event_type_id', $this->event_type_id)->get()
+            : [];
+
+        // Ambil ekstensi file dokumentasi
         if ($this->documentation) {
-            $file_name        = $this->documentation->getClientOriginalName();
-            $this->fileUpload = pathinfo($file_name, PATHINFO_EXTENSION);
+            $this->fileUpload = pathinfo($this->documentation->getClientOriginalName(), PATHINFO_EXTENSION);
         }
-        if (Auth::check()) {
-            if (Auth::user()->role_user_permit_id == 1) {
-                $this->show = true;
-            }
-        }
+
+        // Tampilkan form jika user adalah superadmin (id = 1)
+        $this->show = Auth::check() && Auth::user()->role_user_permit_id == 1;
+
+        // Proses data divisi
         if ($this->division_id) {
-            $divisi = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->first();
-            if (! empty($divisi->company_id) && ! empty($divisi->section_id)) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company . '-' . $divisi->Section->name;
-            } elseif ($divisi->company_id) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Company->name_company;
-            } elseif ($divisi->section_id) {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name . '-' . $divisi->Section->name;
-            } else {
-                $this->workgroup_name = $divisi->DeptByBU->BusinesUnit->Company->name_company . '-' . $divisi->DeptByBU->Department->department_name;
+            $divisi = Division::with([
+                'DeptByBU.BusinesUnit.Company',
+                'DeptByBU.Department',
+                'Company',
+                'Section'
+            ])->find($this->division_id);
+
+            if ($divisi) {
+                $company = optional($divisi->DeptByBU->BusinesUnit->Company)->name_company;
+                $department = optional($divisi->DeptByBU->Department)->department_name;
+                $section = optional($divisi->Section)->name;
+                $companySelf = optional($divisi->Company)->name_company;
+
+                $this->workgroup_name = implode('-', array_filter([
+                    $company,
+                    $department,
+                    $companySelf,
+                    $section,
+                ]));
+
+                $this->divisi_search = Division::with([
+                    'DeptByBU.BusinesUnit.Company',
+                    'DeptByBU.Department',
+                    'Company',
+                    'Section'
+                ])
+                    ->where('id', $this->division_id)
+                    ->searchParent(trim($this->parent_Company))
+                    ->searchBU(trim($this->business_unit))
+                    ->searchDept(trim($this->dept))
+                    ->searchComp(trim($this->select_divisi))
+                    ->orderBy('dept_by_business_unit_id', 'asc')
+                    ->get();
             }
-            $this->divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->whereId($this->division_id)->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
         } else {
-            $this->divisi_search = Division::with(['DeptByBU.BusinesUnit.Company', 'DeptByBU.Department', 'Company', 'Section'])->searchDeptCom(trim($this->workgroup_name))->searchParent(trim($this->parent_Company))->searchBU(trim($this->business_unit))->searchDept(trim($this->dept))->searchComp(trim($this->select_divisi))->orderBy('dept_by_business_unit_id', 'asc')->get();
+            // Jika tidak ada division_id
+            $this->divisi_search = Division::with([
+                'DeptByBU.BusinesUnit.Company',
+                'DeptByBU.Department',
+                'Company',
+                'Section'
+            ])
+                ->searchDeptCom(trim($this->workgroup_name))
+                ->searchParent(trim($this->parent_Company))
+                ->searchBU(trim($this->business_unit))
+                ->searchDept(trim($this->dept))
+                ->searchComp(trim($this->select_divisi))
+                ->orderBy('dept_by_business_unit_id', 'asc')
+                ->get();
         }
-        if (WorkflowDetail::where('workflow_administration_id', "LIKE", $this->workflow_template_id)->exists()) {
-            $WorkflowDetail           = WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)->first();
-            $this->workflow_detail_id = $WorkflowDetail->id;
-            $this->ResponsibleRole    = $WorkflowDetail->responsible_role_id;
+
+        // Ambil workflow detail jika ada
+        if ($this->workflow_template_id && WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)->exists()) {
+            $workflow = WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)->first();
+            $this->workflow_detail_id = optional($workflow)->id;
+            $this->ResponsibleRole = optional($workflow)->responsible_role_id;
         }
     }
     public function render()
@@ -282,7 +326,7 @@ class Create extends Component
             'duration' => 4000,
         ]);
         // Notification
-        $getModerator = (Auth::check() ? EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)->where('type_event_report_id',$this->event_type_id)->where('user_id', 'NOT LIKE', Auth::user()->id)->pluck('user_id')->toArray() : EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)->where('user_id', 'NOT LIKE', Auth::user()->id)->pluck('user_id')->pluck('user_id')->toArray());
+        $getModerator = (Auth::check() ? EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)->where('type_event_report_id', $this->event_type_id)->where('user_id', 'NOT LIKE', Auth::user()->id)->pluck('user_id')->toArray() : EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)->where('user_id', 'NOT LIKE', Auth::user()->id)->pluck('user_id')->pluck('user_id')->toArray());
         $User         = User::whereIn('id', $getModerator)->get();
         $url          = $HazardReport->id;
         foreach ($User as $key => $value) {
