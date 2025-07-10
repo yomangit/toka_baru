@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Notification;
 class Index extends Component
 {
     public $procced_to, $EventUserSecurity = [], $Workflows, $show = false, $workflow_detail_id, $data_id, $assign_to, $also_assign_to, $current_step, $reference,  $event_type_id, $workflow_administration_id, $status, $bg_status, $muncul = false, $responsible_role_id;
-    public $wf_id, $division_id, $assign_to_old, $also_assign_to_old, $task_being_done, $workflow_template_id, $workgroup_name;
+    public $wf_id, $division_id, $assign_to_old, $also_assign_to_old, $task_being_done, $workflow_template_id, $workgroup_name, $comment;
     #[On('hzrd_updated')]
     public function hzrd_updated(HazardReport $id)
     {
@@ -29,6 +29,7 @@ class Index extends Component
         $this->responsible_role_id = $id->WorkflowDetails->ResponsibleRole->id;
         $this->task_being_done = $id->task_being_done;
         $this->task_being_done = $id->task_being_done;
+        $this->comment = $id->comment;
         $this->workflow_template_id = $id->workflow_template_id;
     }
     public function mount(HazardReport $id)
@@ -79,7 +80,7 @@ class Index extends Component
             $department = trim($Department);
             // Cek apakah user adalah ERM
             $isErm = EventUserSecurity::where('user_id', $userId)
-                ->where('name',$this->workgroup_name )
+                ->where('name', $this->workgroup_name)
                 ->where('responsible_role_id', 2)
                 ->where('type_event_report_id', $typeId)
                 ->exists();
@@ -147,108 +148,106 @@ class Index extends Component
     }
     public function store()
     {
-        if (empty($this->assign_to)) {
-            $this->assign_to = null;
+        // Normalisasi assign input
+        $this->assign_to = $this->assign_to ?: null;
+        $this->also_assign_to = $this->also_assign_to ?: null;
+
+        // Validasi
+        $rules = ['procced_to' => ['required']];
+        if ($this->procced_to === 'ERM Assigned') {
+            $rules['assign_to'] = ['required'];
+            $rules['also_assign_to'] = ['nullable'];
         }
-        if (empty($this->also_assign_to)) {
-            $this->also_assign_to = null;
-        }
-        if ($this->procced_to === "ERM Assigned") {
-            $this->validate([
-                'procced_to' => ['required'],
-                'assign_to' => ['required'],
-                'also_assign_to' => ['nullable'],
-            ]);
-        } else {
-            $this->validate([
-                'procced_to' => ['required'],
-            ]);
-        }
+        $this->validate($rules);
+
+        // Ambil ID workflow detail jika ada
         if ($this->procced_to) {
-            $WorkflowDetail  = WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)->where('name', $this->procced_to)->first();
-            $this->workflow_detail_id = $WorkflowDetail->id;
+            $WorkflowDetail = WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)
+                ->where('name', $this->procced_to)
+                ->first();
+
+            $this->workflow_detail_id = optional($WorkflowDetail)->id;
         }
+
+        // Siapkan field untuk update
         $closed_by = Auth::user()->lookup_name;
-        if ($this->procced_to != "Closed" || $this->procced_to != "Cancelled") {
-            $filds = [
-                'workflow_detail_id' => $this->workflow_detail_id,
-                'assign_to' => $this->assign_to,
-                'also_assign_to' => $this->also_assign_to,
-                'closed_by' => ""
-            ];
-        } else {
-            $filds = [
-                'workflow_detail_id' => $this->workflow_detail_id,
-                'assign_to' => $this->assign_to,
-                'also_assign_to' => $this->also_assign_to,
-                'closed_by' => $closed_by
+        $isClosed = in_array($this->procced_to, ['Closed', 'Cancelled']);
 
-            ];
-        }
+        $fields = [
+            'workflow_detail_id' => $this->workflow_detail_id,
+            'assign_to'          => $this->assign_to,
+            'also_assign_to'     => $this->also_assign_to,
+            'closed_by'          => $isClosed ? $closed_by : '',
+        ];
 
-        HazardReport::whereId($this->data_id)->update($filds);
-        $this->dispatch(
-            'alert',
-            [
-                'text' => "The Step was updated!!",
-                'duration' => 3000,
-                'destination' => '/contact',
-                'newWindow' => true,
-                'close' => true,
-                'backgroundColor' => "linear-gradient(to right, #a3e635, #eab308)",
-            ]
-        );
-        if ($this->responsible_role_id = 1) {
-            $getModerator = EventUserSecurity::where('responsible_role_id', $this->responsible_role_id)->where('user_id', 'NOT LIKE', Auth::user()->id)->pluck('user_id')->toArray();
-            $User = User::whereIn('id', $getModerator)->get();
+        // Update hazard report
+        HazardReport::whereId($this->data_id)->update($fields);
+
+        // Notifikasi ke Moderator jika role 1
+        if ($this->responsible_role_id == 1) {
+            $moderators = User::whereIn('id', function ($query) {
+                $query->select('user_id')
+                    ->from('event_user_securities')
+                    ->where('responsible_role_id', 1)
+                    ->where('type_event_report_id', $this->event_type_id)
+                    ->where('user_id', '!=', Auth::id());
+            })
+                ->whereNotNull('email')
+                ->get();
+
             $url = $this->data_id;
-            foreach ($User as $key => $value) {
-                $users = User::whereId($value->id)->get();
+            $subject = $this->procced_to === 'Moderator Verification'
+                ? 'Hazard Report ERM Respons'
+                : 'Hazard Report ' . $this->task_being_done;
+
+            foreach ($moderators as $moderator) {
                 $offerData = [
-                    'greeting' => 'Hi' . ' ' . $value->lookup_name,
-                    'subject' => 'Hazard Report' . ' ' . $this->task_being_done,
-                    'line' =>  Auth::user()->lookup_name . ' ' . 'has updated the hazard report status to ' . $this->status . ', please review',
-                    'line2' => 'Please review this report',
-                    'line3' => 'Thank you',
-                    'actionUrl' => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/$url"),
+                    'greeting'   => 'Hi ' . $moderator->lookup_name,
+                    'subject'    => $subject,
+                    'line'       => Auth::user()->lookup_name . ' has updated the hazard report status to ' . $this->status . ', please review',
+                    'line2'      => 'Please review this report',
+                    'line3'      => 'Thank you',
+                    'actionUrl'  => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/{$url}"),
                 ];
-                Notification::send($users, new toModerator($offerData));
+                Notification::send($moderator, new toModerator($offerData));
             }
         }
-        if ($this->procced_to === "ERM Assigned") {
-            if ($this->assign_to) {
-                $Users = User::where('id', $this->assign_to)->whereNotNull('email')->get();
-                foreach ($Users as $key => $value) {
-                    $report_to = User::whereId($value->id)->get();
-                    $offerData = [
-                        'greeting' => 'Hi' . ' ' . $value->lookup_name,
-                        'subject' => 'Hazard Report' . ' ' . $this->task_being_done,
-                        'line' =>  'You have been assigned to a hazard report with reference ' . $this->reference . ', please review',
-                        'line2' => 'Please check by click the button below',
-                        'line3' => 'Thank you',
-                        'actionUrl' => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/$url"),
-                    ];
-                    Notification::send($report_to, new toModerator($offerData));
-                }
-            }
-            if ($this->also_assign_to) {
-                $Users = User::where('id', $this->also_assign_to)->whereNotNull('email')->get();
-                foreach ($Users as $key => $value) {
-                    $report_to = User::whereId($value->id)->get();
-                    $offerData = [
-                        'greeting' => 'Hi' . ' ' . $value->lookup_name,
-                        'subject' => 'Hazard Report' . ' ' . $this->task_being_done,
-                        'line' =>  'You have been assigned to a hazard report with reference ' . $this->reference . ', please review',
-                        'line2' => 'Please check by click the button below',
-                        'line3' => 'Thank you',
-                        'actionUrl' => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/$url"),
-                    ];
-                    Notification::send($report_to, new toModerator($offerData));
-                }
+
+        // Notifikasi ke assign/also_assign jika ke ERM
+        if ($this->procced_to === 'ERM Assigned') {
+            $url = $this->data_id;
+            $assignedUserIds = array_filter([$this->assign_to, $this->also_assign_to]);
+
+            $assignedUsers = User::whereIn('id', $assignedUserIds)
+                ->whereNotNull('email')
+                ->get();
+
+            foreach ($assignedUsers as $user) {
+                $offerData = [
+                    'greeting'   => 'Hi ' . $user->lookup_name,
+                    'subject'    => 'Hazard Report ' . $this->reference,
+                    'line'       => 'Komentar moderator: ' . $this->comment . ', please review',
+                    'line2'      => 'Please check by clicking the button below',
+                    'line3'      => 'Thank you',
+                    'actionUrl'  => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/{$url}"),
+                ];
+                Notification::send($user, new toModerator($offerData));
             }
         }
+
+        // Emit panel update
+        $this->dispatch('alert', [
+            'text' => "The Step was updated!!",
+            'duration' => 3000,
+            'destination' => '/contact',
+            'newWindow' => true,
+            'close' => true,
+            'backgroundColor' => "linear-gradient(to right, #a3e635, #eab308)",
+        ]);
+
         $this->dispatch('panel_updated', $this->data_id);
         $this->dispatch('panel_hazard');
+
         $this->reset('procced_to');
         $this->show = false;
     }
