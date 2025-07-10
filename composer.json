@@ -12,6 +12,7 @@
         "diglactic/laravel-breadcrumbs": "^10.0",
         "directorytree/ldaprecord-laravel": "^3.3",
         "hashids/hashids": "^5.0",
+        "intervention/image": "^2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "league/flysystem-aws-s3-v3": "^3.0",
@@ -76,6 +77,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+"minimum-stability": "stable",
     "prefer-stable": true
 }
