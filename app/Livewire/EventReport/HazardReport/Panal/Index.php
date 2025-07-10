@@ -198,15 +198,15 @@ class Index extends Component
             $url = $this->data_id;
             $subject = $this->procced_to === 'Moderator Verification'
                 ? 'Hazard Report ERM Respons'
-                : 'Hazard Report ' . $this->task_being_done;
+                : 'Tugas Tinjauan Laporan Bahaya - ' . $this->reference;
 
             foreach ($moderators as $moderator) {
                 $offerData = [
-                    'greeting'   => 'Hi ' . $moderator->lookup_name,
+                    'greeting'   => 'Kepada Yth. ' . $moderator->lookup_name,
                     'subject'    => $subject,
-                    'line'       => Auth::user()->lookup_name . ' has updated the hazard report status to ' . $this->status . ', please review',
-                    'line2'      => 'Please review this report',
-                    'line3'      => 'Thank you',
+                    'line'       => Auth::user()->lookup_name . ' telah memperbarui status laporan hazard menjadi "' . $this->status . '". Mohon untuk ditinjau.',
+                    'line2'      => 'Silakan tinjau laporan ini dengan mengklik tombol di bawah.',
+                    'line3'      => 'Terima kasih atas perhatian dan kerjasamanya.',
                     'actionUrl'  => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/{$url}"),
                 ];
                 Notification::send($moderator, new toModerator($offerData));
@@ -226,9 +226,9 @@ class Index extends Component
                 $offerData = [
                     'greeting'   => 'Kepada  ' . $user->lookup_name,
                     'subject'    => 'Hazard Report ' . $this->reference,
-                    'line'       => "Moderator memberikan komentar pada laporan hazard yang dikirim kepada anda ':'' . $komentar  .'",
+                    'line'       => "Moderator memberikan komentar pada laporan hazard yang dikirim kepada anda : '. $komentar  .'",
                     'line2'      => 'Silahkan periksa dengan mengklik tombol dibawah ini:',
-                    'line3'      => 'Thank you',
+                    'line3'      => 'Terima kasih',
                     'actionUrl'  => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/{$url}"),
                 ];
                 Notification::send($user, new toModerator($offerData));
