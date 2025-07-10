@@ -63,6 +63,7 @@ class Index extends Component
             $Department = $ClassHierarchy->dept_by_business_unit_id;
             $User = (EventUserSecurity::where('user_id', Auth::user()->id)->where('responsible_role_id',  2)->where('type_event_report_id', $this->event_type_id)->exists()) ? EventUserSecurity::where('user_id', Auth::user()->id)->where('responsible_role_id',  2)->where('type_event_report_id', $this->event_type_id)->pluck('user_id') : EventUserSecurity::where('user_id', Auth::user()->id)->where('responsible_role_id',  2)->pluck('user_id');
             foreach ($User as $value) {
+                dd($value);
                 if (EventUserSecurity::where('user_id', $value)->searchCompany(trim($Company))->exists()) {
                     $this->muncul = true;
                 } elseif (EventUserSecurity::where('user_id', $value)->searchDept(trim($Department))->exists()) {
