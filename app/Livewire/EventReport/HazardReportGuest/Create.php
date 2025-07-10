@@ -2,23 +2,25 @@
 
 namespace App\Livewire\EventReport\HazardReportGuest;
 
-use App\Models\choseEventType;
+use DateTime;
+use App\Models\User;
+use Livewire\Component;
 use App\Models\Division;
 use App\Models\Eventsubtype;
-use App\Models\EventUserSecurity;
 use App\Models\HazardReport;
-use App\Models\LocationEvent;
-use App\Models\TypeEventReport;
-use App\Models\User;
-use App\Models\WorkflowDetail;
-use App\Notifications\toModerator;
-use DateTime;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Request;
-use Livewire\Component;
-use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use App\Models\LocationEvent;
+use Intervention\Image\Image;
+use Livewire\WithFileUploads;
+use App\Models\choseEventType;
+use App\Models\WorkflowDetail;
+use App\Models\TypeEventReport;
+use App\Models\EventUserSecurity;
+use App\Notifications\toModerator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Notification;
 
 class Create extends Component
 {
@@ -238,12 +240,17 @@ class Create extends Component
         $this->realTimeFunc();
         $this->ReportByAndReportTo();
         return view('livewire.event-report.hazard-report-guest.create', [
-            'Report_By' => User::searchNama(trim($this->report_byName))->paginate(100, ['*'], 'Report_By'),
-            'Report_To' => User::searchNama(trim($this->report_toName))->paginate(100, ['*'], 'Report_To'),
-            'Division'  => $this->divisi_search,
-            'EventType' => $this->Event_type,
-            'Location'  => LocationEvent::get(),
-        ])->extends('base.index', ['header' => 'Hazard Report', 'title' => 'Hazard Report'])->section('content');
+            'Report_By'  => User::searchNama(trim($this->report_byName))->paginate(100, ['*'], 'Report_By'),
+            'Report_To'  => User::searchNama(trim($this->report_toName))->paginate(100, ['*'], 'Report_To'),
+            'Division'   => $this->divisi_search,
+            'EventType'  => $this->Event_type,
+            'Location'   => LocationEvent::all(),
+        ])
+            ->extends('base.index', [
+                'header' => 'Hazard Report',
+                'title'  => 'Hazard Report',
+            ])
+            ->section('content');
     }
     public function store()
     {
@@ -260,12 +267,23 @@ class Create extends Component
             $this->reference = $referenceHazard . $references;
         }
         $this->validate();
-        if (! empty($this->documentation)) {
-            $file_name        = $this->documentation->getClientOriginalName();
-            $this->fileUpload = pathinfo($file_name, PATHINFO_EXTENSION);
-            $this->documentation->storeAs('public/documents/hzd', $file_name);
+        if (!empty($this->documentation)) {
+
+            // Kompres dan resize gambar
+            $image = Image::make($this->documentation->getRealPath())
+                ->resize(1200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->encode($this->documentation->getClientOriginalExtension(), 75);
+
+            // Simpan hasil kompres ke storage secara manual
+            $filename = uniqid() . '.' . strtolower($this->documentation->getClientOriginalExtension());
+            Storage::disk('public')->put('documents/hzd/' . $filename, $image);
+
+            $this->fileUpload = $filename;
         } else {
-            $file_name = "";
+            $this->fileUpload = null;
         }
         if ($this->show_immidiate === 'no') {
             $this->immediate_corrective_action = null;

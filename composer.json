@@ -12,6 +12,7 @@
         "diglactic/laravel-breadcrumbs": "^10.0",
         "directorytree/ldaprecord-laravel": "^3.3",
         "hashids/hashids": "^5.0",
+        "intervention/image": "^3.11",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "league/flysystem-aws-s3-v3": "^3.0",
