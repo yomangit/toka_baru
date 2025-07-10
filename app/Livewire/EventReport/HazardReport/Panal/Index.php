@@ -224,10 +224,10 @@ class Index extends Component
 
             foreach ($assignedUsers as $user) {
                 $offerData = [
-                    'greeting'   => 'Hi ' . $user->lookup_name,
+                    'greeting'   => 'Kepada  ' . $user->lookup_name,
                     'subject'    => 'Hazard Report ' . $this->reference,
-                    'line'       => 'Komentar moderator: ' . $komentar  . ', please review',
-                    'line2'      => 'Please check by clicking the button below',
+                    'line'       => "Moderator memberikan komentar pada laporan hazard yang dikirim kepada anda ':'' . $komentar  .'",
+                    'line2'      => 'Silahkan periksa dengan mengklik tombol dibawah ini:',
                     'line3'      => 'Thank you',
                     'actionUrl'  => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/{$url}"),
                 ];
