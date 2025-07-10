@@ -35,6 +35,7 @@ class Index extends Component
     {
         $this->data_id = $id->id;
         $this->reference = $id->reference;
+        $this->division_id = $id->division_id;
         $this->assign_to = $id->assign_to;
         $this->assign_to = $id->assign_to;
         $this->also_assign_to = $id->also_assign_to;
