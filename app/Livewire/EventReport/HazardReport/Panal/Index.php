@@ -216,6 +216,7 @@ class Index extends Component
         // Notifikasi ke assign/also_assign jika ke ERM
         if ($this->procced_to === 'ERM Assigned') {
             $url = $this->data_id;
+            $komentar = strip_tags($this->comment);
             $assignedUserIds = array_filter([$this->assign_to, $this->also_assign_to]);
 
             $assignedUsers = User::whereIn('id', $assignedUserIds)
@@ -226,7 +227,7 @@ class Index extends Component
                 $offerData = [
                     'greeting'   => 'Hi ' . $user->lookup_name,
                     'subject'    => 'Hazard Report ' . $this->reference,
-                    'line'       => 'Komentar moderator: ' . $this->comment . ', please review',
+                    'line'       => 'Komentar moderator: ' . $komentar  . ', please review',
                     'line2'      => 'Please check by clicking the button below',
                     'line3'      => 'Thank you',
                     'actionUrl'  => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/{$url}"),
