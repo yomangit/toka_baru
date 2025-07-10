@@ -212,7 +212,6 @@ class Index extends Component
                 Notification::send($moderator, new toModerator($offerData));
             }
         }
-
         // Notifikasi ke assign/also_assign jika ke ERM
         if ($this->procced_to === 'ERM Assigned') {
             $url = $this->data_id;
