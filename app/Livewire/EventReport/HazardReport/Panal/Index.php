@@ -100,7 +100,7 @@ class Index extends Component
                     $query->searchCompany($company)->searchDept($department);
                 })
                 ->exists();
-            dd($hasRole1Access);
+           
             // Tampilkan jika punya akses dari role 1
             $this->muncul = $hasRole1Access;
         } else {
