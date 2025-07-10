@@ -92,13 +92,9 @@ class Index extends Component
             // Jika bukan ERM, cek apakah user punya role 1 dan akses ke company/dept
             $hasRole1Access = EventUserSecurity::where('user_id', $userId)
                 ->where('responsible_role_id', 1)
-                ->where(function ($query) use ($typeId) {
-                    $query->where('type_event_report_id', $typeId)
-                        ->orWhereNull('type_event_report_id'); // optional: jika ingin fallback ke global role
-                })
-                ->where(function ($query) use ($company, $department) {
-                    $query->searchCompany($company)->searchDept($department);
-                })
+                ->where('type_event_report_id', $typeId)
+                ->searchCompany($company)
+                ->searchDept($department)
                 ->exists();
 
             // Tampilkan jika punya akses dari role 1
