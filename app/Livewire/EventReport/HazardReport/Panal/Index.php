@@ -33,6 +33,7 @@ class Index extends Component
     public function mount(HazardReport $id)
     {
         $this->data_id = $id->id;
+        $this->division_id = $id->division_id;
         $this->reference = $id->reference;
         $this->assign_to = $id->assign_to;
         $this->assign_to = $id->assign_to;
@@ -91,7 +92,6 @@ class Index extends Component
         $this->status = $HazardReport->WorkflowDetails->Status->status_name;
         $this->bg_status = $HazardReport->WorkflowDetails->Status->bg_status;
         $this->wf_id = $HazardReport->workflow_detail_id;
-        $this->division_id = $HazardReport->division_id;
         $this->event_type_id = $HazardReport->event_type_id;
     }
     public function realtimeUpdate()
