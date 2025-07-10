@@ -17,6 +17,7 @@ use App\Models\TypeEventReport;
 use App\Models\EventUserSecurity;
 use App\Notifications\toModerator;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManager;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
@@ -270,16 +271,23 @@ class Create extends Component
         if (!empty($this->documentation)) {
 
             // Kompres dan resize gambar
-            $image = Image::make($this->documentation->getRealPath())
-                ->resize(1200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })
-                ->encode($this->documentation->getClientOriginalExtension(), 75);
+            // $image = Image::make($this->documentation->getRealPath())
+            //     ->resize(1200, null, function ($constraint) {
+            //         $constraint->aspectRatio();
+            //         $constraint->upsize();
+            //     })
+            //     ->encode($this->documentation->getClientOriginalExtension(), 75);
 
-            // Simpan hasil kompres ke storage secara manual
-            $filename = uniqid() . '.' . strtolower($this->documentation->getClientOriginalExtension());
-            Storage::disk('public')->put('documents/hzd/' . $filename, $image);
+            // // Simpan hasil kompres ke storage secara manual
+            // $filename = uniqid() . '.' . strtolower($this->documentation->getClientOriginalExtension());
+            // Inisialisasi image manager dengan driver GD
+            $manager = new ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
+            $image = $manager->read($this->documentation)
+                ->resize(1200)
+                ->toWebp(75); // kualitas 75%
+            // Simpan ke storage
+            $filename = uniqid() . '.webp';
+            Storage::disk('public')->put('documents/hzd/' . $filename, (string) $image);
             $this->fileUpload = $filename;
         } else {
             $this->fileUpload = null;
@@ -316,7 +324,7 @@ class Create extends Component
             'report_byName'               => $this->report_byName,
             'report_toName'               => $this->report_toName,
             'task_being_done'             => $this->task_being_done,
-            'documentation'               => $file_name,
+            'documentation'               => $filename,
             'description'                 => $this->description,
             'immediate_corrective_action' => $this->immediate_corrective_action,
             'suggested_corrective_action' => $this->suggested_corrective_action,
