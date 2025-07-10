@@ -71,14 +71,14 @@ class EventUserSecurity extends Model
     {
         $q->when(
             $t ?? false,
-            fn($q, $t) => $q->where('company_category_id', 'LIKE', $t)
+            fn($q, $t) => $q->where('company_category_id', $t)
         );
     }
     public function scopeSearchDept($q, $t)
     {
         $q->when(
             $t ?? false,
-            fn($q, $t) => $q->where('dept_by_business_unit_id', 'LIKE', $t)
+            fn($q, $t) => $q->orWhere('dept_by_business_unit_id', $t)
         );
     }
     public function scopeSearchDivision($q, $t)
