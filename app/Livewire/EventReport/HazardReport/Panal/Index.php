@@ -83,26 +83,26 @@ class Index extends Component
                 ->where('type_event_report_id', $typeId)
                 ->exists();
 
-            // Cek langkah proses
-            if ($this->current_step === 'ERM Assigned' && $isErm) {
-                $this->muncul = true;
-                return;
-            }
+            if ($this->current_step === 'ERM Assigned') {
+                if ($isErm) {
+                    $this->muncul = true; // jika role 2, maka true
+                } else {
+                    // Cek jika dia punya role 1 dan akses ke perusahaan atau departemen
+                    $hasRole1Access = EventUserSecurity::where('user_id', $userId)
+                        ->where('responsible_role_id', 1)
+                        ->where(function ($query) use ($typeId) {
+                            $query->where('type_event_report_id', $typeId)
+                                ->orWhereNull('type_event_report_id');
+                        })
+                        ->where(function ($query) use ($company, $department) {
+                            $query->searchCompany($company)
+                                ->orWhere(fn($q) => $q->searchDept($department));
+                        })
+                        ->exists();
 
-            // Jika bukan ERM, cek apakah user punya role 1 dan akses ke company/dept
-            $hasRole1Access = EventUserSecurity::where('user_id', $userId)
-                ->where('responsible_role_id', 1)
-                ->where(function ($query) use ($typeId) {
-                    $query->where('type_event_report_id', $typeId)
-                        ->orWhereNull('type_event_report_id'); // optional: jika ingin fallback ke global role
-                })
-                ->where(function ($query) use ($company, $department) {
-                    $query->searchCompany($company)->searchDept($department);
-                })
-                ->exists();
-           
-            // Tampilkan jika punya akses dari role 1
-            $this->muncul = $hasRole1Access;
+                    $this->muncul = $hasRole1Access; // kalau punya akses, true
+                }
+            }
         } else {
             $this->dispatch(
                 'alert',

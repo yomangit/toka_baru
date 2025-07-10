@@ -78,7 +78,7 @@ class EventUserSecurity extends Model
     {
         $q->when(
             $t ?? false,
-            fn($q, $t) => $q->orWhere('dept_by_business_unit_id', $t)
+            fn($q, $t) => $q->where('dept_by_business_unit_id', $t)
         );
     }
     public function scopeSearchDivision($q, $t)
