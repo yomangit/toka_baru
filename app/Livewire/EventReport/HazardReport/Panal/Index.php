@@ -79,6 +79,7 @@ class Index extends Component
             $department = trim($Department);
             // Cek apakah user adalah ERM
             $isErm = EventUserSecurity::where('user_id', $userId)
+                ->where('name',$this->workgroup_name )
                 ->where('responsible_role_id', 2)
                 ->where('type_event_report_id', $typeId)
                 ->exists();
@@ -98,8 +99,7 @@ class Index extends Component
                             ->orWhereNull('type_event_report_id');
                     })
                     ->where(function ($query) use ($company, $department) {
-                        $query->searchCompany($company)
-                            ->orWhere(fn($q) => $q->searchDept($department));
+                        $query->searchCompany($company)->orWhere(fn($q) => $q->searchDept($department));
                     })
                     ->exists();
 
