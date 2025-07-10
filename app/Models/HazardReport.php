@@ -46,6 +46,7 @@ class HazardReport extends Model
         'also_assign_to',
         'comments',
         'kondisi_tidak_aman',
+        'tindakan_tidak_aman',
         'tindakkan_selanjutnya',
         'show_immidiate',
         'submitter'
