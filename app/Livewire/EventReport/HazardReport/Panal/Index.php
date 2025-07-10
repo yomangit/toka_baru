@@ -87,20 +87,7 @@ class Index extends Component
                 if ($isErm) {
                     $this->muncul = true; // jika role 2, maka true
                 } else {
-                    // Cek jika dia punya role 1 dan akses ke perusahaan atau departemen
-                    $hasRole1Access = EventUserSecurity::where('user_id', $userId)
-                        ->where('responsible_role_id', 1)
-                        ->where(function ($query) use ($typeId) {
-                            $query->where('type_event_report_id', $typeId)
-                                ->orWhereNull('type_event_report_id');
-                        })
-                        ->where(function ($query) use ($company, $department) {
-                            $query->searchCompany($company)
-                                ->orWhere(fn($q) => $q->searchDept($department));
-                        })
-                        ->exists();
-
-                    $this->muncul = $hasRole1Access; // kalau punya akses, true
+                   $this->muncul = false;
                 }
             }
         } else {
