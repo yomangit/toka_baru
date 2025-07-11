@@ -8,7 +8,8 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Auth\Notifications\ResetPassword;
-
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Vite;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -29,7 +30,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        // Daftarkan Blade directive untuk nonce CSP
+        Blade::directive('csp_nonce', function () {
+            return "<?php echo e(\Illuminate\Support\Facades\Vite::cspNonce(), false); ?>";
+        });
         ResetPassword::createUrlUsing(function (User $user, string $token) {
             return 'https://tokasafe.archimining.com/reset-password/' . $token;
         });
