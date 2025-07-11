@@ -9,9 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 
-class User extends Authenticatable implements LdapAuthenticatable
+class User extends Authenticatable  
 {
-    use HasFactory, Notifiable, AuthenticatesWithLdap;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,15 +20,15 @@ class User extends Authenticatable implements LdapAuthenticatable
      */
 
 
-    public function getLdapDomainColumn(): string
-    {
-        return 'domain';
-    }
+    // public function getLdapDomainColumn(): string
+    // {
+    //     return 'domain';
+    // }
 
-    public function getLdapGuidColumn(): string
-    {
-        return 'guid';
-    }
+    // public function getLdapGuidColumn(): string
+    // {
+    //     return 'guid';
+    // }
 
     protected $fillable = [
         'name',
