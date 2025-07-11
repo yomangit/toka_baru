@@ -346,7 +346,9 @@ class Create extends Component
         $this->dispatch('buttonClicked', [
             'duration' => 4000,
         ]);
-        if ($this->responsible_role_id == 1) {
+        // Notification
+       
+        if ($this->ResponsibleRole == 1) {
             $moderators = User::whereIn('id', function ($query) {
                 $query->select('user_id')
                     ->from('event_user_securities')
@@ -366,10 +368,10 @@ class Create extends Component
                 $offerData = [
                     'greeting'   => 'Kepada Yth. ' . $moderator->lookup_name,
                     'subject'    => $subject,
-                    'line'       => Auth::user()->lookup_name . ' telah mengirim laporan hazard Mohon untuk ditinjau.',
+                    'line'       => $this->report_byName . ' telah mengirimkan laporan bahaya, Mohon untuk ditinjau.',
                     'line2'      => 'Silakan tinjau laporan ini dengan mengklik tombol di bawah.',
                     'line3'      => 'Terima kasih atas perhatian dan kerjasamanya.',
-                    'actionUrl' => url("/eventReport/hazardReportDetail/$url"),
+                    'actionUrl'  => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/{$url}"),
                 ];
                 Notification::send($moderator, new toModerator($offerData));
             }
