@@ -79,13 +79,6 @@
                     enable: true
                 , }
                 , allowLocalhostAsSecureOrigin: true
-            , });
-
-            OneSignal.getUserId(function(userId) {
-                console.log("🟢 OneSignal ID:", userId); // Ini HARUS tampil di console
-                if (userId) {
-                    window.livewire.emit("saveOneSignalId", userId);
-                }
             });
         });
 
