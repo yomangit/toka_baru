@@ -12,11 +12,17 @@ class AddContentSecurityPolicyHeaders
      */
     public function handle($request, Closure $next)
     {
-        Vite::useCspNonce();
+        // Buat nonce dan simpan di container (bisa dipakai di Blade)
+        $nonce = base64_encode(random_bytes(16));
+        app()->instance('csp_nonce', $nonce);
 
+        // Pakai nonce untuk Vite juga
+        Vite::useCspNonce($nonce);
+
+        // CSP Header
         $csp = implode('; ', [
             "default-src 'self'",
-            "script-src 'self' 'nonce-" . Vite::cspNonce() . "' https://cdn.onesignal.com https://onesignal.com https://cdn.ckeditor.com",
+            "script-src 'self' 'nonce-{$nonce}' https://cdn.onesignal.com https://onesignal.com https://cdn.ckeditor.com",
             "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com",
             "font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com",
             "connect-src 'self' https://cdn.onesignal.com https://onesignal.com",

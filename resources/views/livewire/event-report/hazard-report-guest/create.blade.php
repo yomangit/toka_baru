@@ -173,7 +173,7 @@
             </div>
             <x-label-error :messages="$errors->get('immediate_corrective_action')" />
         </fieldset>
-        <div class="grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 md:content-center md:gap-4 mt-2  divide-y-2 md:divide-y-0 md:divide-x-2 divide-base-200 border  border-base-200 rounded-box">
+        <div class="grid grid-rows-3 mt-2 border divide-y-2 md:grid-rows-1 md:grid-cols-3 md:content-center md:gap-4 md:divide-y-0 md:divide-x-2 divide-base-200 border-base-200 rounded-box">
             <div class='px-4 md:place-self-center '>
                 <fieldset class="self-center w-40 max-w-sm fieldset rounded-box">
                     <label class="relative px-0 text-xs font-semibold capitalize label label-text-alt ">
@@ -191,7 +191,7 @@
                 </fieldset>
             </div>
             <div class='px-4 md:place-self-center'>
-                <fieldset class=" max-w-sm w-40 fieldset rounded-box ">
+                <fieldset class="w-40 max-w-sm  fieldset rounded-box">
 
                     <x-label-req :value="__('perbaikan tingkat lanjut')" />
 
@@ -225,7 +225,7 @@
         </div>
     </form>
     <!--<button wire:click="setData">Set Data</button>-->
-    <script nonce="{{ csp_nonce() }}">
+    <script nonce="{{ app('csp_nonce') }}">
         var count = 10;
         var redirect = "https://tokasafe.archimining.com/eventReport/hazardReportGuest/3";
         document.addEventListener('livewire:init', () => {
@@ -242,7 +242,7 @@
         });
 
     </script>
-    <script nonce="{{ csp_nonce() }}">
+    <script nonce="{{ app('csp_nonce') }}">
         ClassicEditor
             .create(document.querySelector('#immediate_corrective_action'), {
                 toolbar: ['undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList', 'link']
