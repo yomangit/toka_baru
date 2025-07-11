@@ -364,6 +364,7 @@ class Create extends Component
         // }
         $url          = $HazardReport->id;
         $getModeratorIds = EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)
+            ->where('type_event_report_id', $this->event_type_id)
             ->where('user_id', '!=', Auth::id())
             ->pluck('user_id')
             ->toArray();
