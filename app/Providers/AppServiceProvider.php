@@ -30,10 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Daftarkan Blade directive untuk nonce CSP
-        Blade::directive('csp_nonce', function () {
-            return "<?php echo e(\Illuminate\Support\Facades\Vite::cspNonce(), false); ?>";
-        });
+
         ResetPassword::createUrlUsing(function (User $user, string $token) {
             return 'https://tokasafe.archimining.com/reset-password/' . $token;
         });
