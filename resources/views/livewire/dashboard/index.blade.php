@@ -76,7 +76,7 @@
 </div>
 
 
-<script>
+<script nonce="{{ csp_nonce() }}">
     var data_table = JSON.parse('<?php echo $key_state; ?>');
     const tableBody = document.querySelector("#dataGrid tbody");
 
