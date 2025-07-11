@@ -77,12 +77,12 @@
                 appId: "{{ env('ONESIGNAL_APP_ID') }}"
                 , notifyButton: {
                     enable: true
-                , }
+                }
                 , allowLocalhostAsSecureOrigin: true
             , });
 
             OneSignal.getUserId(function(userId) {
-                console.log("OneSignal ID:", userId);
+                console.log("📡 OneSignal ID:", userId); // Wajib muncul di console
                 if (userId) {
                     window.livewire.emit('saveOneSignalId', userId);
                 }
@@ -90,6 +90,7 @@
         });
 
     </script>
+
 
     @livewireScripts
 </body>
