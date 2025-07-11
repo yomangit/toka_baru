@@ -371,7 +371,7 @@ class Create extends Component
                 ->toArray();
 
             $users = User::whereIn('id', $moderatorIds)->get();
-            $data  = [
+            $offerData  = [
                 'greeting'  => 'Hi',
                 'subject'   => "Hazard Report: {$this->task_being_done}",
                 'line'      => "{$this->report_byName} has submitted a hazard report, please review",
@@ -380,7 +380,7 @@ class Create extends Component
                 'actionUrl' => url("/eventReport/hazardReportDetail/{$url}"),
             ];
 
-            Notification::send($users, new toModerator($data));
+            Notification::send($users, new toModerator($offerData));
         }
         $report_to = User::where('id', $this->report_to)->whereNotNull('email')->get();
         if ($report_to) {
