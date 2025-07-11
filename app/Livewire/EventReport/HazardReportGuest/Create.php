@@ -363,49 +363,24 @@ class Create extends Component
         //     Notification::send($users, new toModerator($offerData));
         // }
         $url          = $HazardReport->id;
-        $moderatorIds = EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)
-            ->where('type_event_report_id', $this->event_type_id)
-            // ->when(Auth::check(), fn($q) => $q->where('user_id', '!=', Auth::id()))
-            ->pluck('user_id')
-            ->toArray();
+        if ($this->ResponsibleRole == 1) {
+            $moderatorIds = EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)
+                ->where('type_event_report_id', $this->event_type_id)
+                // ->when(Auth::check(), fn($q) => $q->where('user_id', '!=', Auth::id()))
+                ->pluck('user_id')
+                ->toArray();
 
-        $users = User::whereIn('id', $moderatorIds)->get();
-        $data  = [
-            'greeting'  => 'Hi',
-            'subject'   => "Hazard Report: {$this->task_being_done}",
-            'line'      => "{$this->report_byName} has submitted a hazard report, please review",
-            'line2'     => 'Click the button below',
-            'line3'     => 'Thank you',
-            'actionUrl' => url("/eventReport/hazardReportDetail/{$url}"),
-        ];
-        Notification::send($users, new toModerator($data));
-        if ($this->responsible_role_id == 1) {
-            $moderators = User::whereIn('id', function ($query) {
-                $query->select('user_id')
-                    ->from('event_user_securities')
-                    ->where('responsible_role_id', 1)
-                    ->where('type_event_report_id', $this->event_type_id)
-                    ->where('user_id', '!=', Auth::id());
-            })
-                ->whereNotNull('email')
-                ->get();
+            $users = User::whereIn('id', $moderatorIds)->get();
+            $data  = [
+                'greeting'  => 'Hi',
+                'subject'   => "Hazard Report: {$this->task_being_done}",
+                'line'      => "{$this->report_byName} has submitted a hazard report, please review",
+                'line2'     => 'Click the button below',
+                'line3'     => 'Thank you',
+                'actionUrl' => url("/eventReport/hazardReportDetail/{$url}"),
+            ];
 
-            $url = $this->data_id;
-            $subject = $this->procced_to === 'Moderator Verification'
-                ? 'Hazard Report ERM Respons'
-                : 'Tugas Tinjauan Laporan Bahaya - ' . $this->reference;
-
-            foreach ($moderators as $moderator) {
-                $offerData = [
-                    'greeting'   => 'Kepada Yth. ' . $moderator->lookup_name,
-                    'subject'    => $subject,
-                    'line'       => Auth::user()->lookup_name . ' telah memperbarui status laporan hazard menjadi "' . $this->status . '". Mohon untuk ditinjau.',
-                    'line2'      => 'Silakan tinjau laporan ini dengan mengklik tombol di bawah.',
-                    'line3'      => 'Terima kasih atas perhatian dan kerjasamanya.',
-                    'actionUrl'  => url("https://tokasafe.archimining.com/eventReport/hazardReportDetail/{$url}"),
-                ];
-                Notification::send($moderator, new toModerator($offerData));
-            }
+            Notification::send($users, new toModerator($data));
         }
         $report_to = User::where('id', $this->report_to)->whereNotNull('email')->get();
         if ($report_to) {
