@@ -60,7 +60,7 @@ class Create extends Component
                 'report_byName'               => ['required'],
                 'date'                        => ['required'],
                 'tindakkan_selanjutnya'       => ['required'],
-                'documentation'               => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
+                'documentation' => 'required|mimes:jpg,jpeg,png,webp,pdf,doc,docx|max:5120', // max 5MB
                 'description'                 => ['required'],
                 'immediate_corrective_action' => ['required'],
                 'location_name'               => ['required'],
@@ -73,7 +73,7 @@ class Create extends Component
                 'sub_event_type_id'     => ['required'],
                 'report_byName'         => ['required'],
                 'date'                  => ['required'],
-                'documentation'         => 'nullable|mimes:jpg,jpeg,png,svg,gif,xlsx,pdf,docx',
+                'documentation' => 'required|mimes:jpg,jpeg,png,webp,pdf,doc,docx|max:5120', // max 5MB
                 'description'           => ['required'],
                 'location_id'           => ['required'],
                 'location_name'         => ['required'],
@@ -90,7 +90,7 @@ class Create extends Component
             'workgroup_name.required'              => 'kolom wajib di isi',
             'date.required'                        => 'kolom wajib di isi',
             'site_id.required'                     => 'kolom wajib di isi',
-            'documentation.mimes'                  => 'hanya format jpg,jpeg,png,svg,gif,xlsx,pdf,docx file types are allowed',
+            'documentation.mimes'                  => 'hanya format jpg,jpeg,png,webp,pdf,doc,docx file types are allowed',
             'documentation.nullable'               => 'kolom wajib di isi',
             'description.required'                 => 'kolom wajib di isi',
             'immediate_corrective_action.required' => 'kolom wajib di isi',
