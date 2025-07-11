@@ -255,7 +255,8 @@ class Create extends Component
     public function store()
     {
         $hazard          = HazardReport::exists();
-        $referenceHazard = "TT–OHS–HZD-";
+        $tgl = DateTime::createFromFormat('d-m-Y : H:i', $this->date)->format('Y-m-d');
+        $referenceHazard = "HR/TOKA/{$tgl}/";
         if (! $hazard) {
             $reference       = 1;
             $references      = str_pad($reference, 4, "0", STR_PAD_LEFT);
@@ -360,9 +361,7 @@ class Create extends Component
                 ->get();
 
           
-            $subject = $this->procced_to === 'Moderator Verification'
-                ? 'Hazard Report ERM Respons'
-                : 'Tugas Tinjauan Laporan Bahaya - ' . $this->reference;
+            $subject = 'Tugas Tinjauan Laporan Bahaya - ' . $this->reference;
 
             foreach ($moderators as $moderator) {
                 $offerData = [
