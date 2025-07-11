@@ -369,7 +369,7 @@ class Create extends Component
                 ->when(Auth::check(), fn($q) => $q->where('user_id', '!=', Auth::id()))
                 ->pluck('user_id')
                 ->toArray();
-
+            dd($moderatorIds);
             $users = User::whereIn('id', $moderatorIds)->whereNotNull('email')->get();
             $offerData  = [
                 'greeting'  => 'Hi',
