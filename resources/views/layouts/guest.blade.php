@@ -61,12 +61,31 @@
                 <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
             </a>
         </div>
-        <div
-            class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md dark:bg-gray-800 sm:rounded-lg">
+        <div class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md dark:bg-gray-800 sm:rounded-lg">
             {{ $slot }}
         </div>
     </div>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "{{ env('ONESIGNAL_APP_ID') }}"
+                , notifyButton: {
+                    enable: true
+                , }
+                , allowLocalhostAsSecureOrigin: true
+            });
 
+            OneSignal.getUserId(function(userId) {
+                console.log("OneSignal ID:", userId); // Cek console
+                if (userId) {
+                    window.livewire.emit('saveOneSignalId', userId);
+                }
+            });
+        });
+
+    </script>
 </body>
 
 </html>

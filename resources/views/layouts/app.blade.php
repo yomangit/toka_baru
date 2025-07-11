@@ -56,7 +56,6 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
-
         <!-- Page Heading -->
         @isset($header)
         <header class="bg-white shadow dark:bg-gray-800">
@@ -65,7 +64,6 @@
             </div>
         </header>
         @endisset
-
         <!-- Page Content -->
         <main>
             {{ $slot }}
@@ -77,7 +75,7 @@
         window.OneSignal = window.OneSignal || [];
         OneSignal.push(function() {
             OneSignal.init({
-                appId: "dac85a48-9b5b-4e27-adf1-5615cd59e3d4"
+                appId: "{{ env('ONESIGNAL_APP_ID') }}"
                 , notifyButton: {
                     enable: true
                 , }
@@ -85,14 +83,14 @@
             });
 
             OneSignal.getUserId(function(userId) {
+                console.log("OneSignal ID:", userId); // Cek console
                 if (userId) {
                     window.livewire.emit('saveOneSignalId', userId);
                 }
             });
         });
-        console.log('OneSignal ID:', userId);
-    </script>
 
+    </script>
 </body>
 
 </html>
