@@ -15,7 +15,7 @@ class AddContentSecurityPolicyHeaders
 
         $csp = implode('; ', [
             "default-src 'self'",
-            "script-src 'self' 'unsafe-eval' 'nonce-$nonce' https://cdn.onesignal.com https://onesignal.com ",
+            "script-src 'self' 'nonce-$nonce' https://cdn.onesignal.com https://onesignal.com",
             "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com",
             "font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com",
             "connect-src 'self' https://cdn.onesignal.com https://onesignal.com",
@@ -25,6 +25,7 @@ class AddContentSecurityPolicyHeaders
             "media-src 'self'",
             "object-src 'none'",
         ]);
+
 
 
         return $next($request)->withHeaders([
