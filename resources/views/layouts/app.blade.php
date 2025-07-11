@@ -69,15 +69,28 @@
             {{ $slot }}
         </main>
     </div>
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "dac85a48-9b5b-4e27-adf1-5615cd59e3d4",
-    });
-  });
-</script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "{{ env('ONESIGNAL_APP_ID') }}"
+                , notifyButton: {
+                    enable: true
+                , }
+                , allowLocalhostAsSecureOrigin: true
+            , });
+
+            OneSignal.getUserId(function(userId) {
+                console.log("OneSignal ID:", userId);
+                if (userId) {
+                    window.livewire.emit('saveOneSignalId', userId);
+                }
+            });
+        });
+
+    </script>
+
     @livewireScripts
 </body>
 

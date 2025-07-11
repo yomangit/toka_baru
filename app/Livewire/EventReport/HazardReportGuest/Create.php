@@ -253,6 +253,12 @@ class Create extends Component
             ])
             ->section('content');
     }
+    public function saveOneSignalId($id)
+    {
+        auth()->user()->update([
+            'onesignal_id' => $id,
+        ]);
+    }
     public function store()
     {
         $hazard          = HazardReport::exists();

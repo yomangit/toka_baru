@@ -53,7 +53,7 @@ use App\Livewire\EventReport\HazardReport\CreateAndUpdate as hazardReportform;
 use App\Livewire\EventReport\HazardReport\TableExcel;
 use App\Livewire\EventReport\HazardReportGuest\Create as HazardReportGuestCreate;
 use App\Livewire\EventReport\IncidentReport\CreateAndUpdate as CreateAndUpdateIncidentReport;
-
+use Berkayk\OneSignal\OneSignalFacade;
 
 // $newReference =  Str::random(9);
 // $reference_pto = 'OHS-PTO-' . $newReference;
@@ -139,6 +139,23 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     // Manhours
 
     Route::get('manhours/manhoursRegister', manhoursRegister::class)->name('manhoursRegister');
+    
+Route::get('/test-notif', function () {
+    $user = \App\Models\User::whereNotNull('onesignal_id')->first();
+
+    if (!$user) return 'Belum ada user dengan OneSignal ID';
+
+    OneSignalFacade::sendNotificationToUser(
+        "Notifikasi Test",
+        $user->onesignal_id,
+        url('/'),
+        ["type" => "test"],
+        null,
+        "Halo dari Tokasafe"
+    );
+
+    return 'Notifikasi dikirim ke: ' . $user->name;
+});
 });
 
 Route::fallback(function () {
