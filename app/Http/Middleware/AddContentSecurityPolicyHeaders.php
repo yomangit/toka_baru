@@ -26,6 +26,7 @@ class AddContentSecurityPolicyHeaders
             "object-src 'none'",
         ]);
 
+
         return $next($request)->withHeaders([
             'Content-Security-Policy' => $csp,
         ]);
