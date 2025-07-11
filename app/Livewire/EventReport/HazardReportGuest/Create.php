@@ -16,6 +16,7 @@ use App\Models\WorkflowDetail;
 use App\Models\TypeEventReport;
 use App\Models\EventUserSecurity;
 use App\Notifications\toModerator;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Request;
@@ -44,6 +45,7 @@ class Create extends Component
     = [];
     public function saveOneSignalId($id)
     {
+        Log::info('🚨 saveOneSignalId called: ' . $id);
         auth()->user()->update([
             'onesignal_id' => $id,
         ]);
