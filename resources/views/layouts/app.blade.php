@@ -70,27 +70,8 @@
         </main>
     </div>
     @livewireScripts
-    {{-- <script nonce="@csp_nonce"> src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async ></script>
-    <script nonce="@csp_nonce">
-        window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
-            OneSignal.init({
-                appId: "{{ env('ONESIGNAL_APP_ID') }}"
-                , notifyButton: {
-                    enable: true
-                }
-                , allowLocalhostAsSecureOrigin: true
-            , });
 
-            OneSignal.getUserId(function(userId) {
-                console.log("📡 OneSignal ID:", userId); // Wajib muncul di console
-                if (userId) {
-                    window.livewire.emit('saveOneSignalId', userId);
-                }
-            });
-        });
-
-    </script> --}}
+    <div id="onesignal-bell-container"></div>
     @stack('scripts')
 </body>
 

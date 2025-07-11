@@ -8,7 +8,19 @@ import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
 import "flatpickr/dist/themes/dark.css";
 import "flatpickr/dist/plugins/monthSelect/style.css";
 import './ckeditor-init.js'; // Tambahkan ini
+import OneSignal from 'onesignal';
 
+window.OneSignal = OneSignal;
+
+OneSignal.push(function () {
+    OneSignal.init({
+        appId: "dac85a48-9b5b-4e27-adf1-5615cd59e3d4",
+        safari_web_id: "optional",
+        notifyButton: {
+            enable: true,
+        },
+    });
+});
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js', {
         scope: '/'
