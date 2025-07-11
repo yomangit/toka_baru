@@ -69,8 +69,7 @@
             {{ $slot }}
         </main>
     </div>
-    @livewireScripts
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
     <script>
         window.OneSignal = window.OneSignal || [];
         OneSignal.push(function() {
@@ -80,17 +79,18 @@
                     enable: true
                 , }
                 , allowLocalhostAsSecureOrigin: true
-            });
+            , });
 
             OneSignal.getUserId(function(userId) {
-                console.log("OneSignal ID:", userId); // Cek console
+                console.log("🟢 OneSignal ID:", userId); // Ini HARUS tampil di console
                 if (userId) {
-                    window.livewire.emit('saveOneSignalId', userId);
+                    window.livewire.emit("saveOneSignalId", userId);
                 }
             });
         });
 
     </script>
+    @livewireScripts
 </body>
 
 </html>
