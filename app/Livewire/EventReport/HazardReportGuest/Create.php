@@ -268,7 +268,7 @@ class Create extends Component
         }
         $this->validate();
         $file_name = '';
-        if (!empty($this->documentation)) {
+        if ($this->documentation) {
             $file_name = $this->documentation->getClientOriginalName();
             $extension = strtolower($this->documentation->getClientOriginalExtension());
             $this->fileUpload = $extension;
@@ -276,13 +276,19 @@ class Create extends Component
             $allowedImageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
 
             if (in_array($extension, $allowedImageExtensions)) {
-                // Kompres gambar
-                $image = Image::make($this->documentation->getRealPath())
-                    ->encode($extension, 70); // kualitas 70%
+                // Simpan sementara
+                $tempPath = $this->documentation->store('temp');
+                $fullPath = storage_path('app/' . $tempPath);
+
+                // Kompres dan encode
+                $image = Image::make($fullPath)->encode($extension, 70);
 
                 Storage::put("public/documents/hzd/{$file_name}", $image);
+
+                // Hapus file sementara
+                Storage::delete($tempPath);
             } else {
-                // File non-gambar: PDF, Word, dll → simpan biasa
+                // PDF, DOC, dll
                 $this->documentation->storeAs('public/documents/hzd', $file_name);
             }
         }
