@@ -40,9 +40,21 @@ class Create extends Component
     public $dropdownReportBy                                                                         = 'dropdown', $hiddenReportBy                                                                         = 'block';
     public $dropdownReportTo                                                                         = 'dropdown', $hiddenReportTo                                                                         = 'block';
     public $alamat, $kondisi_tidak_aman, $tindakan_tidak_aman, $tindakkan_selanjutnya, $showLocation = false;
-    public $data
+    public $data = [];
+    protected $listeners = [
+        'updateImmediateCorrectiveAction' => 'setImmediate',
+        'updateDescription' => 'setDescription',
+    ];
 
-    = [];
+    public function setImmediate($data)
+    {
+        $this->immediate_corrective_action = $data['value'];
+    }
+
+    public function setDescription($data)
+    {
+        $this->description = $data['value'];
+    }
     public function saveOneSignalId($id)
     {
         Log::info('🚨 saveOneSignalId called: ' . $id);
