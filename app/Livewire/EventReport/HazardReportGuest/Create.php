@@ -361,33 +361,38 @@ class Create extends Component
                 ->get();
 
             $subject = 'Tugas Tinjauan Laporan Bahaya - ' . $this->reference;
+            $title = "Laporan Hazard Baru!";
+            $message = $this->report_byName . ' telah mengirim laporan hazard.';
+            $actionUrl = url("/eventReport/hazardReportDetail/{$this->id}");
 
             foreach ($moderators as $moderator) {
+                // Laravel notification
                 $offerData = [
                     'greeting'   => 'Kepada Yth. ' . $moderator->lookup_name,
                     'subject'    => $subject,
                     'line'       => $this->report_byName . ' telah mengirimkan laporan hazard, Mohon untuk ditinjau.',
                     'line2'      => 'Silakan tinjau laporan ini dengan mengklik tombol di bawah.',
                     'line3'      => 'Terima kasih atas perhatian dan kerjasamanya.',
-                    'actionUrl'  => url("/eventReport/hazardReportDetail/{$url}"),
+                    'actionUrl'  => $actionUrl,
                 ];
 
+                // OneSignal push notification
                 if ($moderator->onesignal_id) {
-                    $title = "Laporan Hazard Baru!";
-                    $message = $this->report_byName . ' telah mengirim laporan hazard.';
-
                     OneSignal::sendNotificationToUser(
                         $message,
                         $moderator->onesignal_id,
-                        $url = url("/eventReport/hazardReportDetail/{$url}"),
-                        $data = ["type" => "hazard_report"],
-                        $buttons = null,
+                        $actionUrl,
+                        ["type" => "hazard_report"],
+                        null,
                         $title
                     );
                 }
+
+                // Laravel Notification (email/db)
                 Notification::send($moderator, new toModerator($offerData));
             }
         }
+
         $report_to = User::where('id', $this->report_to)->whereNotNull('email')->get();
         if ($report_to) {
             $offerData = [
