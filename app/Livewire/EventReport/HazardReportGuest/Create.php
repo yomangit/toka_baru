@@ -363,7 +363,7 @@ class Create extends Component
             $subject = 'Tugas Tinjauan Laporan Bahaya - ' . $this->reference;
             $title = "Laporan Hazard Baru!";
             $message = $this->report_byName . ' telah mengirim laporan hazard.';
-            $actionUrl = url("/eventReport/hazardReportDetail/{$this->id}");
+            $actionUrl = url("/eventReport/hazardReportDetail/{ $url}");
 
             foreach ($moderators as $moderator) {
                 // Laravel notification
