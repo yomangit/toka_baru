@@ -70,7 +70,7 @@
         </main>
     </div>
     @livewireScripts
-    <script nonce="@csp_nonce"> src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async ></script>
+    {{-- <script nonce="@csp_nonce"> src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async ></script>
     <script nonce="@csp_nonce">
         window.OneSignal = window.OneSignal || [];
         OneSignal.push(function() {
@@ -90,7 +90,8 @@
             });
         });
 
-    </script>
+    </script> --}}
+    @stack('scripts')
 </body>
 
 </html>

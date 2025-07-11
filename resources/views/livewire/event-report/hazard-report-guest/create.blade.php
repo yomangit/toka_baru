@@ -285,7 +285,8 @@
             });
 
     </script> --}}
-    <script>
+   @push('scripts')
+     <script type="module">
         window.addEventListener('DOMContentLoaded', () => {
             initCKEditor('#immediate_corrective_action', data => {
                 Livewire.dispatch('updateImmediateCorrectiveAction', {
@@ -302,4 +303,5 @@
 
     </script>
 
+   @endpush
 </div>
