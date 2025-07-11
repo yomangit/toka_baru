@@ -3,34 +3,31 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Livewire\Livewire;
 use Illuminate\Support\Facades\Vite;
 
 class AddContentSecurityPolicyHeaders
 {
     /**
      * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
      */
     public function handle($request, Closure $next)
     {
         Vite::useCspNonce();
 
-        return $next($request)->withHeaders([
-            'Content-Security-Policy' => "script-src 'nonce-" . Vite::cspNonce() . "'",
-            'Content-Security-Policy' => "base-uri 'self'",
-            'Content-Security-Policy' => "connect-src'self'",
-            'Content-Security-Policy' => "default-src 'self'",
-            'Content-Security-Policy' => "form-action 'self'",
-            'Content-Security-Policy' => "img-src 'self'",
-            'Content-Security-Policy' => "media-src 'self'",
-            'Content-Security-Policy' => "object-src 'self'",
-            //'Content-Security-Policy' => "script-src 'self'",
-            //'Content-Security-Policy' => "style-src 'self'",
+        $csp = implode('; ', [
+            "default-src 'self'",
+            "script-src 'self' 'nonce-" . Vite::cspNonce() . "' https://cdn.onesignal.com https://onesignal.com",
+            "connect-src 'self' https://cdn.onesignal.com https://onesignal.com",
+            "img-src 'self' https://cdn.onesignal.com https://onesignal.com data:",
+            "style-src 'self' 'unsafe-inline'",
+            "base-uri 'self'",
+            "form-action 'self'",
+            "media-src 'self'",
+            "object-src 'none'",
+        ]);
 
+        return $next($request)->withHeaders([
+            'Content-Security-Policy' => $csp,
         ]);
     }
 }
