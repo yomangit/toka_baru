@@ -40,6 +40,7 @@ class User extends Authenticatable
         'date_birth',
         'date_commenced',
         'username',
+        'onesignal_id',
         'company_id',
         'department',
         'end_date',
