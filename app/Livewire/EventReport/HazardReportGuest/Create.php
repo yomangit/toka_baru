@@ -21,6 +21,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Notification;
+use Berkayk\OneSignal\OneSignalFacade as OneSignal;
 
 class Create extends Component
 {
@@ -255,7 +256,7 @@ class Create extends Component
     public function store()
     {
         $hazard          = HazardReport::exists();
-        $tgl =DateTime::createFromFormat('d-m-Y : H:i', $this->date)->format('Y/m/d');
+        $tgl = DateTime::createFromFormat('d-m-Y : H:i', $this->date)->format('Y/m/d');
         $referenceHazard = "HR/TOKA/{$tgl}/";
         if (! $hazard) {
             $reference       = 1;
@@ -370,6 +371,20 @@ class Create extends Component
                     'line3'      => 'Terima kasih atas perhatian dan kerjasamanya.',
                     'actionUrl'  => url("/eventReport/hazardReportDetail/{$url}"),
                 ];
+
+                if ($moderator->onesignal_id) {
+                    $title = "Laporan Hazard Baru!";
+                    $message = $this->report_byName . ' telah mengirim laporan hazard.';
+
+                    OneSignal::sendNotificationToUser(
+                        $message,
+                        $moderator->onesignal_id,
+                        $url = url("/eventReport/hazardReportDetail/{$url}"),
+                        $data = ["type" => "hazard_report"],
+                        $buttons = null,
+                        $title
+                    );
+                }
                 Notification::send($moderator, new toModerator($offerData));
             }
         }

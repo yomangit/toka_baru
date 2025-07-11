@@ -1,4 +1,15 @@
 <?php return array (
+  'berkayk/onesignal-laravel' => 
+  array (
+    'aliases' => 
+    array (
+      'OneSignal' => 'Berkayk\\OneSignal\\OneSignalFacade',
+    ),
+    'providers' => 
+    array (
+      0 => 'Berkayk\\OneSignal\\OneSignalServiceProvider',
+    ),
+  ),
   'blade-ui-kit/blade-icons' => 
   array (
     'providers' => 

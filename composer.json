@@ -8,6 +8,7 @@
         "php": "^8.2",
         "ext-fileinfo": "*",
         "ext-gd": "*",
+        "berkayk/onesignal-laravel": "^2.4",
         "cjmellor/approval": "^1.6",
         "diglactic/laravel-breadcrumbs": "^10.0",
         "directorytree/ldaprecord-laravel": "^3.3",

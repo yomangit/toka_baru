@@ -59,11 +59,11 @@
 
         <!-- Page Heading -->
         @isset($header)
-            <header class="bg-white shadow dark:bg-gray-800">
-                <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
+        <header class="bg-white shadow dark:bg-gray-800">
+            <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                {{ $header }}
+            </div>
+        </header>
         @endisset
 
         <!-- Page Content -->
@@ -72,6 +72,26 @@
         </main>
     </div>
     @livewireScripts
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "{{ env('ONESIGNAL_APP_ID') }}"
+                , notifyButton: {
+                    enable: true
+                , }
+                , allowLocalhostAsSecureOrigin: true
+            });
+
+            OneSignal.getUserId(function(userId) {
+                if (userId) {
+                    window.livewire.emit('saveOneSignalId', userId);
+                }
+            });
+        });
+
+    </script>
 
 </body>
 
