@@ -347,7 +347,7 @@ class Create extends Component
             'duration' => 4000,
         ]);
         // Notification
-       
+         $url =  $HazardReport->id;
         if ($this->ResponsibleRole == 1) {
             $moderators = User::whereIn('id', function ($query) {
                 $query->select('user_id')
@@ -359,7 +359,7 @@ class Create extends Component
                 ->whereNotNull('email')
                 ->get();
 
-            $url = $this->data_id;
+          
             $subject = $this->procced_to === 'Moderator Verification'
                 ? 'Hazard Report ERM Respons'
                 : 'Tugas Tinjauan Laporan Bahaya - ' . $this->reference;
