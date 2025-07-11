@@ -18,6 +18,7 @@
         "vite-plugin-manifest-sri": "^0.2.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^41.4.2",
         "apexcharts": "^3.52.0",
         "ckeditor5": "^43.2.0",
         "ckeditor5-premium-features": "^43.1.0",
