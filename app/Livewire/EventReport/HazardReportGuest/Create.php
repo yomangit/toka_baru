@@ -233,6 +233,7 @@ class Create extends Component
             $workflow = WorkflowDetail::where('workflow_administration_id', $this->workflow_template_id)->first();
             $this->workflow_detail_id = optional($workflow)->id;
             $this->ResponsibleRole = optional($workflow)->responsible_role_id;
+            dd($this->ResponsibleRole);
         }
     }
     public function render()
