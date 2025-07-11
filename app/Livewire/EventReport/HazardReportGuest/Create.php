@@ -364,23 +364,25 @@ class Create extends Component
         // }
         $url          = $HazardReport->id;
         if ($this->ResponsibleRole == 1) {
-            $moderatorIds = EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)
-                ->where('type_event_report_id', $this->event_type_id)
-                ->when(Auth::check(), fn($q) => $q->where('user_id', '!=', Auth::id()))
+            $getModeratorIds = EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)
+                ->where('user_id', '!=', Auth::id())
                 ->pluck('user_id')
+                ->unique()
                 ->toArray();
-            dd($moderatorIds);
-            $users = User::whereIn('id', $moderatorIds)->whereNotNull('email')->get();
-            $offerData  = [
-                'greeting'  => 'Hi',
-                'subject'   => "Hazard Report: {$this->task_being_done}",
-                'line'      => "{$this->report_byName} has submitted a hazard report, please review",
-                'line2'     => 'Click the button below',
-                'line3'     => 'Thank you',
-                'actionUrl' => url("/eventReport/hazardReportDetail/{$url}"),
-            ];
-
-            Notification::send($users, new toModerator($offerData));
+            $users = User::whereIn('id', $getModeratorIds)
+                ->whereNotNull('email')
+                ->get();
+            foreach ($users as $user) {
+                $offerData = [
+                    'greeting' => 'Dear ' . $user->lookup_name,
+                    'subject'  => $this->task_being_done,
+                    'line'     => $this->report_byName . ' has submitted a hazard report, please review',
+                    'line2'    => 'Please check by clicking the button below',
+                    'line3'    => 'Thank you',
+                    'actionUrl' => url("https://tokasafe.archimining.com/eventReport/incidentReportDetail/{$url}"),
+                ];
+                Notification::send($user, new toModerator($offerData));
+            }
         }
         $report_to = User::where('id', $this->report_to)->whereNotNull('email')->get();
         if ($report_to) {
