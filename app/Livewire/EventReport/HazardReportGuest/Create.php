@@ -366,7 +366,6 @@ class Create extends Component
         $getModeratorIds = EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)
             ->where('user_id', '!=', Auth::id())
             ->pluck('user_id')
-            ->unique()
             ->toArray();
         $users = User::whereIn('id', $getModeratorIds)
             ->whereNotNull('email')
