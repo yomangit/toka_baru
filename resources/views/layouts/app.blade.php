@@ -69,24 +69,15 @@
             {{ $slot }}
         </main>
     </div>
-    <script type="text/javascript" nonce="{{ csp_nonce() }}">
-        src = "https://cdn.onesignal.com/sdks/OneSignalSDK.js"
-        async >
-
-    </script>
-    <script type="text/javascript" nonce="{{ csp_nonce() }}">
-        window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
-            OneSignal.init({
-                appId: "{{ env('ONESIGNAL_APP_ID') }}"
-                , notifyButton: {
-                    enable: true
-                , }
-                , allowLocalhostAsSecureOrigin: true
-            });
-        });
-
-    </script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "dac85a48-9b5b-4e27-adf1-5615cd59e3d4",
+    });
+  });
+</script>
     @livewireScripts
 </body>
 
