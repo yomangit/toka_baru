@@ -362,6 +362,7 @@ class Create extends Component
         //     ];
         //     Notification::send($users, new toModerator($offerData));
         // }
+        $url          = $HazardReport->id;
         $moderatorIds = EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)
             ->where('type_event_report_id', $this->event_type_id)
             // ->when(Auth::check(), fn($q) => $q->where('user_id', '!=', Auth::id()))
