@@ -363,7 +363,7 @@ class Create extends Component
         //     Notification::send($users, new toModerator($offerData));
         // }
         $url          = $HazardReport->id;
-        if ($this->ResponsibleRole == 1) {
+
             $getModeratorIds = EventUserSecurity::where('responsible_role_id', $this->ResponsibleRole)
                 ->where('user_id', '!=', Auth::id())
                 ->pluck('user_id')
@@ -383,7 +383,7 @@ class Create extends Component
                 ];
                 Notification::send($user, new toModerator($offerData));
             }
-        }
+        
         $report_to = User::where('id', $this->report_to)->whereNotNull('email')->get();
         if ($report_to) {
             $offerData = [
