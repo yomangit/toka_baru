@@ -276,19 +276,15 @@ class Create extends Component
             $allowedImageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
 
             if (in_array($extension, $allowedImageExtensions)) {
-                // Simpan sementara
-                $tempPath = $this->documentation->store('temp');
-                $fullPath = storage_path('app/' . $tempPath);
+                // ✅ Ambil isi file (tanpa getRealPath)
+                $fileContent = $this->documentation->get(); // raw file content
 
-                // Kompres dan encode
-                $image = Image::make($fullPath)->encode($extension, 70);
+                // Kompres dan encode langsung dari content
+                $image = Image::make($fileContent)->encode($extension, 70);
 
                 Storage::put("public/documents/hzd/{$file_name}", $image);
-
-                // Hapus file sementara
-                Storage::delete($tempPath);
             } else {
-                // PDF, DOC, dll
+                // PDF, Word, dll — simpan biasa
                 $this->documentation->storeAs('public/documents/hzd', $file_name);
             }
         }
