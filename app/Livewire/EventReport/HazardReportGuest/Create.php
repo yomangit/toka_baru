@@ -380,7 +380,7 @@ class Create extends Component
                 'line3'    => 'Thank you',
                 'actionUrl' => url("https://tokasafe.archimining.com/eventReport/incidentReportDetail/{$url}"),
             ];
-            Notification::send($user, new toModerator($offerData));
+            Notification::send(User::whereId($user->id)->get(), new toModerator($offerData));
         }
 
         $report_to = User::where('id', $this->report_to)->whereNotNull('email')->get();
