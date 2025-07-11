@@ -77,7 +77,7 @@
         window.OneSignal = window.OneSignal || [];
         OneSignal.push(function() {
             OneSignal.init({
-                appId: "{{ env('ONESIGNAL_APP_ID') }}"
+                appId: "dac85a48-9b5b-4e27-adf1-5615cd59e3d4"
                 , notifyButton: {
                     enable: true
                 , }
@@ -90,7 +90,7 @@
                 }
             });
         });
-
+        console.log('OneSignal ID:', userId);
     </script>
 
 </body>
