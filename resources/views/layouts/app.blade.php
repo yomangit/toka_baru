@@ -70,8 +70,8 @@
         </main>
     </div>
     @livewireScripts
-    <script nonce="{{ app('csp_nonce') }}"> src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async ></script>
-    <script nonce="{{ app('csp_nonce') }}">>
+    <script nonce="@csp_nonce"> src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async ></script>
+    <script nonce="@csp_nonce">
         window.OneSignal = window.OneSignal || [];
         OneSignal.push(function() {
             OneSignal.init({

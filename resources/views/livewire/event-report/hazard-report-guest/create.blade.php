@@ -191,7 +191,7 @@
                 </fieldset>
             </div>
             <div class='px-4 md:place-self-center'>
-                <fieldset class="w-40 max-w-sm  fieldset rounded-box">
+                <fieldset class="w-40 max-w-sm fieldset rounded-box">
 
                     <x-label-req :value="__('perbaikan tingkat lanjut')" />
 
@@ -225,7 +225,7 @@
         </div>
     </form>
     <!--<button wire:click="setData">Set Data</button>-->
-    <script nonce="{{ app('csp_nonce') }}">
+    <script nonce="@csp_nonce">
         var count = 10;
         var redirect = "https://tokasafe.archimining.com/eventReport/hazardReportGuest/3";
         document.addEventListener('livewire:init', () => {
@@ -242,7 +242,7 @@
         });
 
     </script>
-    <script nonce="{{ app('csp_nonce') }}">
+    <script nonce="@csp_nonce">
         ClassicEditor
             .create(document.querySelector('#immediate_corrective_action'), {
                 toolbar: ['undo', 'redo', 'bold', 'italic', 'numberedList', 'bulletedList', 'link']
