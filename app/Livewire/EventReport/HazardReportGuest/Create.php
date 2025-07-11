@@ -39,8 +39,15 @@ class Create extends Component
     public $dropdownReportBy                                                                         = 'dropdown', $hiddenReportBy                                                                         = 'block';
     public $dropdownReportTo                                                                         = 'dropdown', $hiddenReportTo                                                                         = 'block';
     public $alamat, $kondisi_tidak_aman, $tindakan_tidak_aman, $tindakkan_selanjutnya, $showLocation = false;
-    public $data                                                                                     = [];
+    public $data
 
+    = [];
+    public function saveOneSignalId($id)
+    {
+        auth()->user()->update([
+            'onesignal_id' => $id,
+        ]);
+    }
     // data action
     public function mount()
     {
@@ -253,12 +260,7 @@ class Create extends Component
             ])
             ->section('content');
     }
-    public function saveOneSignalId($id)
-    {
-        auth()->user()->update([
-            'onesignal_id' => $id,
-        ]);
-    }
+
     public function store()
     {
         $hazard          = HazardReport::exists();
