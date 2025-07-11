@@ -77,8 +77,6 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Department::class,'department');
     }
-
-
     public function scopeSearchFor($query, $term)
     {
         $query->when(
