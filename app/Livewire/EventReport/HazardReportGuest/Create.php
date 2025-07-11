@@ -370,7 +370,7 @@ class Create extends Component
                 ->pluck('user_id')
                 ->toArray();
 
-            $users = User::whereIn('id', $moderatorIds->whereNotNull('email'))->get();
+            $users = User::whereIn('id', $moderatorIds)->whereNotNull('email')->get();
             $offerData  = [
                 'greeting'  => 'Hi',
                 'subject'   => "Hazard Report: {$this->task_being_done}",
