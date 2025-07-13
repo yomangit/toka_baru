@@ -71,7 +71,7 @@
     </div>
     @livewireScripts
 
-     <script nonce="{{ csp_nonce() }}">
+    <script nonce="{{ csp_nonce() }}">
         window.OneSignal = window.OneSignal || [];
         OneSignal.push(function() {
             OneSignal.init({
@@ -80,10 +80,10 @@
                     enable: true
                 }
                 , allowLocalhostAsSecureOrigin: true
-            , });
+            });
 
             OneSignal.getUserId(function(userId) {
-                console.log("📡 OneSignal ID:", userId); // Wajib muncul di console
+                console.log("📡 OneSignal ID:", userId);
                 if (userId) {
                     window.livewire.emit('saveOneSignalId', userId);
                 }
@@ -91,6 +91,7 @@
         });
 
     </script>
+
     @stack('scripts')
 </body>
 
