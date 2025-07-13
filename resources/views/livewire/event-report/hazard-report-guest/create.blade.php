@@ -284,7 +284,7 @@
             });
 
     </script> --}}
-   @push('scripts')
+   {{-- @push('scripts')
    <script nonce="{{ $csp_nonce }}" type="module">
    
         window.addEventListener('DOMContentLoaded', () => {
@@ -303,5 +303,5 @@
 
     </script>
 
-   @endpush
+   @endpush --}}
 </div>
