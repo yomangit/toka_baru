@@ -8,6 +8,7 @@ import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
 import "flatpickr/dist/themes/dark.css";
 import "flatpickr/dist/plugins/monthSelect/style.css";
 import './ckeditor-init.js'; // Tambahkan ini
+import './pages/renderTable';
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js', {

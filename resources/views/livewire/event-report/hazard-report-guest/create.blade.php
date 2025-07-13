@@ -285,7 +285,8 @@
 
     </script> --}}
    @push('scripts')
-     <script type="module">
+   <script nonce="{{ $csp_nonce }}" type="module">
+   
         window.addEventListener('DOMContentLoaded', () => {
             initCKEditor('#immediate_corrective_action', data => {
                 Livewire.dispatch('updateImmediateCorrectiveAction', {
